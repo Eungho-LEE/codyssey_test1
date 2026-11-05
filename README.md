@@ -7,7 +7,7 @@ Windows PC에 WSL 2 기반 Ubuntu 작업 환경을 구성하고, 터미널·파�
 - 제출용 GitHub 저장소: [Eungho-LEE/codyssey_test1](https://github.com/Eungho-LEE/codyssey_test1)
 - 웹 서버 소스: [site/index.html](site/index.html) · [Dockerfile](Dockerfile)
 
-> 이 문서는 실제 HTML 기록장, 터미널 로그, 브라우저 캡처를 바탕으로 정리했다. 긴 로그에서는 핵심 명령과 출력을 발췌했으며, `…`는 생략을 뜻한다. 개인 이메일과 인증 관련 설정은 공개용 기록에서 가렸다. **사용자 최초 실습과 이후 AI 보조 보완 검증을 구분해 기록했다.**
+> 이 문서는 실제 HTML 기록장, 터미널 로그, 브라우저 캡처를 바탕으로 정리했다. 긴 로그에서는 핵심 명령과 출력을 발췌했으며, `…`는 생략을 뜻한다. 개인 이메일과 인증 관련 설정은 공개용 기록에서 가렸다. 최초 실습과 이후 추가 검증 결과를 구분해 기록했다.
 
 학습 자료: [입력형 교재·복습 교재 모음](learning/README.md) · [핵심 개념과 명령어 복습](learning/복습_핵심개념과_명령어.md)
 
