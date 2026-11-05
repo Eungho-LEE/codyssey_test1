@@ -1,0 +1,41 @@
+Script started on 2026-11-05 22:23:40+09:00 [TERM="xterm-256color" TTY="/dev/pts/18" COLUMNS="112" LINES="43"]
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker volume create e11-data[27mdocker volume create e11-data
+[?2004le11-data
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker volume inspect e11-data[27mdocker volume inspect e11-data
+[?2004l[
+    {
+        "CreatedAt": "2026-11-05T13:23:47Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/e11-data/_data",
+        "Name": "e11-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker run -d --name e11-vol-a --mount type=volume,source=e11-data,t[27m[7ma[27m[7mrget=/data ubuntu:24.04 sleep infinity[27m[A]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ docker run -d --name e11-vol-a --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity
+[?2004la21a15693eb6835bc4a3603e5a3e8da13a2e6263c85fbb96058f51a7cf80fb09
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker exec e11-vol-a bash -lc 'echo "my-persistent-record" > /data/[27m[7mp[27m[7mroof.txt; echo "temporary-record" > /tmp/local-only.txt'[27m[Adocker exec e11-vol-a bash -lc 'echo "my-persistent-record" > /data/proof.txt; echo "temporary-record" > /tmp/local-only.txt'
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker exec e11-vol-a cat /data/proof.txt[27mdocker exec e11-vol-a cat /data/proof.txt
+[?2004lmy-persistent-record
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker exec e11-vol-a cat /tmp/local-only.txt[27mdocker exec e11-vol-a cat /tmp/local-only.txt
+[?2004ltemporary-record
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker stop e11-vol-a[27mdocker stop e11-vol-a
+[?2004le11-vol-a
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker rm e11-vol-a[27mdocker rm e11-vol-a
+[?2004le11-vol-a
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker ps -a --filter name=e11-vol-a[27mdocker ps -a --filter name=e11-vol-a
+[?2004lCONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ v[K[7mdocker run -d --name e11-vol-b --mount type=volume,source=e11-data,t[27m[7ma[27m[7mrget=/data ubuntu:24.04 sleep infinity[27m[A]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ docker run -d --name e11-vol-b --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity
+[?2004l64c15cd2bc8f93779e00ca5167cc5efc7eab3c4ac3f35fcfa0352f23f40c8eb3
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker exec e11-vol-b cat /data/proof.txt[27mdocker exec e11-vol-b cat /data/proof.txt
+[?2004lmy-persistent-record
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker exec e11-vol-b bash -lc 'if [ -e /tmp/local-only.txt ]; then [27m[7mc[27m[7mat /tmp/local-only.txt; else echo "temporary file is absent"; fi'[27m[Adocker exec e11-vol-b bash -lc 'if [ -e /tmp/local-only.txt ]; then cat /tmp/local-only.txt; else echo "temporary file is absent"; fi'
+[?2004ltemporary file is absent
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker volume ls[27mdocker volume ls
+[?2004lDRIVER    VOLUME NAME
+local     e11-data
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mexit[27mexit
+[?2004lexit
+
+Script done on 2026-11-05 22:24:56+09:00 [COMMAND_EXIT_CODE="0"]

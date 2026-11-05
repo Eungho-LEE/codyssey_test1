@@ -1,0 +1,89 @@
+Script started on 2026-11-05 21:59:14+09:00 [TERM="xterm-256color" TTY="/dev/pts/14" COLUMNS="127" LINES="43"]
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker pull nginx:alpine[27mdocker pull nginx:alpine
+[?2004lalpine: Pulling from library/nginx
+
+[1A[2K12b85cff06fd: Pulling fs layer [1B
+[1A[2Kb9b388a21ecf: Pulling fs layer [1B
+[1A[2K2ec5fb117ffa: Pulling fs layer [1B
+[1A[2K9b0f7dfe35b2: Pulling fs layer [1B
+[1A[2K26185d08a3ec: Pulling fs layer [1B
+[1A[2K657023555a2a: Pulling fs layer [1B
+[1A[2K7cc330898115: Pulling fs layer [1B
+[1A[2K7b229517ed22: Pulling fs layer [1B[6A[2K2ec5fb117ffa: Download complete [6B[8A[2K12b85cff06fd: Download complete [8B[5A[2K9b0f7dfe35b2: Download complete [5B[7A[2Kb9b388a21ecf: Downloading [==>                                                ]  1.049MB/20.53MB[7B[7A[2Kb9b388a21ecf: Downloading [==========>                                        ]  4.194MB/20.53MB[7B[4A[2K26185d08a3ec: Download complete [4B[3A[2K657023555a2a: Download complete [3B[7A[2Kb9b388a21ecf: Downloading [=================>                                 ]   7.34MB/20.53MB[7B[7A[2Kb9b388a21ecf: Downloading [======================>                            ]  9.437MB/20.53MB[7B[2A[2K7cc330898115: Download complete [2B[1A[2K7b229517ed22: Downloading [===========================>                       ]  2.097MB/3.853MB[1B[7A[2Kb9b388a21ecf: Downloading [============================>                      ]  11.53MB/20.53MB[7B[1A[2K7b229517ed22: Download complete [1B[7A[2Kb9b388a21ecf: Downloading [===================================>               ]  14.68MB/20.53MB[7B[1A[2K7b229517ed22: Extracting 1 s[1B[7A[2Kb9b388a21ecf: Downloading [========================================>          ]  16.78MB/20.53MB[7B[1A[2K7b229517ed22: Extracting 1 s[1B[7A[2Kb9b388a21ecf: Downloading [=============================================>     ]  18.87MB/20.53MB[7B[1A[2K7b229517ed22: Extracting 1 s[1B[7A[2Kb9b388a21ecf: Download complete [7B[8A[2K12b85cff06fd: Extracting 1 s[8B[1A[2K7b229517ed22: Pull complete [1B
+[1A[2Kacc2d54c3743: Download complete [1B[9A[2K12b85cff06fd: Extracting 1 s[9B
+[1A[2Ka4d5b1f57abc: Downloading [==================================================>]  22.54kB/22.54kB[1B[10A[2K12b85cff06fd: Pull complete [10B[6A[2K26185d08a3ec: Pull complete [6B[5A[2K657023555a2a: Pull complete [5B[4A[2K7cc330898115: Pull complete [4B[1A[2Ka4d5b1f57abc: Download complete [1B[8A[2K2ec5fb117ffa: Pull complete [8B[7A[2K9b0f7dfe35b2: Pull complete [7B[9A[2Kb9b388a21ecf: Extracting 1 s[9B[9A[2Kb9b388a21ecf: Extracting 1 s[9B[9A[2Kb9b388a21ecf: Extracting 1 s[9B[9A[2Kb9b388a21ecf: Extracting 1 s[9B[9A[2Kb9b388a21ecf: Extracting 1 s[9B[9A[2Kb9b388a21ecf: Extracting 1 s[9B[9A[2Kb9b388a21ecf: Pull complete [9BDigest: sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
+Status: Downloaded newer image for nginx:alpine
+docker.io/library/nginx:alpine
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker images[27mdocker images
+[?2004l                                                                                                           [1m[106m[30mi[0m[0m [96mInfo → [0m[0m [38;5;0m[48;5;14m U [0m In Use
+[39m[1mIMAGE[0m                [39m[1mID[0m             [39m[1mDISK USAGE[0m   [39m[1mCONTENT SIZE[0m   [39m[1mEXTRA[0m
+[34m[1mhello-world:latest[0m   [39mc567b231f656[0m       [39m25.9kB[0m         [39m9.49kB[0m   [38;5;0m[48;5;14m U [0m  
+[34m[1mnginx:alpine[0m         [39m785835ea65db[0m       [39m94.5MB[0m         [39m27.2MB[0m        
+[34m[1mubuntu:24.04[0m         [39mfe81560990fa[0m        [39m119MB[0m         [39m31.7MB[0m   [38;5;0m[48;5;14m U [0m  
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker start e11-lab[27mdocker start e11-lab
+[?2004le11-lab
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker ps[27mdocker ps
+[?2004lCONTAINER ID   IMAGE          COMMAND   CREATED         STATUS         PORTS     NAMES
+397517124fcf   ubuntu:24.04   "bash"    5 minutes ago   Up 3 seconds             e11-lab
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker ps -a[27mdocker ps -a
+[?2004lCONTAINER ID   IMAGE          COMMAND    CREATED          STATUS                      PORTS     NAMES
+397517124fcf   ubuntu:24.04   "bash"     5 minutes ago    Up 10 seconds                         e11-lab
+56ca9f888082   ubuntu:24.04   "bash"     14 minutes ago   Exited (0) 6 minutes ago              e11-shell
+a8de558fbf3a   hello-world    "/hello"   15 minutes ago   Exited (0) 14 minutes ago             e11-hello
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker logs e11-hello[27mdocker logs e11-hello
+[?2004l
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker stats --no-stream e11-lab[27mdocker stats --no-stream e11-lab
+[?2004lCONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O   PIDS
+397517124fcf   e11-lab   0.00%     1.848MiB / 15.27GiB   0.01%     1.17kB / 126B   0B / 0B     1
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker stop e11-lab[27mdocker stop e11-lab
+[?2004le11-lab
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker ps -a --filter name=e11-lab[27mdocker ps -a --filter name=e11-lab
+[?2004lCONTAINER ID   IMAGE          COMMAND   CREATED         STATUS                       PORTS     NAMES
+397517124fcf   ubuntu:24.04   "bash"    6 minutes ago   Exited (137) 6 seconds ago             e11-lab
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ ec[Kxit
+[?2004lexit
+
+Script done on 2026-11-05 22:00:46+09:00 [COMMAND_EXIT_CODE="0"]

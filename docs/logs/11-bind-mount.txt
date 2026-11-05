@@ -1,0 +1,82 @@
+Script started on 2026-11-05 22:20:18+09:00 [TERM="xterm-256color" TTY="/dev/pts/17" COLUMNS="127" LINES="43"]
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mpwd[27mpwd
+[?2004l/home/ox6965/codyssey/e1-1-workstation
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker run -d --name e11-web-bind -p 127.0.0.1:8082:80 --mount "type=bind,source=$([27m[7mp[27m[7mwd)/site,target=/usr/share/nginx/html,readonly" e11-web:1.0[27m[Adocker run -d --name e11-web-bind -p 127.0.0.1:8082:80 --mount "type=bind,source=$(pwd)/site,target=/usr/share/nginx/html,readonly" e11-web:1.0
+[?2004l291b39b9e28d0dcf0e35b301ccf74c2560141e5e35a17cca9c3543b18415f02e
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker inspect e11-web-bind --format '{{json .Mounts}}'[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocker inspect e11-web-bind --format '{{json .Mounts}}'
+[?2004l[{"Type":"bind","Source":"/home/ox6965/codyssey/e1-1-workstation/site","Destination":"/usr/share/nginx/html","Mode":"","RW":false,"Propagation":"rprivate"}]
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mcat site/index.html[27mcat site/index.html
+[?2004l<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-1</p>
+</body>
+</html>
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mcurl -s http://localhost:8082[27mcurl -s http://localhost:8082
+[?2004l<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-1</p>
+</body>
+</html>
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7msed -i 's/version-1/version-2/' site/index.html[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csed -i 's/version-1/version-2/' site/index.html
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mcat site/index.html[27mcat site/index.html
+[?2004l<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-2</p>
+</body>
+</html>
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mcurl -s http://localhost:8082[27mcurl -s http://localhost:8082
+[?2004l<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-2</p>
+</body>
+</html>
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mcurl -s http://localhost:8080[27mcurl -s http://localhost:8080
+[?2004l<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-1</p>
+</body>
+</html>
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ exit
+[?2004lexit
+
+Script done on 2026-11-05 22:22:02+09:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,81 @@
+Script started on 2026-11-05 21:44:38+09:00 [TERM="xterm-256color" TTY="/dev/pts/14" COLUMNS="127" LINES="43"]
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker run --name e11-hello hello-world[27mdocker run --name e11-hello hello-world
+[?2004lUnable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+
+[1A[2K4f55086f7dd0: Pulling fs layer [1B[1A[2K4f55086f7dd0: Download complete [1B[1A[2K4f55086f7dd0: Extracting 1 s[1B[1A[2K4f55086f7dd0: Pull complete [1B
+[1A[2Kd5e71e642bf5: Download complete [1BDigest: sha256:c567b231f65614688711a75f31518a064258a51d442117a3e771a3a8fdba78ef
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker ps -a[27mdocker ps -a
+[?2004lCONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+a8de558fbf3a   hello-world   "/hello"   3 seconds ago   Exited (0) 2 seconds ago             e11-hello
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker start -a e11-hello[27mdocker start -a e11-hello
+[?2004l
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mdocker run -it --name e11-shell ubuntu:24.04 bash[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocker run -it --name e11-shell ubuntu:24.04 bash
+[?2004lUnable to find image 'ubuntu:24.04' locally
+24.04: Pulling from library/ubuntu
+
+[1A[2K7a48b8f0e5c7: Pulling fs layer [1B[1A[2K7a48b8f0e5c7: Downloading [===>                                               ]  2.097MB/29.77MB[1B[1A[2K7a48b8f0e5c7: Downloading [========>                                          ]  5.243MB/29.77MB[1B[1A[2K7a48b8f0e5c7: Downloading [==============>                                    ]  8.389MB/29.77MB[1B[1A[2K7a48b8f0e5c7: Downloading [=================>                                 ]  10.49MB/29.77MB[1B[1A[2K7a48b8f0e5c7: Downloading [======================>                            ]  13.63MB/29.77MB[1B[1A[2K7a48b8f0e5c7: Downloading [==========================>                        ]  15.73MB/29.77MB[1B
+[1A[2K98144013299c: Downloading [===========================>                       ]  1.049MB/1.938MB[1B[2A[2K7a48b8f0e5c7: Downloading [=============================>                     ]  17.83MB/29.77MB[2B[1A[2K98144013299c: Download complete [1B[2A[2K7a48b8f0e5c7: Downloading [===================================>               ]  20.97MB/29.77MB[2B[2A[2K7a48b8f0e5c7: Downloading [==========================================>        ]  25.17MB/29.77MB[2B[2A[2K7a48b8f0e5c7: Downloading [=============================================>     ]  27.26MB/29.77MB[2B[2A[2K7a48b8f0e5c7: Downloading [==================================================>]  29.77MB/29.77MB[2B[2A[2K7a48b8f0e5c7: Download complete [2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 1 s[2B[2A[2K7a48b8f0e5c7: Extracting 2 s[2B[2A[2K7a48b8f0e5c7: Extracting 2 s[2B[2A[2K7a48b8f0e5c7: Pull complete [2BDigest: sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852
+Status: Downloaded newer image for ubuntu:24.04
+[?2004h]0;root@56ca9f888082: /root@56ca9f888082:/# 
+[?2004l[?2004h]0;root@56ca9f888082: /root@56ca9f888082:/# 
+[?2004l[?2004h]0;root@56ca9f888082: /root@56ca9f888082:/# pwd
+[?2004l/
+[?2004h]0;root@56ca9f888082: /root@56ca9f888082:/# exit
+[?2004lexit
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ pwd
+[?2004l/home/ox6965/codyssey/e1-1-workstation
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ ls
+[?2004lREADME.md  [0m[01;34mdocs[0m  [01;34mpractice[0m  [01;34msite[0m
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ echo"Hello from cot[Kntainer"
+[?2004lechoHello from container: command not found
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mecho"Hello from container"[27mecho"Hello from container"[1@ [1P[C[1@ 
+[?2004lHello from container
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ exit
+[?2004lexit
+
+Script done on 2026-11-05 21:49:35+09:00 [COMMAND_EXIT_CODE="0"]
