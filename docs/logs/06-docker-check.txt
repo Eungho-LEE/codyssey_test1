@@ -99,4 +99,42 @@ Server:
   Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
  CDI spec directories:
   /etc/cdi
-  /var/run/cdi
+  /var/run/cdi
+ Discovered Devices:
+  cdi: docker.com/gpu=webgpu
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 nvidia runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc version: v1.5.2-0-g29dd3dc2
+ init version: de40ad0
+ Security Options:
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.18.54.1-microsoft-standard-WSL2
+ Operating System: Docker Desktop
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 16
+ Total Memory: 15.27GiB
+ Name: docker-desktop
+ ID: 0e2a8c66-c084-43fc-af09-dd1bed3b5c24
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ HTTP Proxy: http.docker.internal:3128
+ HTTPS Proxy: http.docker.internal:3128
+ No Proxy: hubproxy.docker.internal
+ Labels:
+  com.docker.desktop.address=unix:///var/run/docker-cli.sock
+ Experimental: false
+ Insecure Registries:
+  hubproxy.docker.internal:5555
+  127.0.0.0/8
+  ::1/128
+ Live Restore Enabled: false
+ Firewall Backend: iptables
+
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [K]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [K]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [K]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ 
+Script done on 2026-11-05 22:30:43+09:00 [COMMAND_EXIT_CODE="0"]
