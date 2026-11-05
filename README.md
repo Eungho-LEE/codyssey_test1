@@ -51,7 +51,7 @@ WSL Ubuntu의 버전과 컨테이너 Ubuntu의 버전은 서로 다른 실행 �
 | 볼륨 영속성 | 확인 | 컨테이너 A 삭제 후 B에서 동일 데이터 조회 · [기록](docs/records/step-12.txt) |
 | Git 작성자·기본 브랜치·커밋 | 확인 | git config --list, main, 커밋 이력 · [설정](docs/records/git-config.txt), [초기 커밋](docs/records/step-05.txt) |
 | GitHub 원격 연결 | 연결 확인 | origin 연결 및 기존 main 이력 fetch · [연결 기록](docs/records/remote-connected.txt) |
-| GitHub 푸시·VSCode 연동 | 최종 반영 단계 | 아래 9절의 업로드·연동 증거 참조 |
+| GitHub 푸시·VSCode 연동 | 확인 | main 업로드 및 로컬·원격 SHA 일치 · [푸시 기록](docs/records/push-proof.txt), [로그인 캡처](docs/images/14-vscode-github-account.png) |
 | 트러블슈팅 2건 이상 | 확인 | 실제 발생·해결 기록 3건을 10절에 정리 |
 
 최초 증거인 **8080의 이미지 실행과 8082의 마운트 실행**에 더해, 보완 검증으로 같은 원본 이미지의 **8081 접속**과 새 위치에서 빌드한 **8090 접속**을 추가 확인했다. [보완 빌드·HTTP 200 로그](docs/records/supplement-web.txt)
@@ -354,7 +354,13 @@ origin  https://github.com/Eungho-LEE/codyssey_test1.git (fetch)
 origin  https://github.com/Eungho-LEE/codyssey_test1.git (push)
 ```
 
-[원격 연결 기록](docs/records/remote-connected.txt) · [연결 전 기록](docs/records/step-14.txt). 원격의 초기 README 커밋은 로컬 과제 이력과 병합하여 보존한다. 푸시와 VSCode 연동의 최종 검증 결과는 작업 완료 후 이 절에 연결한다.
+[원격 연결 기록](docs/records/remote-connected.txt) · [연결 전 기록](docs/records/step-14.txt). 원격의 초기 README 커밋 `03d34cb`는 병합 커밋 `6429e61`로 로컬 이력과 함께 보존했다. 원격 README 원문도 [별도 기록](docs/records/github-initial-README.md)에 남겼다. [병합 과정](docs/records/history-integration.txt)
+
+공개 범위에 대한 사용자 승인 후 main을 업로드했다. 최초 업로드 확인 커밋은 `d7de957`이며, push 성공과 로컬 HEAD·원격 main의 동일 SHA를 확인했다. 이후 문서·증거 보완분도 main에 반영한다. [실제 푸시 기록](docs/records/push-proof.txt)
+
+VSCode의 WSL 과제 작업 공간에서 Accounts 메뉴의 `Eungho-LEE (GitHub)` 로그인을 확인했다. 새 WSL 경로의 폴더 신뢰는 사용자가 직접 적용했고, Restricted Mode 표시가 사라짐도 확인했다.
+
+![VSCode GitHub 로그인 계정과 WSL 과제 작업 공간](docs/images/14-vscode-github-account.png)
 
 ## 10. 트러블슈팅
 
@@ -371,7 +377,7 @@ origin  https://github.com/Eungho-LEE/codyssey_test1.git (push)
 - **문제:** `/mnt/c/Users/nabis`에서 빌드해 `failed to read dockerfile: open Dockerfile: no such file or directory`가 발생했다. 생성되지 않은 verify 이미지를 실행하려다 실패했고 8090 curl 접속도 실패했다.
 - **원인 가설:** 마지막 `.`이 지정한 빌드 컨텍스트에 Dockerfile이 없다.
 - **확인:** `practice` 폴더에서도 같은 오류를 재현하고 `pwd`, `ls -la`로 Dockerfile이 없음을 확인했다. 과제 루트에서 `ls -l Dockerfile`은 파일을 표시했다.
-- **해결:** `cd ~/codyssey/e1-1-workstation` 후 `docker build -t e11-web:check .`를 실행해 `e11-web:check`로 빌드에 성공했다. **8090 접속 재검증까지 완료한 것은 아니다.**
+- **해결:** 당시에는 과제 루트에서 `docker build -t e11-web:check .` 빌드 성공까지 기록했다. 이후 보완 검증에서는 새 작업 위치에서 verify 이미지를 빌드하고 8090 HTTP 200·version-2까지 확인했다. [후속 성공 기록](docs/records/supplement-web.txt)
 - **증거:** [빌드 위치 오류·check 태그 빌드 성공](docs/records/step-13.txt)
 
 ### 문제 3. 여러 줄 파일 입력의 종료 구분자 혼동

@@ -1,0 +1,15 @@
+AI-assisted supplemental browser observation, separate from original student screenshots
+Date: 2026-11-05 KST
+Tool: Aside MCP, actual loaded page URL and body text
+
+URL: http://localhost:8090/
+Title: 나의 개발 작업실
+Body: 나의 첫 Docker 작업실 / WSL과 Docker로 웹 서버를 실행했습니다. / version-2
+
+URL: http://localhost:8081/
+Title: 나의 개발 작업실
+Body: 나의 첫 Docker 작업실 / WSL과 Docker로 웹 서버를 실행했습니다. / version-1
+
+HTTP status and docker commands: supplement-web.txt
+Original address-bar screenshots: docs/images/10-port-8080.png,
+docs/images/11-bind-before.png and docs/images/11-bind-after.png.
