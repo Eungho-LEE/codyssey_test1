@@ -79,6 +79,8 @@ WSL Ubuntu의 버전과 컨테이너 Ubuntu의 버전은 서로 다른 실행 �
 
 HTML 기록장의 7단계에는 설치 점검 내용이 중복 기록되어 있어, 컨테이너 실습은 실제 `07-containers.txt` 로그로 확인했다. 원시 터미널 기록에는 입력 편집·화면 갱신의 흔적이 남아 있으므로 읽기 쉬운 HTML 추출 기록을 함께 제공한다. 자료 출처와 스크린샷 SHA-256은 [sources.json](docs/records/sources.json)에 있다.
 
+구성 우선순위는 실행에 필요한 `Dockerfile`·`site/`, 검증에 필요한 `docs/`, 복습용 `learning/` 순이다. `docs/logs/`는 최초 터미널 기록, `docs/records/`는 기록장 추출·추가 검증, `docs/images/`는 화면 증거를 담는다. `scripts/`에는 검증·교재 생성 절차를 두었으며 일반 웹 서버 실행에는 필요하지 않다.
+
 ## 4. 터미널 조작과 파일 권한
 
 ### 4-1. 디렉터리·파일 조작
@@ -135,6 +137,8 @@ drwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 18:00 practice/permissions/sample-dir
 
 세 숫자는 소유자·그룹·그 외 사용자의 순서다. `r=4`, `w=2`, `x=1`을 합산하므로 644는 `rw-r--r--`, 755는 `rwxr-xr-x`이다. 디렉터리의 x는 경로를 통과하고 내부에 접근하는 권한이다. [권한 전체 기록](docs/records/step-04.txt)
 
+600·700은 소유자만 접근하도록 제한하는 실험이고, 644·755로 되돌려 일반 파일의 읽기 공유와 디렉터리 접근 차이를 비교했다. 파일의 x는 실행 권한이며, 디렉터리의 x는 그 경로를 통과하는 권한이라는 차이가 있다.
+
 ## 5. Docker 설치·컨테이너 운영
 
 ### 5-1. 설치 및 엔진 확인
@@ -156,6 +160,8 @@ Architecture: x86_64
 ```
 
 상세 출력에서 핵심 항목만 발췌했다. Client뿐 아니라 Server 정보가 나오는 것으로 엔진 연결을 확인했다. [전체 점검 기록](docs/records/step-06.txt)
+
+엔진 연결이 안 되면 `docker version`·`docker info`의 Server 오류를 확인하고 Docker Desktop 실행 상태와 Ubuntu WSL Integration을 확인한다. `Cannot connect to the Docker daemon`은 점검 시 예상할 수 있는 오류의 예이며, 이 절의 성공 로그와 구분한다.
 
 ### 5-2. hello-world 및 Ubuntu 진입
 
@@ -227,6 +233,10 @@ EXPOSE 80
 이미지는 프로그램·파일·설정·실행 정보를 담은 패키지이고, 컨테이너는 그 이미지로 만들어 실행하는 환경이다. 이미지가 존재하는 것과 서버가 실행 중인 것은 다르다.
 
 ```text
+Dockerfile + site/ → docker build → 이미지 → docker run → 실행 중인 컨테이너
+```
+
+```text
 $ docker build --progress=plain -t e11-web:1.0 .
 #6 [2/2] COPY site/ /usr/share/nginx/html/
 #6 DONE 0.1s
@@ -246,6 +256,8 @@ nginx@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
 
 `nginx:alpine` 태그의 내용은 향후 달라질 수 있다. 동일 베이스가 필요한 경우 위 digest를 참조할 수 있다. [Dockerfile 작성·빌드 기록](docs/records/step-09.txt)
 
+캐시 문제를 점검할 때는 `docker build --no-cache -t e11-web:review .`로 레이어 캐시 없이 빌드할 수 있고, 베이스 갱신은 `--pull`로 별도 확인한다. 이는 재시도 방법 설명이며 이번 로그에서 두 옵션을 실행했다고 주장하는 것은 아니다.
+
 ## 7. 포트 매핑과 바인드 마운트
 
 ### 7-1. 이미지 기반 서버: 호스트 8080 → 컨테이너 80
@@ -264,6 +276,8 @@ Content-Type: text/html
 ```
 
 컨테이너 내부 서버는 80번에서 요청을 받는다. `-p 127.0.0.1:8080:80`은 내 PC의 8080 접속을 컨테이너 80에 전달한다. [실행·HTTP 응답 기록](docs/records/step-10.txt)
+
+컨테이너의 네트워크 네임스페이스는 네트워크 인터페이스·주소·포트 공간을 분리한다. 따라서 컨테이너 안의 80번 포트를 호스트 8080으로 전달하는 설정이 필요하다. 이번 `127.0.0.1` 바인딩은 로컬 접속용이므로 다른 PC에서 접근되지 않는 것이 의도한 동작이다. 접속 문제는 `docker ps`, `docker port`, 호스트의 `curl.exe -i http://127.0.0.1:8080`, 브라우저의 같은 URL 순으로 확인한다. 충돌 진단·해제와 실제 로그는 아래 문제 4에 정리했다.
 
 ![localhost:8080에서 version-1을 표시한 이미지 기반 서버](docs/images/10-port-8080.png)
 
@@ -295,6 +309,8 @@ $ curl -s http://localhost:8080
 ![바인드 마운트 변경 후 localhost:8082의 version-2](docs/images/11-bind-after.png)
 
 8080은 이미지에 복사된 파일을 사용하여 version-1을 유지하고, 8082는 현재 호스트 파일을 연결하여 version-2를 보여준다. 바인드 마운트는 호스트 수정 반영에 활용할 수 있다. [호스트 파일·응답 전후 전체 기록](docs/records/step-11.txt)
+
+호스트 source 경로는 실제 존재하는 `site/`의 절대 경로이고 컨테이너 target은 NGINX 웹 루트 `/usr/share/nginx/html/`이다. 재현 시 `pwd`, `ls site/index.html`, `docker inspect … --format '{{json .Mounts}}'`로 양쪽 위치가 의도대로 연결됐는지 확인한다.
 
 ## 8. Docker 볼륨 영속성
 
@@ -329,9 +345,13 @@ temporary file is absent
 
 컨테이너 A를 실제 삭제한 뒤에도 볼륨의 데이터는 B에서 유지됐다. 볼륨 밖 임시 파일은 새 컨테이너에 없었다. 따라서 컨테이너의 쓰기 영역과 이름 있는 볼륨의 수명이 다름을 확인했다. [생성·연결·삭제·재검증 전체 기록](docs/records/step-12.txt)
 
+이름 있는 볼륨 자체를 삭제하면 그 데이터는 유지되지 않는다. 중요한 데이터는 쓰기 작업을 중지한 일관된 시점에 파일 아카이브 또는 서비스별 백업을 별도 저장소로 내보내고, 새 볼륨에 복원·검증한 뒤 정리한다. 이번 실습에서는 원본 데이터 볼륨을 삭제하거나 복구 실험을 하지는 않았다.
+
 ## 9. Git 설정과 GitHub 제출 상태
 
 Git은 로컬 변경 이력을 관리하고, GitHub는 원격 저장소를 보관·공유하는 서비스이다. `commit`은 로컬 기록이고 `push`가 원격 업로드이다.
+
+원격 접근 실패 시 `git remote -v`의 주소, `git status`·`git branch -vv`의 브랜치·추적 상태, `gh auth status`의 로그인 계정을 확인하고 push 오류의 401/403 또는 repository not found 문구를 기록한다. 저장소 공개 범위·계정 접근 권한을 함께 확인하며 토큰 값은 출력·첨부하지 않는다.
 
 ```text
 $ git config --list
@@ -387,6 +407,79 @@ VSCode의 WSL 과제 작업 공간에서 Accounts 메뉴의 `Eungho-LEE (GitHub)
 - **확인:** `cat site/index.html` 출력 끝에 `eof`와 `cat site/index.html` 문자열이 들어 있었다.
 - **해결:** `cat > site/index.html <<'EOF'`로 HTML 전체를 다시 작성하고 단독 대문자 `EOF`로 종료했다. 다시 출력해 불필요한 줄이 사라진 정상 HTML을 확인했다.
 - **증거:** [HTML 입력 오류·재작성 기록](docs/records/step-09.txt)
+
+### 문제 4. 포트 충돌 진단·해제·재시작 — 평가 항목 #16 보완
+
+평가 보완을 위해 다른 서비스가 사용하지 않는 **호스트 18080번 포트**에서 두 개의 별도 컨테이너로 충돌을 재현했다. 아래는 실제 명령·결과의 요약이며 [전체 실행 로그](docs/records/port-conflict.txt)와 [재현 스크립트](scripts/verify_port_conflict.cjs)를 함께 제공한다. Windows 프로세스 조회는 PowerShell에서, Docker 명령은 Ubuntu 터미널에서 실행한다.
+
+**① 문제 재현과 원인 가설**
+
+```bash
+docker run -d --name e11-port-conflict-owner -p 127.0.0.1:18080:80 nginx:alpine
+docker run -d --name e11-port-conflict-retry -p 127.0.0.1:18080:80 nginx:alpine
+```
+
+두 번째 실행은 종료 코드 125와 `Bind for 127.0.0.1:18080 failed: port is already allocated`를 반환했다. 컨테이너 이름 충돌이 아닌 **같은 호스트 주소·포트의 중복 바인딩**을 원인으로 가정했다. [오류 로그 6–15행](docs/records/port-conflict.txt#L6-L15)
+
+**② 포트 점유 PID와 프로세스 확인 — Windows PowerShell**
+
+```powershell
+$listeners = Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue
+$listeners | Select-Object LocalAddress,LocalPort,OwningProcess
+$listeners | ForEach-Object { Get-Process -Id $_.OwningProcess }
+```
+
+실제 조회 결과는 `LocalAddress=127.0.0.1`, `LocalPort=18080`, `OwningProcess=46604`, `ProcessName=com.docker.backend`였다. PID는 실행 시마다 달라지므로 예시 숫자를 고정해 종료하지 않는다. [PID·프로세스 로그 16–18행](docs/records/port-conflict.txt#L16-L18)
+
+**③ 실제 점유 컨테이너와 포트 바인딩 확인 — Ubuntu**
+
+```bash
+docker ps --filter publish=18080 --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
+docker port e11-port-conflict-owner
+docker inspect e11-port-conflict-owner --format '{{json .HostConfig.PortBindings}}'
+```
+
+실제 컨테이너는 `e11-port-conflict-owner`, 포트 출력은 `80/tcp -> 127.0.0.1:18080`, 설정은 `{"80/tcp":[{"HostIp":"127.0.0.1","HostPort":"18080"}]}`였다. Windows에서 Docker backend PID가 보이더라도 종료 대상은 **확인된 점유 컨테이너**다. [바인딩 로그 19–28행](docs/records/port-conflict.txt#L19-L28)
+
+**④ 점유 컨테이너 중지 후 포트 해제 확인**
+
+```bash
+docker stop --timeout 3 e11-port-conflict-owner
+```
+
+Windows PowerShell에서 ②의 `Get-NetTCPConnection`을 다시 실행했다. 로그의 JSON 조회 결과가 `[]`가 되어 18080 LISTEN 항목이 사라진 것을 확인했다. [중지·포트 해제 로그 30–36행](docs/records/port-conflict.txt#L30-L36)
+
+Docker backend 프로세스를 강제 종료하면 다른 컨테이너에 영향을 줄 수 있으므로 이번에는 PID 강제 종료를 사용하지 않았다. 일반 프로그램이 점유한 경우에도 프로세스 이름·용도를 확인하고 해당 프로그램의 정상 종료 방법을 먼저 사용한다. 기존 서비스를 유지해야 한다면 다른 **비어 있는 호스트 포트**를 선택하고 브라우저 URL도 바꾼다. 예를 들어 18081–18089를 후보로 조회할 수 있으나 그 범위가 항상 비어 있다는 보장은 없다.
+
+**⑤ 실패한 컨테이너를 재생성하고 재시작·접속 확인**
+
+이번 환경에서는 충돌로 실패한 컨테이너를 단순 `docker start`했을 때 실행 상태는 바뀌어도 `docker port`가 비어 있고 접속이 거절됐다. [중간 진단 기록](docs/records/port-conflict-restart-attempt.txt). 따라서 이번 검증에서 만든 실패 컨테이너만 삭제하고, 같은 포트 설정으로 다시 생성한 뒤 명시적으로 재시작했다.
+
+```bash
+docker rm e11-port-conflict-retry
+docker run -d --name e11-port-conflict-retry -p 127.0.0.1:18080:80 nginx:alpine
+docker restart --timeout 3 e11-port-conflict-retry
+docker port e11-port-conflict-retry
+```
+
+Windows PowerShell에서 다음으로 HTTP 접속을 확인했다.
+
+```powershell
+curl.exe -i http://127.0.0.1:18080
+```
+
+실제 결과는 `HTTP/1.1 200 OK`, `Server: nginx/1.31.8`, 본문의 `Welcome to nginx!`였다. 재시작 후 포트 바인딩과 Windows LISTEN 항목도 다시 확인했다. [재생성·재시작 로그 37–51행](docs/records/port-conflict.txt#L37-L51), [HTTP 응답·실행 상태 52–101행](docs/records/port-conflict.txt#L52-L101)
+
+**⑥ 검증 종료와 정리**
+
+```bash
+docker stop --timeout 3 e11-port-conflict-owner e11-port-conflict-retry
+docker rm e11-port-conflict-owner e11-port-conflict-retry
+```
+
+위는 개별 실행한 정리 명령을 합쳐 표시한 예이다. 실제 로그에서는 이름별 stop·rm을 수행했고, 마지막 Windows 조회에서 `[]`를 확인했다. 기존 실습 컨테이너·이미지·데이터 볼륨은 삭제하지 않았다. [정리·최종 포트 해제 102–117행](docs/records/port-conflict.txt#L102-L117)
+
+핵심 순서는 **오류 확인 → 호스트 점유 PID 확인 → Docker 컨테이너·바인딩 확인 → 점유 대상 중지 → 포트 해제 재조회 → 재생성·재시작 → HTTP 응답 확인 → 정리**이다.
 
 ## 11. 평가자 재현 방법
 

@@ -1,0 +1,85 @@
+Controlled port-conflict verification
+UTC: 2026-11-05T14:56:02.199Z
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker run -d --name e11-port-conflict-owner --label codyssey.port-proof=true -p 127.0.0.1:18080:80 nginx:alpine
+fb8cc669869f54092681835c80927f7d4a6079b3ec26f7096015d394dd637cb0
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker run -d --name e11-port-conflict-retry --label codyssey.port-proof=true -p 127.0.0.1:18080:80 nginx:alpine
+c7e0480a82f7b8f80b559ffb7b7df4c606d187fbee9a8cace1bc95fca8b010b6
+docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint e11-port-conflict-retry (c54a62bb43c17a63640e739144a9e183f1dffc730a2ed09d5ad4d13242be8554): Bind for 127.0.0.1:18080 failed: port is already allocated
+
+Run 'docker run --help' for more information
+[exit=125]
+PASS: second container cannot bind the same host port.
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[{"LocalAddress":"127.0.0.1","LocalPort":18080,"OwningProcess":46604,"ProcessName":"com.docker.backend"}]
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker ps --filter publish=18080 --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+NAMES                     STATUS         PORTS
+e11-port-conflict-owner   Up 2 seconds   127.0.0.1:18080->80/tcp
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker port e11-port-conflict-owner
+80/tcp -> 127.0.0.1:18080
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker inspect e11-port-conflict-owner --format "{{json .HostConfig.PortBindings}}"
+{"80/tcp":[{"HostIp":"127.0.0.1","HostPort":"18080"}]}
+[exit=0]
+Release the identified owner container instead of killing Docker Desktop backend PID.
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+PASS: host port is free after docker stop.
+$ wsl.exe -d Ubuntu-26.04 -- docker start e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker port e11-port-conflict-retry
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+$ curl.exe --fail --retry 5 --retry-connrefused --retry-delay 1 -i http://127.0.0.1:18080
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2018 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 5 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2018 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 4 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2018 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 3 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2017 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 2 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2014 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 1 retry left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2027 ms: Could not connect to server
+[exit=7]
+VERIFICATION FAILED: curl: (7) Failed to connect to 127.0.0.1:18080 after 2018 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 5 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2018 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 4 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2018 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 3 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2017 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 2 retries left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2014 ms: Could not connect to server
+Warning: Problem : connection refused. Retrying in 1 second. 1 retry left.
+curl: (7) Failed to connect to 127.0.0.1:18080 after 2027 ms: Could not connect to server
+
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker rm e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker rm e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+Verification incomplete.

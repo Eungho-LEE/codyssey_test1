@@ -1,0 +1,96 @@
+Controlled port-conflict verification
+UTC: 2026-11-05T14:55:23.569Z
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker run -d --name e11-port-conflict-owner --label codyssey.port-proof=true -p 127.0.0.1:18080:80 nginx:alpine
+16b811e5b00f4cbb72ef7d907b59e1045a2365a92abc5402307724dc178aa056
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker run -d --name e11-port-conflict-retry --label codyssey.port-proof=true -p 127.0.0.1:18080:80 nginx:alpine
+e27c0e62ac1c7d8afabd334116fe2c30c9ac65c67d647cc261b369519c3c2d81
+docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint e11-port-conflict-retry (62518c31010e8b450e129320368b1b2464bbce03d287edc152452e724bdc7d0e): Bind for 127.0.0.1:18080 failed: port is already allocated
+
+Run 'docker run --help' for more information
+[exit=125]
+PASS: second container cannot bind the same host port.
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[{"LocalAddress":"127.0.0.1","LocalPort":18080,"OwningProcess":46604,"ProcessName":"com.docker.backend"}]
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker ps --filter publish=18080 --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+NAMES                     STATUS         PORTS
+e11-port-conflict-owner   Up 2 seconds   127.0.0.1:18080->80/tcp
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker port e11-port-conflict-owner
+80/tcp -> 127.0.0.1:18080
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker inspect e11-port-conflict-owner --format "{{json .HostConfig.PortBindings}}"
+{"80/tcp":[{"HostIp":"127.0.0.1","HostPort":"18080"}]}
+[exit=0]
+Release the identified owner container instead of killing Docker Desktop backend PID.
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+PASS: host port is free after docker stop.
+$ wsl.exe -d Ubuntu-26.04 -- docker start e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- curl --fail --retry 5 --retry-connrefused --retry-delay 1 -i http://127.0.0.1:18080
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 5 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 4 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 3 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 2 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 1 retry left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+[exit=7]
+VERIFICATION FAILED:   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 5 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 4 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 3 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 2 retries left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+Warning: Problem : connection refused. Will retry in 1 second. 1 retry left.
+  0      0   0      0   0      0      0      0                              0
+curl: (7) Failed to connect to 127.0.0.1 port 18080 after 0 ms: Could not connect to server
+
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker rm e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker rm e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+Verification incomplete.

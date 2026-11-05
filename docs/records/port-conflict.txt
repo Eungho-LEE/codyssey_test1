@@ -1,0 +1,117 @@
+Controlled port-conflict verification
+UTC: 2026-11-05T14:57:19.979Z
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker run -d --name e11-port-conflict-owner --label codyssey.port-proof=true -p 127.0.0.1:18080:80 nginx:alpine
+62139e5d6d1638ff8697b68f579ba6e895418f232b5e865e6f2fd4b15f0456e6
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker run -d --name e11-port-conflict-retry --label codyssey.port-proof=true -p 127.0.0.1:18080:80 nginx:alpine
+3e1f273fa7e3aac4ef2373b58b56d5f95e2e98c918712135855467e3bda1b133
+docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint e11-port-conflict-retry (b20d8cbb6ef7f536ae666f9ce7d2e44c95a38e0b9ca794532ff5c7e1c80cea0b): Bind for 127.0.0.1:18080 failed: port is already allocated
+
+Run 'docker run --help' for more information
+[exit=125]
+PASS: second container cannot bind the same host port.
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[{"LocalAddress":"127.0.0.1","LocalPort":18080,"OwningProcess":46604,"ProcessName":"com.docker.backend"}]
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker ps --filter publish=18080 --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+NAMES                     STATUS         PORTS
+e11-port-conflict-owner   Up 2 seconds   127.0.0.1:18080->80/tcp
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker port e11-port-conflict-owner
+80/tcp -> 127.0.0.1:18080
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker inspect e11-port-conflict-owner --format "{{json .HostConfig.PortBindings}}"
+{"80/tcp":[{"HostIp":"127.0.0.1","HostPort":"18080"}]}
+[exit=0]
+Release the identified owner container instead of killing Docker Desktop backend PID.
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+PASS: host port is free after docker stop.
+$ wsl.exe -d Ubuntu-26.04 -- docker rm e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker run -d --name e11-port-conflict-retry --label codyssey.port-proof=true -p 127.0.0.1:18080:80 nginx:alpine
+1edb96ea58bc1e4acafd3f0f44945a0bd2cb44a1c4b8422f7cf78d4198b63cf8
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker restart --timeout 3 e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker port e11-port-conflict-retry
+80/tcp -> 127.0.0.1:18080
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[{"LocalAddress":"127.0.0.1","LocalPort":18080,"OwningProcess":46604,"ProcessName":"com.docker.backend"}]
+[exit=0]
+$ curl.exe --fail --retry 5 --retry-connrefused --retry-delay 1 -i http://127.0.0.1:18080
+HTTP/1.1 200 OK
+Server: nginx/1.31.8
+Date: Thu, 05 Nov 2026 14:57:30 GMT
+Content-Type: text/html
+Content-Length: 896
+Last-Modified: Wed, 21 Oct 2026 17:54:44 GMT
+Connection: keep-alive
+ETag: "6ad8fc64-380"
+Accept-Ranges: bytes
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, nginx is successfully installed and working.
+Further configuration is required for the web server, reverse proxy, 
+API gateway, load balancer, content cache, or other features.</p>
+
+<p>For online documentation and support please refer to
+<a href="https://nginx.org/">nginx.org</a>.<br/>
+To engage with the community please visit
+<a href="https://community.nginx.org/">community.nginx.org</a>.<br/>
+For enterprise grade support, professional services, additional 
+security features and capabilities please refer to
+<a href="https://f5.com/nginx">f5.com/nginx</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100    896 100    896   0      0 156.0k      0                              0100    896 100    896   0      0 153.4k      0                              0100    896 100    896   0      0 150.0k      0                              0
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker ps --filter name=e11-port-conflict-retry --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+NAMES                     STATUS         PORTS
+e11-port-conflict-retry   Up 2 seconds   127.0.0.1:18080->80/tcp
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[{"LocalAddress":"127.0.0.1","LocalPort":18080,"OwningProcess":46604,"ProcessName":"com.docker.backend"}]
+[exit=0]
+PASS: retry starts and HTTP 200 is returned after releasing the port.
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker rm e11-port-conflict-owner
+e11-port-conflict-owner
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker stop --timeout 3 e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ wsl.exe -d Ubuntu-26.04 -- docker rm e11-port-conflict-retry
+e11-port-conflict-retry
+[exit=0]
+$ powershell.exe -NoProfile -NonInteractive -Command "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false); $items=@(Get-NetTCPConnection -State Listen -LocalPort 18080 -ErrorAction SilentlyContinue); $rows=@($items | ForEach-Object { [pscustomobject]@{LocalAddress=$_.LocalAddress;LocalPort=$_.LocalPort;OwningProcess=$_.OwningProcess;ProcessName=(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue).ProcessName} }); ConvertTo-Json -InputObject $rows -Compress; exit 0"
+[]
+[exit=0]
+PASS: final cleanup complete; no localhost server left on 18080.
