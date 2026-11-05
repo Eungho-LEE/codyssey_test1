@@ -1,0 +1,30 @@
+4. 파일과 디렉터리 권한
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ script -q -a docs/logs/04-permissions.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ mkdir -p practice/permissions/sample-dir
+ox6965@26susin:~/codyssey/e1-1-workstation$ printf 'permission test\n' > practice/permissions/sample.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ ls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+drwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 18:00 practice/permissions/sample-dir
+-rw-r--r-- 1 ox6965 ox6965   16 Nov  5 18:00 practice/permissions/sample.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ chmod 600 practice/permissions/sample.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ chmod 700 practice/permissions/sample-dir
+ox6965@26susin:~/codyssey/e1-1-workstation$ ls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+drwx------ 2 ox6965 ox6965 4096 Nov  5 18:00 practice/permissions/sample-dir
+-rw------- 1 ox6965 ox6965   16 Nov  5 18:00 practice/permissions/sample.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ ls -ld practice/permissions/sample.txt
+-rw------- 1 ox6965 ox6965 16 Nov  5 18:00 practice/permissions/sample.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ practice/permissions/sample-dir
+bash: practice/permissions/sample-dir: Is a directory
+ox6965@26susin:~/codyssey/e1-1-workstation$ ls -ld practice/permissions/sample-dir
+drwx------ 2 ox6965 ox6965 4096 Nov  5 18:00 practice/permissions/sample-dir
+ox6965@26susin:~/codyssey/e1-1-workstation$ chmod 644 practice/permissions/sample.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ chmod 755 practice/permissions/sample-dir
+ox6965@26susin:~/codyssey/e1-1-workstation$ ls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+drwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 18:00 practice/permissions/sample-dir
+-rw-r--r-- 1 ox6965 ox6965   16 Nov  5 18:00 practice/permissions/sample.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ 

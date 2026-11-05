@@ -1,0 +1,19 @@
+14. GitHub와 VSCode 연결 후 제출
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:~/codyssey/e1-1-workstation$ git remote -v
+ox6965@26susin:~/codyssey/e1-1-workstation$ git remote -v
+ox6965@26susin:~/codyssey/e1-1-workstation$ git branch -vv
+* main 370328e feat: document Docker workstation practice
+ox6965@26susin:~/codyssey/e1-1-workstation$ git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   docs/logs/06-docker-check.txt
+        modified:   docs/logs/10-ports.txt
+
+ox6965@26susin:~/codyssey/e1-1-workstation$ 
+

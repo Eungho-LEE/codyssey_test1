@@ -1,0 +1,120 @@
+Assistant supplemental verification, separate from the original practice
+2026-11-05T23:05:21+09:00
++ pwd
+/mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation
++ test -f Dockerfile
++ test -f site/index.html
++ docker build --progress=plain -t e11-web:verify .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 158B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:alpine
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 79B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 411B 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
+#5 resolve docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606 0.0s done
+#5 CACHED
+
+#6 [2/2] COPY site/ /usr/share/nginx/html/
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:c52abbdbc159b24f1149ce1ff3ca9f217c946d3fe4a6376bf591a6124936a95a 0.0s done
+#7 exporting config sha256:cae1158a2e22b046bbc28dd2646bb7be8aac6fd0786362dc963dd542678b9395 0.0s done
+#7 exporting attestation manifest sha256:25c20556834df911deaf4484f105f2bd858d3ddd3562912dab9388d8a9264349 0.0s done
+#7 exporting manifest list sha256:d0f3b8861c120db11a6e755a7ddaf03bfa28f680ae97433683ecac19e69f4a27 0.0s done
+#7 naming to docker.io/library/e11-web:verify done
+#7 unpacking to docker.io/library/e11-web:verify 0.0s done
+#7 DONE 0.2s
++ docker run -d --name e11-review-web -p 127.0.0.1:8090:80 --label codyssey.supplement=true e11-web:verify
+169b032166e6f24f0ecd7eed3a22ad0722756f1cb131f6472899d430304dcbc9
++ docker run -d --name e11-web-8081 -p 127.0.0.1:8081:80 --label codyssey.supplement=true e11-web:1.0
+d79f32bde15e9e0c789a233fe4795ab9dc90fcacbb090568551a0fe169cbd381
++ for port in 8090 8081
++ for attempt in 1 2 3 4 5
++ curl --fail --silent http://localhost:8090
++ break
++ curl --fail -i http://localhost:8090
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100    339 100    339   0      0 224.7k      0                              0100    339 100    339   0      0 220.2k      0                              0100    339 100    339   0      0 216.3k      0                              0
+HTTP/1.1 200 OK
+Server: nginx/1.31.8
+Date: Thu, 05 Nov 2026 14:05:23 GMT
+Content-Type: text/html
+Content-Length: 339
+Last-Modified: Thu, 05 Nov 2026 13:21:39 GMT
+Connection: keep-alive
+ETag: "6aec82e3-153"
+Accept-Ranges: bytes
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-2</p>
+</body>
+</html>
++ for port in 8090 8081
++ for attempt in 1 2 3 4 5
++ curl --fail --silent http://localhost:8081
++ break
++ curl --fail -i http://localhost:8081
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100    339 100    339   0      0 273.5k      0                              0100    339 100    339   0      0 266.9k      0                              0100    339 100    339   0      0 261.4k      0                              0
+HTTP/1.1 200 OK
+Server: nginx/1.31.8
+Date: Thu, 05 Nov 2026 14:05:23 GMT
+Content-Type: text/html
+Content-Length: 339
+Last-Modified: Thu, 05 Nov 2026 13:04:12 GMT
+Connection: keep-alive
+ETag: "6aec7ecc-153"
+Accept-Ranges: bytes
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-1</p>
+</body>
+</html>
++ curl --fail --silent http://localhost:8090
++ grep version-2
+  <p id="version">version-2</p>
++ curl --fail --silent http://localhost:8081
++ grep version-1
+  <p id="version">version-1</p>
++ docker ps --filter name=e11-review-web
+CONTAINER ID   IMAGE            COMMAND                  CREATED        STATUS                  PORTS                    NAMES
+169b032166e6   e11-web:verify   "/docker-entrypoint.…"   1 second ago   Up Less than a second   127.0.0.1:8090->80/tcp   e11-review-web
++ docker ps --filter name=e11-web-8081
+CONTAINER ID   IMAGE         COMMAND                  CREATED                  STATUS                  PORTS                    NAMES
+d79f32bde15e   e11-web:1.0   "/docker-entrypoint.…"   Less than a second ago   Up Less than a second   127.0.0.1:8081->80/tcp   e11-web-8081
++ echo 'PASS: 8090 rebuilt source is version-2; 8081 original image is version-1.'
+PASS: 8090 rebuilt source is version-2; 8081 original image is version-1.

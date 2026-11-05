@@ -1,0 +1,57 @@
+Assistant supplemental verification (not the original student session)
+UTC: 2026-11-05T14:05:16.894605+00:00
+$ docker run -dit --name e11-proof-attach-1793887516 --label codyssey.supplement=true ubuntu:24.04 bash
+8f9ee05b1ed839321bfba8a9ef1bb4a4cee5925853e16b521ebeb64116ce494e
+[exit=0]
+$ docker exec e11-proof-attach-1793887516 bash -lc 'pwd; ls /; echo EXEC_SESSION; exit 0'
+/
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+EXEC_SESSION
+[exit=0]
+$ docker inspect e11-proof-attach-1793887516 --format '{{.State.Running}}'
+true
+[exit=0]
+PASS: ending the exec shell leaves the main bash running.
+$ docker attach --detach-keys=ctrl-x,ctrl-x e11-proof-attach-1793887516
+]0;root@8f9ee05b1ed8: /root@8f9ee05b1ed8:/# echo ATTACH_CONNECTED
+ATTACH_CONNECTED
+
+[sent Ctrl+X, Ctrl+X to detach; no exit command sent]
+read escape sequence
+
+[docker attach exit=1]
+$ docker inspect e11-proof-attach-1793887516 --format '{{.State.Running}}'
+true
+[exit=0]
+PASS: attach disconnected while the container remained running.
+$ docker stop --timeout 3 e11-proof-attach-1793887516
+e11-proof-attach-1793887516
+[exit=0]
+$ docker inspect e11-proof-attach-1793887516 --format '{{.State.Running}}'
+false
+[exit=0]
+PASS: explicit docker stop changes Running to false.
+$ docker stop --timeout 3 e11-proof-attach-1793887516
+e11-proof-attach-1793887516
+[exit=0]
+$ docker rm e11-proof-attach-1793887516
+e11-proof-attach-1793887516
+[exit=0]

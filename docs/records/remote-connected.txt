@@ -1,0 +1,10 @@
+$ git remote -v
+origin	https://github.com/Eungho-LEE/codyssey_test1.git (fetch)
+origin	https://github.com/Eungho-LEE/codyssey_test1.git (push)
+
+$ git fetch origin
+From https://github.com/Eungho-LEE/codyssey_test1
+ * [new branch]      main       -> origin/main
+
+$ git log -1 --oneline origin/main
+03d34cb Initial commit

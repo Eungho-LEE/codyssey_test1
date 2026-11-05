@@ -1,0 +1,47 @@
+12. 볼륨으로 데이터 영속성 증명
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ script -q -a docs/logs/12-volume.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker volume create e11-data
+e11-data
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker volume inspect e11-data
+[
+    {
+        "CreatedAt": "2026-11-05T13:23:47Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/e11-data/_data",
+        "Name": "e11-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker run -d --name e11-vol-a --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity
+a21a15693eb6835bc4a3603e5a3e8da13a2e6263c85fbb96058f51a7cf80fb09
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker exec e11-vol-a bash -lc 'echo "my-persistent-record" > /data/proof.txt; echo "temporary-record" > /tmp/local-only.txt'
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker exec e11-vol-a cat /data/proof.txt
+my-persistent-record
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker exec e11-vol-a cat /tmp/local-only.txt
+temporary-record
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker stop e11-vol-a
+e11-vol-a
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker rm e11-vol-a
+e11-vol-a
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker ps -a --filter name=e11-vol-a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker run -d --name e11-vol-b --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity
+64c15cd2bc8f93779e00ca5167cc5efc7eab3c4ac3f35fcfa0352f23f40c8eb3
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker exec e11-vol-b cat /data/proof.txt
+my-persistent-record
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker exec e11-vol-b bash -lc 'if [ -e /tmp/local-only.txt ]; then cat /tmp/local-only.txt; else echo "temporary file is absent"; fi'
+temporary file is absent
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker volume ls
+DRIVER    VOLUME NAME
+local     e11-data
+ox6965@26susin:~/codyssey/e1-1-workstation$ exit
+exit
+ox6965@26susin:~/codyssey/e1-1-workstation$ 

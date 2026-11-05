@@ -1,0 +1,64 @@
+5. Git 설정과 첫 커밋
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:/mnt/c/Users/nabis$ git --version
+git version 2.53.0
+ox6965@26susin:/mnt/c/Users/nabis$ git config --get user.name
+ox6965@26susin:/mnt/c/Users/nabis$ git config --get user.email
+ox6965@26susin:/mnt/c/Users/nabis$ git config --get init.defaultBranch
+ox6965@26susin:/mnt/c/Users/nabis$ git config --global user.name "Eungho-Lee"
+ox6965@26susin:/mnt/c/Users/nabis$ git config --global user.email "[이메일 마스킹]"
+ox6965@26susin:/mnt/c/Users/nabis$ git config --global init.defaultBranch main
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation.
+-bash: cd: /home/ox6965/codyssey/e1-1-workstation.: No such file or directory
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ pwd
+/home/ox6965/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ git init -b main
+Initialized empty Git repository in /home/ox6965/codyssey/e1-1-workstation/.git/
+ox6965@26susin:~/codyssey/e1-1-workstation$ git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .dockerignore
+        .gitignore
+        README.md
+        docs/
+        practice/
+
+nothing added to commit but untracked files present (use "git add" to track)
+ox6965@26susin:~/codyssey/e1-1-workstation$ git add README.md .gitignore .dockerignore docs practice
+ox6965@26susin:~/codyssey/e1-1-workstation$ git diff --cached --stat
+ .dockerignore                   |  6 ++++++
+ .gitignore                      |  5 +++++
+ README.md                       |  0
+ docs/logs/03-terminal.txt       | 30 ++++++++++++++++++++++++++++++
+ docs/logs/03-terminal.txt.      |  0
+ docs/logs/04-permissions.txt    | 20 ++++++++++++++++++++
+ practice/permissions/sample.txt |  1 +
+ practice/terminal/12323ffy.txt  |  1 +
+ practice/terminal/empty.txt     |  0
+ practice/terminal/memo.txt      |  1 +
+ 10 files changed, 64 insertions(+)
+ox6965@26susin:~/codyssey/e1-1-workstation$ git commit -m "docs: record terminal and permissions practice"
+[main (root-commit) 5779ef8] docs: record terminal and permissions practice
+ 10 files changed, 64 insertions(+)
+ create mode 100644 .dockerignore
+ create mode 100644 .gitignore
+ create mode 100644 README.md
+ create mode 100644 docs/logs/03-terminal.txt
+ create mode 100644 docs/logs/03-terminal.txt.
+ create mode 100644 docs/logs/04-permissions.txt
+ create mode 100644 practice/permissions/sample.txt
+ create mode 100644 practice/terminal/12323ffy.txt
+ create mode 100644 practice/terminal/empty.txt
+ create mode 100644 practice/terminal/memo.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ git log --oneline -3
+5779ef8 (HEAD -> main) docs: record terminal and permissions practice
+ox6965@26susin:~/codyssey/e1-1-workstation$ 

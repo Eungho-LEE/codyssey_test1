@@ -1,0 +1,46 @@
+Workspace relocation requested by the user
+2026-11-05T14:07:05.906799+00:00
+$ docker inspect e11-web-bind --format '{{json .Mounts}}'
+[{"Type":"bind","Source":"/home/ox6965/codyssey/e1-1-workstation/site","Destination":"/usr/share/nginx/html","Mode":"","RW":false,"Propagation":"rprivate"}]
+Original preserved at: /home/ox6965/codyssey/e1-1-workstation.backup-20261105
+Compatibility link: /home/ox6965/codyssey/e1-1-workstation -> /mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation
+$ docker stop e11-web-bind
+e11-web-bind
+$ docker rm e11-web-bind
+e11-web-bind
+$ docker run -d --name e11-web-bind -p 127.0.0.1:8082:80 --mount type=bind,source=/mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation/site,target=/usr/share/nginx/html,readonly e11-web:1.0
+a47ae594f66b966db6f1981e297de6a2f7393d3d352dd4d59e5cd48374276594
+$ docker inspect e11-web-bind --format '{{json .Mounts}}'
+[{"Type":"bind","Source":"/mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation/site","Destination":"/usr/share/nginx/html","Mode":"","RW":false,"Propagation":"rprivate"}]
+$ curl --fail --retry 5 --retry-connrefused --retry-delay 1 -i http://localhost:8082
+HTTP/1.1 200 OK
+Server: nginx/1.31.8
+Date: Thu, 05 Nov 2026 14:07:06 GMT
+Content-Type: text/html
+Content-Length: 339
+Last-Modified: Thu, 05 Nov 2026 13:21:39 GMT
+Connection: keep-alive
+ETag: "6aec82e3-153"
+Accept-Ranges: bytes
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-2</p>
+</body>
+</html>
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    339 100    339   0      0  78636      0                              0
+100    339 100    339   0      0  75957      0                              0
+100    339 100    339   0      0  72840      0                              0
+PASS: bind server recreated against the new Windows-managed source folder.

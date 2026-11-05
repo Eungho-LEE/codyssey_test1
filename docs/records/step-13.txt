@@ -1,0 +1,159 @@
+13. README와 트러블슈팅 완성
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:/mnt/c/Users/nabis$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 26.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04.1 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=resolute
+LOGO=ubuntu-logo
+ox6965@26susin:/mnt/c/Users/nabis$ echo "$SHELL"
+/bin/bash
+ox6965@26susin:/mnt/c/Users/nabis$ git --version
+git version 2.53.0
+ox6965@26susin:/mnt/c/Users/nabis$ docker --version
+Docker version 29.9.2, build a82e528
+ox6965@26susin:/mnt/c/Users/nabis$ docker version
+Client:
+ Version:           29.9.2
+ API version:       1.56
+ Go version:        go1.26.10
+ Git commit:        a82e528
+ Built:             Tue Oct 20 18:44:02 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Desktop 4.98.0 (245422)
+ Engine:
+  Version:          29.9.2
+  API version:      1.56 (minimum version 1.40)
+  Go version:       go1.26.10
+  Git commit:       0367cbe
+  Built:            Tue Oct 20 18:45:02 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.4.2
+  GitCommit:        b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc:
+  Version:          1.5.2
+  GitCommit:        v1.5.2-0-g29dd3dc2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+ox6965@26susin:/mnt/c/Users/nabis$ docker build -t e11-web:verify .
+[+] Building 0.2s (1/1) FINISHED                                                                 docker:default
+ => [internal] load build definition from Dockerfile                                                       0.1s
+ => => transferring dockerfile: 2B                                                                         0.1s
+ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+ox6965@26susin:/mnt/c/Users/nabis$ docker run -d --name e11-verify -p 127.0.0.1:8090:80 e11-web:verify
+Unable to find image 'e11-web:verify' locally
+docker: Error response from daemon: pull access denied for e11-web, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+ox6965@26susin:/mnt/c/Users/nabis$ curl -i http://localhost:8090
+curl: (7) Failed to connect to localhost port 8090 after 0 ms: Could not connect to server
+ox6965@26susin:/mnt/c/Users/nabis$ docker logs e11-no-such-container
+Error response from daemon: No such container: e11-no-such-container
+ox6965@26susin:/mnt/c/Users/nabis$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                        PORTS                    NAMES
+64c15cd2bc8f   ubuntu:24.04   "sleep infinity"         2 minutes ago    Up 2 minutes                                           e11-vol-b
+291b39b9e28d   e11-web:1.0    "/docker-entrypoint.…"   6 minutes ago    Up 6 minutes                  127.0.0.1:8082->80/tcp   e11-web-bind
+44728c17656a   e11-web:1.0    "/docker-entrypoint.…"   9 minutes ago    Up 9 minutes                  127.0.0.1:8080->80/tcp   e11-web-8080
+397517124fcf   ubuntu:24.04   "bash"                   32 minutes ago   Exited (137) 26 minutes ago                            e11-lab
+56ca9f888082   ubuntu:24.04   "bash"                   41 minutes ago   Exited (0) 33 minutes ago                              e11-shell
+a8de558fbf3a   hello-world    "/hello"                 42 minutes ago   Exited (0) 41 minutes ago                              e11-hello
+ox6965@26susin:/mnt/c/Users/nabis$ docker logs e11-hello
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation/practice
+ox6965@26susin:~/codyssey/e1-1-workstation/practice$ docker build -t e11-wrong-context:demo .
+[+] Building 0.1s (1/1) FINISHED                                                                 docker:default
+ => [internal] load build definition from Dockerfile                                                       0.0s
+ => => transferring dockerfile: 2B                                                                         0.0s
+ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+ox6965@26susin:~/codyssey/e1-1-workstation/practice$ pwd
+/home/ox6965/codyssey/e1-1-workstation/practice
+ox6965@26susin:~/codyssey/e1-1-workstation/practice$ ls -la
+total 16
+drwxr-xr-x 4 ox6965 ox6965 4096 Nov  5 18:00 .
+drwxr-xr-x 6 ox6965 ox6965 4096 Nov  5 22:13 ..
+drwxr-xr-x 3 ox6965 ox6965 4096 Nov  5 18:00 permissions
+drwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 17:54 terminal
+ox6965@26susin:~/codyssey/e1-1-workstation/practice$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ ls -l Dockerfile
+-rw-r--r-- 1 ox6965 ox6965 121 Nov  5 22:13 Dockerfile
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker build -t e11-web:check .
+[+] Building 0.4s (7/7) FINISHED                                                                 docker:default
+ => [internal] load build definition from Dockerfile                                                       0.0s
+ => => transferring dockerfile: 158B                                                                       0.0s
+ => [internal] load metadata for docker.io/library/nginx:alpine                                            0.0s
+ => [internal] load .dockerignore                                                                          0.0s
+ => => transferring context: 79B                                                                           0.0s
+ => [internal] load build context                                                                          0.0s
+ => => transferring context: 411B                                                                          0.0s
+ => CACHED [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41  0.0s
+ => => resolve docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6  0.0s
+ => [2/2] COPY site/ /usr/share/nginx/html/                                                                0.0s
+ => exporting to image                                                                                     0.2s
+ => => exporting layers                                                                                    0.1s
+ => => exporting manifest sha256:54157d5ecdd8e7b80f0915b417d588937dcd11a6bab194414e534570ed8e2e64          0.0s
+ => => exporting config sha256:d37ef24545d59cd660c8616c8401f4ef489dbb3855754e3cc3cd88c75934d669            0.0s
+ => => exporting attestation manifest sha256:87d5e3812d940f035c55034e4f9758897b73fc741eea143512867718ac7e  0.0s
+ => => exporting manifest list sha256:0fbcc6585d509e0b4d0a0f7ace5fa2bad9606166077b728f1365212e590b0ccc     0.0s
+ => => naming to docker.io/library/e11-web:check                                                           0.0s
+ => => unpacking to docker.io/library/e11-web:check                                                        0.0s
+ox6965@26susin:~/codyssey/e1-1-workstation$ 

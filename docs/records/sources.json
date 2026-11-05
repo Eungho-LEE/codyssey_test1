@@ -1,0 +1,107 @@
+{
+  "workbook": "E1-1_기록백업_2026-11-05T13-43-53-597Z.json",
+  "updatedAt": "2026-11-05T13:43:53.597Z",
+  "records": [
+    {
+      "step": "0",
+      "title": "0. 설치 선택안과 추천",
+      "length": 160,
+      "filename": "step-00.txt"
+    },
+    {
+      "step": "2",
+      "title": "2. VSCode와 과제 폴더·기록 준비",
+      "length": 83,
+      "filename": "step-02.txt"
+    },
+    {
+      "step": "3",
+      "title": "3. 터미널 기본 조작",
+      "length": 2692,
+      "filename": "step-03.txt"
+    },
+    {
+      "step": "4",
+      "title": "4. 파일과 디렉터리 권한",
+      "length": 1999,
+      "filename": "step-04.txt"
+    },
+    {
+      "step": "5",
+      "title": "5. Git 설정과 첫 커밋",
+      "length": 2781,
+      "filename": "step-05.txt"
+    },
+    {
+      "step": "6",
+      "title": "6. Docker Desktop 설치와 점검",
+      "length": 5423,
+      "filename": "step-06.txt"
+    },
+    {
+      "step": "7",
+      "title": "7. 첫 컨테이너 실행과 내부 진입",
+      "length": 5469,
+      "filename": "step-07.txt"
+    },
+    {
+      "step": "8",
+      "title": "8. Docker 운영 명령 익히기",
+      "length": 4377,
+      "filename": "step-08.txt"
+    },
+    {
+      "step": "9",
+      "title": "9. 나만의 웹 서버 이미지 만들기",
+      "length": 6406,
+      "filename": "step-09.txt"
+    },
+    {
+      "step": "10",
+      "title": "10. 포트 매핑과 브라우저 접속",
+      "length": 7737,
+      "filename": "step-10.txt"
+    },
+    {
+      "step": "11",
+      "title": "11. 바인드 마운트로 파일 수정 반영",
+      "length": 2747,
+      "filename": "step-11.txt"
+    },
+    {
+      "step": "12",
+      "title": "12. 볼륨으로 데이터 영속성 증명",
+      "length": 2204,
+      "filename": "step-12.txt"
+    },
+    {
+      "step": "13",
+      "title": "13. README와 트러블슈팅 완성",
+      "length": 8745,
+      "filename": "step-13.txt"
+    },
+    {
+      "step": "14",
+      "title": "14. GitHub와 VSCode 연결 후 제출",
+      "length": 533,
+      "filename": "step-14.txt"
+    }
+  ],
+  "screenshots": [
+    {
+      "source": "dfff.png",
+      "file": "docs/images/10-port-8080.png",
+      "sha256": "78d2d324343b1fac77421cc2addcd34ad78a265a360815586fa4ab4b69f29fc8"
+    },
+    {
+      "source": "dfff22.png",
+      "file": "docs/images/11-bind-before.png",
+      "sha256": "f143e0b820b524a860f5801b0d58d69f92003c5e317893d67f86550f557833e9"
+    },
+    {
+      "source": "dfff33.png",
+      "file": "docs/images/11-bind-after.png",
+      "sha256": "2c3d2e3a7718b8ccf36342a257abdc38146671a4c744c44900bcb92ce7fad1c8"
+    }
+  ]
+}

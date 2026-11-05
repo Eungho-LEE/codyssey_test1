@@ -1,0 +1,47 @@
+문서 작성 시 읽기 전용 재확인. 과거 실습 결과와 구분합니다.
+확인시각: 2026-11-05T13:47:12.289Z
+
+$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 26.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04.1 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=resolute
+LOGO=ubuntu-logo
+
+$ uname -r
+6.18.54.1-microsoft-standard-WSL2
+
+$ echo "$SHELL"
+/bin/bash
+
+$ git --version
+git version 2.53.0
+
+$ docker --version
+Docker version 29.9.2, build a82e528
+
+$ cd ~/codyssey/e1-1-workstation && git status --short && git branch -vv && git remote
+?? docs/images/
+* main 9bd7811 docs: update practice logs
+
+$ docker images e11-web
+IMAGE           ID             DISK USAGE   CONTENT SIZE   EXTRA
+e11-web:1.0     e56ff6542972       93.6MB         26.3MB   U    
+e11-web:check   0fbcc6585d50       93.6MB         26.3MB        
+
+$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED             STATUS                         PORTS                    NAMES
+64c15cd2bc8f   ubuntu:24.04   "sleep infinity"         22 minutes ago      Up 22 minutes                                           e11-vol-b
+291b39b9e28d   e11-web:1.0    "/docker-entrypoint.…"   26 minutes ago      Up 26 minutes                  127.0.0.1:8082->80/tcp   e11-web-bind
+44728c17656a   e11-web:1.0    "/docker-entrypoint.…"   29 minutes ago      Up 29 minutes                  127.0.0.1:8080->80/tcp   e11-web-8080
+397517124fcf   ubuntu:24.04   "bash"                   52 minutes ago      Exited (137) 46 minutes ago                             e11-lab
+56ca9f888082   ubuntu:24.04   "bash"                   About an hour ago   Exited (0) 53 minutes ago                               e11-shell
+a8de558fbf3a   hello-world    "/hello"                 About an hour ago   Exited (0) About an hour ago                            e11-hello

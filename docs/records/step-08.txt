@@ -1,0 +1,95 @@
+8. Docker 운영 명령 익히기
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ script -q -a docs/logs/08-operations.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker pull nginx:alpine
+alpine: Pulling from library/nginx
+12b85cff06fd: Pull complete 
+b9b388a21ecf: Pull complete 
+2ec5fb117ffa: Pull complete 
+9b0f7dfe35b2: Pull complete 
+26185d08a3ec: Pull complete 
+657023555a2a: Pull complete 
+7cc330898115: Pull complete 
+7b229517ed22: Pull complete 
+acc2d54c3743: Download complete 
+a4d5b1f57abc: Download complete 
+Digest: sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
+Status: Downloaded newer image for nginx:alpine
+docker.io/library/nginx:alpine
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker images
+                                                                                                           i Info →   U  In Use
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+hello-world:latest   c567b231f656       25.9kB         9.49kB    U   
+nginx:alpine         785835ea65db       94.5MB         27.2MB        
+ubuntu:24.04         fe81560990fa        119MB         31.7MB    U   
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker start e11-lab
+e11-lab
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker ps
+CONTAINER ID   IMAGE          COMMAND   CREATED         STATUS         PORTS     NAMES
+397517124fcf   ubuntu:24.04   "bash"    5 minutes ago   Up 3 seconds             e11-lab
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND    CREATED          STATUS                      PORTS     NAMES
+397517124fcf   ubuntu:24.04   "bash"     5 minutes ago    Up 10 seconds                         e11-lab
+56ca9f888082   ubuntu:24.04   "bash"     14 minutes ago   Exited (0) 6 minutes ago              e11-shell
+a8de558fbf3a   hello-world    "/hello"   15 minutes ago   Exited (0) 14 minutes ago             e11-hello
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker logs e11-hello
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker stats --no-stream e11-lab
+CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O   PIDS
+397517124fcf   e11-lab   0.00%     1.848MiB / 15.27GiB   0.01%     1.17kB / 126B   0B / 0B     1
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker stop e11-lab
+e11-lab
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker ps -a --filter name=e11-lab
+CONTAINER ID   IMAGE          COMMAND   CREATED         STATUS                       PORTS     NAMES
+397517124fcf   ubuntu:24.04   "bash"    6 minutes ago   Exited (137) 6 seconds ago             e11-lab
+ox6965@26susin:~/codyssey/e1-1-workstation$ exit
+exit
+ox6965@26susin:~/codyssey/e1-1-workstation$ 

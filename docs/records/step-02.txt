@@ -1,0 +1,8 @@
+2. VSCode와 과제 폴더·기록 준비
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/03-terminal.txt

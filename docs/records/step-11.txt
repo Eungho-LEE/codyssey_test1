@@ -1,0 +1,88 @@
+11. 바인드 마운트로 파일 수정 반영
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ script -q -a docs/logs/11-bind-mount.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ pwd
+/home/ox6965/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker run -d --name e11-web-bind -p 127.0.0.1:8082:80 --mount "type=bind,source=$(pwd)/site,target=/usr/share/nginx/html,readonly" e11-web:1.0
+291b39b9e28d0dcf0e35b301ccf74c2560141e5e35a17cca9c3543b18415f02e
+ox6965@26susin:~/codyssey/e1-1-workstation$ docker inspect e11-web-bind --format '{{json .Mounts}}'
+[{"Type":"bind","Source":"/home/ox6965/codyssey/e1-1-workstation/site","Destination":"/usr/share/nginx/html","Mode":"","RW":false,"Propagation":"rprivate"}]
+ox6965@26susin:~/codyssey/e1-1-workstation$ cat site/index.html
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-1</p>
+</body>
+</html>
+ox6965@26susin:~/codyssey/e1-1-workstation$ curl -s http://localhost:8082
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-1</p>
+</body>
+</html>
+ox6965@26susin:~/codyssey/e1-1-workstation$ sed -i 's/version-1/version-2/' site/index.html
+ox6965@26susin:~/codyssey/e1-1-workstation$ cat site/index.html
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-2</p>
+</body>
+</html>
+ox6965@26susin:~/codyssey/e1-1-workstation$ curl -s http://localhost:8082
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-2</p>
+</body>
+</html>
+ox6965@26susin:~/codyssey/e1-1-workstation$ curl -s http://localhost:8080
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-1</p>
+</body>
+</html>
+ox6965@26susin:~/codyssey/e1-1-workstation$ exit
+exit
+ox6965@26susin:~/codyssey/e1-1-workstation$ 

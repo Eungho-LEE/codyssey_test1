@@ -1,0 +1,52 @@
+3. 터미널 기본 조작
+출처: HTML 기록장의 사용자 백업 · 2026-11-05T13:43:53.597Z
+개인 이메일과 터미널 제어 문자는 표시용으로 정리함
+
+# 입력 명령 및 기록
+
+ox6965@26susin:/mnt/c/Users/nabis$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ script -q -a docs/logs/03-terminal.txt
+ox6965@26susin:~/codyssey/e1-1-workstation$ cd practice/terminal
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ pwd
+/home/ox6965/codyssey/e1-1-workstation/practice/terminal
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ touch empty.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ printf 'Hello terminal\n' > memo.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ cat memo.txt
+Hello terminal
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ cp memo.txt copy.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ cp memo.txt 12323ffy.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ mv copy.txt renamed.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ mkdir archive
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ ls
+12323ffy.txt  archive  empty.txt  memo.txt  renamed.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ mv renamed.txt archive/
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ ls -la
+total 20
+drwxr-xr-x 3 ox6965 ox6965 4096 Nov  5 17:53 .
+drwxr-xr-x 3 ox6965 ox6965 4096 Nov  5 17:48 ..
+-rw-r--r-- 1 ox6965 ox6965   15 Nov  5 17:52 12323ffy.txt
+drwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 17:53 archive
+-rw-r--r-- 1 ox6965 ox6965    0 Nov  5 17:51 empty.txt
+-rw-r--r-- 1 ox6965 ox6965   15 Nov  5 17:51 memo.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ ls -la archive
+total 12
+drwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 17:53 .
+drwxr-xr-x 3 ox6965 ox6965 4096 Nov  5 17:53 ..
+-rw-r--r-- 1 ox6965 ox6965   15 Nov  5 17:52 renamed.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ cat archive/renamed.txt
+Hello terminal
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ rm archive/renamed.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ rmdir archive
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ ls -la
+total 16
+drwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 17:54 .
+drwxr-xr-x 3 ox6965 ox6965 4096 Nov  5 17:48 ..
+-rw-r--r-- 1 ox6965 ox6965   15 Nov  5 17:52 12323ffy.txt
+-rw-r--r-- 1 ox6965 ox6965    0 Nov  5 17:51 empty.txt
+-rw-r--r-- 1 ox6965 ox6965   15 Nov  5 17:51 memo.txt
+ox6965@26susin:~/codyssey/e1-1-workstation/practice/terminal$ cd ..
+ox6965@26susin:~/codyssey/e1-1-workstation/practice$ pwd
+/home/ox6965/codyssey/e1-1-workstation/practice
+ox6965@26susin:~/codyssey/e1-1-workstation/practice$ cd ~/codyssey/e1-1-workstation
+ox6965@26susin:~/codyssey/e1-1-workstation$ 
+

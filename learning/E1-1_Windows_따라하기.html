@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>E1-1_Windows_따라하기</title>
+<style>
+:root{font-family:"Malgun Gothic","Segoe UI",sans-serif;color:#233044;background:#f0f3f8;font-size:16px;line-height:1.85;scroll-behavior:smooth}*{box-sizing:border-box}body{margin:0}nav{position:fixed;inset:0 auto 0 0;width:280px;padding:28px 20px;background:#142b44;color:white;overflow-y:auto}nav strong{display:block;font-size:20px;margin-bottom:16px}nav a{display:block;color:#e0eafa;font-size:13px;text-decoration:none;padding:6px 8px;border-radius:6px}nav a:hover{background:#284561}main{margin:32px 40px 64px 320px;padding:42px 52px;max-width:1100px;background:white;border-radius:14px;box-shadow:0 6px 28px #142b440b}h1{font-size:2.2rem;line-height:1.35;color:#123a63;margin-top:0}h2{font-size:1.55rem;line-height:1.5;margin-top:64px;padding:14px 18px;background:#edf4fb;border-left:5px solid #2479bd;scroll-margin-top:20px}h3{font-size:1.15rem;margin-top:32px;color:#154977}p{margin:15px 0}a{color:#1266a4;text-underline-offset:3px}li{margin:8px 0}code{font-family:Consolas,"Cascadia Code",monospace;font-size:.9em;background:#edf1f6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}pre{margin:0 0 24px;background:#162536;color:#e7f0fa;padding:20px 22px;overflow-x:auto;line-height:1.65;border-radius:0 0 8px 8px}pre code{font-size:14px;background:none;padding:0;color:inherit;white-space:pre;overflow-wrap:normal}.code-label{background:#263d53;color:#dce9f7;font:12px/1.8 Consolas,monospace;padding:5px 22px;border-radius:8px 8px 0 0;margin-top:18px}.table-wrap{overflow-x:auto;margin:22px 0}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;vertical-align:top;border:1px solid #d8e1eb;padding:12px 14px}th{background:#edf3f9;color:#153c65}tbody tr:nth-child(even){background:#fafcfe}.checkbox{color:#2b6c9e}strong{color:#143d64}nav strong{color:white}footer{margin-top:50px;border-top:1px solid #d8e1eb;padding-top:18px;color:#627183;font-size:13px}@media(max-width:1050px){nav{position:static;width:auto;max-height:280px}main{margin:20px;padding:28px}}@media(max-width:600px){main{margin:10px;padding:20px}h1{font-size:1.8rem}h2{font-size:1.3rem}pre{padding:15px}th,td{padding:8px}}@media print{nav{display:none}main{margin:0;padding:0;max-width:none;box-shadow:none}body,:root{background:white;font-size:11pt}h2{break-after:avoid}pre{white-space:pre-wrap;overflow:visible;background:#f2f4f7;color:#152b42}pre code{white-space:pre-wrap}.code-label{background:#e1e7ef;color:#152b42}a{color:inherit}table{font-size:10pt}}
+</style><style>
+.workbook-toolbar{border:2px solid #9bbdd9;background:#f3f8fe;padding:22px;border-radius:12px;margin-bottom:40px}.workbook-toolbar h2{margin:0 0 10px;padding:0;border:0;background:none}.workbook-actions{display:flex;flex-wrap:wrap;gap:10px}button,.import-label{font:inherit;font-size:14px;border:1px solid #b6c9db;border-radius:7px;padding:9px 13px;background:white;color:#164b75;cursor:pointer}button:hover,.import-label:hover{background:#e4effa}#save-workbook{background:#155f9a;color:white;border-color:#155f9a}.import-label{display:inline-flex;align-items:center}.import-label input{width:180px;margin-left:8px;font-size:12px}#workbook-status,.entry-hint{font-size:13px;color:#52667a}details{font-size:14px}summary{cursor:pointer;font-weight:bold}.workbook-entry{border:1px solid #a8c7de;border-radius:12px;background:#f7fbff;padding:24px;margin:35px 0 50px}.entry-title{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.entry-title h3{margin:0}.done-label{font-size:14px;white-space:nowrap}.workbook-entry>label{display:block;font-size:14px;font-weight:bold;margin:18px 0 6px}.workbook-entry textarea{display:block;width:100%;padding:12px;border:1px solid #b9c9d8;border-radius:7px;background:white;color:#203348;font:14px/1.7 "Malgun Gothic",sans-serif;resize:vertical;min-height:70px}.workbook-entry textarea[data-field=commands],.workbook-entry textarea[data-field=output]{font-family:Consolas,"Malgun Gothic",monospace}.workbook-entry textarea:focus{outline:2px solid #4b94cb;outline-offset:1px}.evidence-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:16px}.evidence-gallery figure{margin:0;border:1px solid #cfdeeb;background:white;padding:10px;border-radius:8px}.evidence-gallery img{display:block;max-width:100%;max-height:420px;object-fit:contain;margin:auto}.evidence-gallery figcaption{font-size:12px;overflow-wrap:anywhere}.evidence-gallery button{font-size:12px;padding:4px 8px;margin-top:6px}@media print{.workbook-actions,.workbook-toolbar details,.workbook-entry input[type=file],.evidence-gallery button{display:none}.workbook-entry textarea{height:auto;min-height:100px}.workbook-entry{break-inside:auto}.workbook-toolbar{margin-bottom:20px}}
+</style></head><body><nav aria-label="목차"><strong>E1-1 실습 교재</strong><a href="#section-2">먼저 전체 흐름 보기</a>
+<a href="#section-3">0. 설치 선택안과 추천</a>
+<a href="#section-8">1. WSL 2와 Ubuntu 설치</a>
+<a href="#section-12">2. VSCode와 과제 폴더·기록 준비</a>
+<a href="#section-17">3. 터미널 기본 조작</a>
+<a href="#section-18">4. 파일과 디렉터리 권한</a>
+<a href="#section-19">5. Git 설정과 첫 커밋</a>
+<a href="#section-20">6. Docker Desktop 설치와 점검</a>
+<a href="#section-21">7. 첫 컨테이너 실행과 내부 진입</a>
+<a href="#section-26">8. Docker 운영 명령 익히기</a>
+<a href="#section-27">9. 나만의 웹 서버 이미지 만들기</a>
+<a href="#section-31">10. 포트 매핑과 브라우저 접속</a>
+<a href="#section-32">11. 바인드 마운트로 파일 수정 반영</a>
+<a href="#section-33">12. 볼륨으로 데이터 영속성 증명</a>
+<a href="#section-34">13. README와 트러블슈팅 완성</a>
+<a href="#section-39">14. GitHub와 VSCode 연결 후 제출</a>
+<a href="#section-44">부록 A. 자주 막히는 지점</a>
+<a href="#section-45">부록 B. 작업을 잠시 멈출 때</a>
+<a href="#section-46">부록 C. 필수 완료 후 선택 과제</a>
+<a href="#section-47">공식 참고 자료</a></nav><main><section class="workbook-toolbar" aria-label="기록장 저장">
+<h2>직접 쓰는 실습 기록장</h2><p>교재를 읽고 각 단계 끝의 입력란에 먼저 기록하세요. 나중에 README 초안으로 내보낼 수 있습니다.</p>
+<div class="workbook-actions"><button type="button" id="save-workbook">기록 포함 HTML 저장</button><button type="button" id="export-markdown">README 초안(.md) 내보내기</button><button type="button" id="export-backup">기록 백업(.json)</button><label class="import-label">백업 불러오기<input type="file" id="import-backup" accept=".json,application/json"></label></div>
+<p><strong id="workbook-progress">0 / 15단계 완료</strong></p><p id="workbook-status" role="status" aria-live="polite"></p>
+<details><summary>저장과 다시 열기 안내</summary><ol><li>입력 내용은 가능한 경우 같은 브라우저에 임시 저장됩니다.</li><li><strong>확실한 파일 보관은 「기록 포함 HTML 저장」을 누르세요.</strong> 다운로드 폴더에 작성 내용·이미지를 포함한 새 HTML이 생깁니다. 원본 파일을 자동 덮어쓰지는 않습니다.</li><li>저장한 HTML을 다시 열면 계속 작성할 수 있습니다. 이전 파일보다 최근 브라우저 임시 기록이 있으면 최근 기록을 불러옵니다.</li><li>Ctrl+S만으로 입력 내용이 보존된다고 가정하지 마세요. 위 저장 버튼을 사용하세요.</li><li>README 내보내기는 작성한 텍스트 기록의 초안입니다. 캡처 이미지는 HTML에 포함되고, GitHub에는 이미지 파일을 따로 넣어 링크합니다.</li><li>브라우저 데이터를 지우거나 파일을 옮기기 전에 HTML 또는 JSON 백업을 저장하세요. 기록은 외부 서버로 전송되지 않습니다.</li></ol></details></section><h1 id="section-1">E1-1 Windows PC 따라 하기</h1>
+<p>&gt; 작업 공간 이전 안내: 현재 기준 폴더는 <code>C:\Users\nabis\Desktop\Projects\codyssey\e1-1-workstation</code>입니다. Ubuntu에서는 <code>/mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation</code>으로 접근합니다. 기존 <code>~/codyssey/e1-1-workstation</code> 경로는 호환 링크로 유지합니다. 이 교재의 최초 실습 기록과 Linux 권한 설명은 이전 환경을 기준으로 합니다. 권한 실습을 다시 할 때는 <a href="복습_핵심개념과_명령어.md">복습 교재</a>의 Linux 임시 폴더 절차를 사용하세요.</p>
+<p>처음 배우는 사람을 위한 「개발자용 작업실 꾸미기」 실습 교재</p>
+<p>작성 기준: 2026-11-05 · 대상: Windows PC · 필수 미션 전체 수행용</p>
+<p>이 문서는 실습 안내서입니다. 아래 명령을 직접 실행한 결과와 본인의 설명을 제출 저장소에 기록하세요. 예시 출력은 실제 수행 증거가 아닙니다. 이 교재를 만들면서 PC에 프로그램을 설치하거나 컨테이너를 실행하지는 않았습니다.</p>
+<h2 id="section-2">먼저 전체 흐름 보기</h2>
+<p>Windows에 Linux 작업 공간을 준비하고 → 터미널과 권한을 배우고 → Git으로 기록하고 → Docker 웹 서버를 만들고 → 접속·파일 반영·데이터 보존을 검증하고 → GitHub 링크로 제출합니다.</p>
+<div class="table-wrap"><table><thead><tr><th>순서</th><th>주제</th><th>완료했을 때 남는 것</th></tr></thead><tbody><tr><td>0</td><td>설치 선택과 준비</td><td>사용할 환경 결정</td></tr><tr><td>1</td><td>WSL·Ubuntu 준비</td><td>Linux 터미널</td></tr><tr><td>2</td><td>VSCode·폴더·기록 준비</td><td>과제 폴더와 README 틀</td></tr><tr><td>3</td><td>터미널 기본 조작</td><td>명령·출력 기록</td></tr><tr><td>4</td><td>파일·디렉터리 권한</td><td>변경 전후 비교</td></tr><tr><td>5</td><td>Git 설정과 로컬 커밋</td><td>버전 관리 시작</td></tr><tr><td>6</td><td>Docker Desktop 설치·점검</td><td>Docker 실행 환경</td></tr><tr><td>7</td><td>컨테이너 입문</td><td>hello-world·Ubuntu 실습</td></tr><tr><td>8</td><td>운영 명령</td><td>이미지·컨테이너 관리 기록</td></tr><tr><td>9</td><td>나만의 웹 서버 이미지</td><td>HTML·Dockerfile·이미지</td></tr><tr><td>10</td><td>포트 매핑</td><td>브라우저 접속 증거 2회</td></tr><tr><td>11</td><td>바인드 마운트</td><td>파일 수정 전후 증거</td></tr><tr><td>12</td><td>볼륨</td><td>컨테이너 삭제 전후 데이터 증거</td></tr><tr><td>13</td><td>README·트러블슈팅</td><td>평가 가능한 기술 문서</td></tr><tr><td>14</td><td>GitHub·VSCode 연동과 제출</td><td>최종 저장소 링크</td></tr></tbody></table></div>
+<p>이전 계획의 GitHub 공개 단계는 여기서는 마지막에 배치했습니다. 먼저 로컬 Git으로 기록하고, 문서와 민감정보를 확인한 뒤 업로드합니다. VSCode GitHub 연동 증거도 마지막 단계에서 추가합니다.</p>
+<h2 id="section-3">0. 설치 선택안과 추천</h2>
+<h3 id="section-4">추천 조합</h3>
+<p><strong>Windows + WSL 2(Ubuntu) + Docker Desktop(WSL 2 연동) + Windows용 VSCode(WSL 확장) + Ubuntu 안의 Git</strong>을 추천합니다.</p>
+<p>WSL은 Windows에서 Linux를 사용할 수 있게 하는 기능이고, Ubuntu는 그 안에 설치할 Linux 배포판입니다. Docker Desktop은 컨테이너 실행 엔진을 관리하고, VSCode는 파일을 편집합니다. Git은 변경 이력, GitHub는 원격 저장소를 담당합니다.</p>
+<div class="table-wrap"><table><thead><tr><th>항목</th><th>선택안</th><th>추천과 이유</th></tr></thead><tbody><tr><td>Linux 환경</td><td>WSL 2 / 별도 가상머신 / 별도 Linux PC</td><td><strong>WSL 2</strong>: Windows를 쓰면서 Linux 명령·권한을 실습하기 편함</td></tr><tr><td>배포판</td><td>Ubuntu / Debian 등</td><td><strong>Ubuntu LTS</strong>: 이 교재 명령을 그대로 따라 하기 쉬움. 예시는 Ubuntu-24.04</td></tr><tr><td>Docker 실행 환경</td><td>Docker Desktop / WSL 안에 Docker Engine 직접 설치</td><td><strong>Docker Desktop</strong>: 초보자가 실행 상태와 설정을 확인하기 쉬움. 직접 Engine 설치는 관리 학습이 추가됨</td></tr><tr><td>편집기</td><td>VSCode / 다른 편집기</td><td><strong>Windows용 VSCode + WSL 확장</strong>: 과제의 VSCode 연동 증거까지 충족</td></tr><tr><td>Git</td><td>Ubuntu Git / Git for Windows</td><td><strong>Ubuntu Git</strong>: 실습 위치와 버전 관리 위치를 통일. Windows에서 별도 Git 작업을 할 때만 Git for Windows 추가</td></tr><tr><td>터미널</td><td>Windows Terminal / Ubuntu 앱 창</td><td><strong>Windows Terminal</strong>: PowerShell과 Ubuntu를 탭으로 구분하기 편함. Ubuntu 앱 창도 가능</td></tr><tr><td>웹 서버</td><td>NGINX 정적 사이트 / Python 웹 서버</td><td><strong>NGINX 정적 사이트</strong>: 파이썬을 몰라도 이미지·포트·마운트를 집중 학습할 수 있음</td></tr><tr><td>GitHub 인증</td><td>VSCode 브라우저 로그인 / SSH</td><td><strong>VSCode 브라우저 로그인</strong>: 처음에는 키·토큰을 직접 다루는 단계를 줄일 수 있음</td></tr></tbody></table></div>
+<p>OrbStack은 이 Windows 실습의 선택안으로 사용하지 않습니다. Windows에서 진행하는 이 교재는 Docker Desktop을 기준으로 합니다.</p>
+<h3 id="section-5">설치 전 확인</h3>
+<p>Windows 검색에서 <code>winver</code>를 실행해 Windows 버전·빌드를 적습니다. 설정 → 시스템 → 정보에서 시스템 종류(x64/ARM64), 메모리를 확인합니다. 작업 관리자 → 성능 → CPU에서 가상화 상태를 확인합니다.</p>
+<p><strong>Docker Desktop 설치 페이지의 현재 시스템 요구사항과 내 PC를 비교</strong>하세요. 이 교재는 지원되는 Windows 11 PC를 권장합니다. WSL 설치가 가능하다는 사실과 Docker Desktop 지원 여부는 별개입니다. 가상화가 꺼져 있거나 기관 PC에서 설치 권한이 제한되면 해당 설정부터 해결해야 합니다.</p>
+<p>Docker Desktop은 개인 학습 용도와 조직 사용의 이용 조건이 다를 수 있으므로 설치 화면의 약관을 확인합니다.</p>
+<p>공식 확인: <a href="https://docs.docker.com/desktop/setup/install/windows-install/">Docker Desktop Windows 설치·요구사항</a>, <a href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL 설치</a>.</p>
+<h3 id="section-6">명령을 입력할 창 구분</h3>
+<div class="table-wrap"><table><thead><tr><th>이 교재의 표시</th><th>실제 실행 위치</th><th>프롬프트의 흔한 모습</th></tr></thead><tbody><tr><td>PowerShell — 관리자</td><td>Windows에서 PowerShell을 관리자 권한으로 실행</td><td><code>PS C:\…&gt;</code></td></tr><tr><td>PowerShell — 일반</td><td>Windows PowerShell 또는 Windows Terminal의 PowerShell 탭</td><td><code>PS C:\…&gt;</code></td></tr><tr><td>Ubuntu</td><td>시작 메뉴의 Ubuntu 또는 Windows Terminal의 Ubuntu 탭</td><td><code>사용자@PC:~$</code></td></tr><tr><td>컨테이너 내부</td><td><code>docker run -it … bash</code> 또는 <code>docker exec -it … bash</code>로 들어간 상태</td><td><code>root@컨테이너:/#</code></td></tr></tbody></table></div>
+<p>코드블록의 명령만 입력합니다. <code>$</code>, <code>PS C:\…&gt;</code>, <code>root@…#</code> 같은 프롬프트는 입력하지 않습니다. <strong>0~14단계를 한꺼번에 붙여넣지 말고 단계별로 확인하세요.</strong></p>
+<p>코드블록 위의 <code>bash</code>는 Ubuntu에서 명령을 해석·실행하는 쉘의 이름입니다. “Ubuntu 터미널용 명령”이라는 표지이며 <code>bash</code>라는 제목 자체를 입력하라는 뜻은 아닙니다. PowerShell에서 <code>wsl</code>로 Ubuntu에 들어갔다면 본문의 <code>mkdir</code>, <code>cd</code> 같은 명령부터 입력하세요. <code>dockerfile</code>·<code>markdown</code> 표시는 터미널 명령이 아니라 파일에 작성할 내용입니다. 컨테이너 내부라고 표시한 구간은 해당 컨테이너 쉘에서 실행합니다.</p>
+<h3 id="section-7">명령어 한 줄 읽는 법</h3>
+<p>명령은 보통 <strong>명령어 + 옵션 + 대상</strong>으로 구성됩니다. 예를 들어 <code>mkdir -p ~/codyssey/e1-1-workstation</code>은 “중간 폴더도 함께 만들면서 내 홈 아래에 과제 폴더를 만들어라”라는 뜻입니다.</p>
+<div class="table-wrap"><table><thead><tr><th>구성 요소</th><th>뜻</th><th>이번 예시</th></tr></thead><tbody><tr><td>명령어</td><td>컴퓨터에게 시킬 동작</td><td>mkdir = 디렉터리 만들기</td></tr><tr><td>옵션</td><td>동작 방식에 붙이는 추가 조건</td><td>-p = 부모 폴더까지 함께 생성</td></tr><tr><td>대상·인수</td><td>무엇에 적용할지 지정하는 값</td><td>~/codyssey/e1-1-workstation = 만들 폴더 경로</td></tr><tr><td>공백</td><td>명령어·옵션·대상을 구분</td><td>경로 중간에 임의로 공백을 넣지 않음</td></tr><tr><td>따옴표</td><td>여러 단어나 공백 있는 경로를 한 묶음으로 전달</td><td>작성자 이름이나 긴 명령 문자열</td></tr></tbody></table></div>
+<p><code>~</code>는 Ubuntu 사용자 홈, <code>/</code>는 Linux 경로 구분자, <code>.</code>은 현재 폴더, <code>..</code>는 부모 폴더입니다. 파일명 앞의 점은 보통 숨김 파일 관례입니다. <code>--version</code>처럼 하이픈 두 개는 긴 옵션, <code>-p</code>처럼 하나는 짧은 옵션인 경우가 많지만 <strong>같은 -p라도 명령마다 뜻이 다릅니다.</strong> mkdir의 -p는 부모 폴더 생성, docker run의 -p는 포트 연결입니다.</p>
+<p>각 명령은 입력 후 Enter로 실행합니다. <strong>다음 입력 줄인 <code>사용자@컴퓨터:경로$</code>가 다시 나오면 처리가 끝나고 다음 명령을 기다리는 상태</strong>입니다. 출력이 없다는 이유로 같은 명령을 반복할 필요는 없습니다. <code>pwd</code>·<code>ls -la</code>처럼 조회 명령으로 결과를 확인하세요. 파일 입력 중 나타나는 단독 <code>&gt;</code> 줄이나 sudo 비밀번호 대기는 다른 상태입니다.</p>
+<p>각 코드블록 바로 아래의 해설 표는 읽는 자료이며 터미널에 붙여넣지 않습니다. 명령만 복사하고, 실행 환경과 출력 결과를 확인한 뒤 다음으로 이동합니다.</p>
+<section class="workbook-entry" data-workbook-step="0" data-title="0. 설치 선택안과 추천" aria-label="0. 설치 선택안과 추천 실습 기록">
+<div class="entry-title"><h3>✍ 0단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-0">실행한 명령</label><textarea id="commands-0" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-0">실제 출력 결과</label><textarea id="output-0" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-0">배운 점·문제와 해결</label><textarea id="notes-0" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-0">증거 파일·링크·추가 메모</label><textarea id="evidence-0" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-0">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-0" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-8">1. WSL 2와 Ubuntu 설치</h2>
+<h3 id="section-9">1-1. 먼저 기존 설치 확인</h3>
+<p><strong>PowerShell — 일반</strong></p>
+<div class="code-label">PowerShell · Windows 명령</div><pre><code>wsl --status
+wsl --version
+wsl --list --verbose</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>wsl --status</td><td>WSL의 기본 배포판·기본 버전과 실행 준비 상태를 조회합니다.</td><td>조회만 합니다. 설치 오류·가상화 안내가 있으면 다음 설치로 진행하기 전에 확인합니다.</td></tr><tr><td>wsl --version</td><td>WSL 프로그램·커널 등의 버전을 보여줍니다.</td><td>--version은 버전 조회 옵션입니다. Ubuntu 버전과는 별개입니다.</td></tr><tr><td>wsl --list --verbose</td><td>설치된 Linux 배포판과 실행 상태, WSL 1/2 버전을 보여줍니다.</td><td>--list는 목록, --verbose는 상세 표시입니다. VERSION 2와 Ubuntu 이름을 확인합니다.</td></tr></tbody></table></div>
+<p>이미 Ubuntu가 있고 VERSION 열이 <code>2</code>라면 새 배포판을 설치하지 않고 사용해도 됩니다. 이후 <code>Ubuntu-24.04</code>라고 적힌 부분은 실제 배포판 이름으로 바꿉니다. WSL이 없다는 안내가 나오면 다음 설치로 진행합니다.</p>
+<h3 id="section-10">1-2. 새로 설치할 때</h3>
+<p>Ubuntu 홈페이지에서 Desktop / Server / WSL 중 고르는 화면이라면 <strong>맨 아래 WSL → Get Ubuntu on WSL</strong>을 선택합니다. 이 교재는 Windows 안의 Ubuntu 터미널을 사용하므로 Desktop·Server용 ISO 파일은 받지 않습니다. 홈페이지 버튼을 거치지 않고 아래 PowerShell 명령으로 설치해도 됩니다. 두 방법으로 같은 배포판을 중복 설치할 필요는 없습니다.</p>
+<p>시작 메뉴에서 PowerShell을 검색 → 오른쪽 클릭 → 관리자 권한으로 실행합니다.</p>
+<p><strong>PowerShell — 관리자</strong></p>
+<div class="code-label">PowerShell · Windows 명령</div><pre><code>wsl --list --online
+wsl --install -d Ubuntu-24.04</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>wsl --list --online</td><td>온라인에서 설치 가능한 배포판 이름을 조회합니다.</td><td>--online은 설치된 목록이 아닌 다운로드 가능한 목록을 뜻합니다.</td></tr><tr><td>wsl --install -d Ubuntu-24.04</td><td>WSL과 지정한 Ubuntu 배포판을 설치합니다.</td><td>--install은 설치, -d는 배포판 지정입니다. 이미 사용 중인 Ubuntu가 있으면 중복 설치하지 않습니다.</td></tr></tbody></table></div>
+<p>첫 명령의 목록에 <code>Ubuntu-24.04</code>가 있는지 확인하고 두 번째 명령을 실행합니다. 목록이 다르면 표시된 Ubuntu LTS 이름으로 바꿉니다. 설치가 재시작을 요구하면 작업을 저장하고 Windows를 재시작하세요.</p>
+<p>이미 <code>Ubuntu-26.04</code> 등 다른 Ubuntu를 설치했다면 그 배포판을 그대로 사용해도 됩니다. 이 교재의 설치 예시 때문에 다시 설치하지 마세요. 이후 Docker 실습에 나오는 <code>ubuntu:24.04</code>는 별도의 컨테이너 이미지이므로 WSL 배포판 버전과 달라도 됩니다.</p>
+<p>Ubuntu를 처음 실행하면 Linux 사용자 이름과 비밀번호를 만듭니다. Windows·코디세이 계정과 별개입니다. 비밀번호 입력 중 화면에 아무것도 안 보이는 것은 정상입니다.</p>
+<h3 id="section-11">1-3. 업데이트와 WSL 2 확인</h3>
+<p><strong>PowerShell — 일반. 권한 요청이 나타나면 안내에 따릅니다.</strong></p>
+<div class="code-label">PowerShell · Windows 명령</div><pre><code>wsl --update
+wsl --list --verbose</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>wsl --update</td><td>WSL을 업데이트합니다.</td><td>설정이나 배포판 삭제 명령이 아닙니다. 네트워크와 권한 안내를 확인합니다.</td></tr><tr><td>wsl --list --verbose</td><td>설치된 Linux 배포판과 실행 상태, WSL 1/2 버전을 보여줍니다.</td><td>--list는 목록, --verbose는 상세 표시입니다. VERSION 2와 Ubuntu 이름을 확인합니다.</td></tr></tbody></table></div>
+<p>해당 Ubuntu의 VERSION이 <code>1</code>일 때만 다음 변환을 수행합니다.</p>
+<div class="code-label">PowerShell · Windows 명령</div><pre><code>wsl --set-version Ubuntu-24.04 2</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>wsl --set-version Ubuntu-24.04 2</td><td>지정한 배포판의 WSL 실행 버전을 바꿉니다.</td><td>배포판 이름 뒤의 2는 WSL 2로 변환한다는 뜻입니다. Ubuntu 자체 버전 변경은 아닙니다.</td></tr></tbody></table></div>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cat /etc/os-release
+uname -r
+sudo apt update
+sudo apt install -y git curl util-linux</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cat /etc/os-release</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr><tr><td>uname -r</td><td>현재 Linux 커널 버전을 출력합니다.</td><td>-r은 커널 릴리스 정보만 표시합니다. Ubuntu 배포판 버전과 구분합니다.</td></tr><tr><td>sudo apt update</td><td>Ubuntu 관리자 권한으로 설치 가능한 패키지 목록을 새로 받아옵니다.</td><td>sudo는 관리자 권한 실행, apt는 패키지 관리 도구입니다. update는 목록 갱신이며 설치된 모든 프로그램을 업그레이드하는 명령은 아닙니다.</td></tr><tr><td>sudo apt install -y git curl util-linux</td><td>Ubuntu에 Git, HTTP 요청 도구 curl, 터미널 기록 도구 script가 들어 있는 util-linux를 설치합니다.</td><td>install은 설치, -y는 일반 확인 질문에 자동 동의입니다. sudo 비밀번호는 입력해도 화면에 표시되지 않습니다.</td></tr></tbody></table></div>
+<p><code>sudo</code>는 Linux 관리자 권한으로 명령을 실행합니다. 방금 만든 Ubuntu 비밀번호를 입력합니다. <code>apt</code>는 Ubuntu 프로그램 설치 도구입니다. 여기서는 Docker Engine을 설치하지 않습니다.</p>
+<p><strong>성공 기준:</strong> Ubuntu 터미널이 열리고 <code>wsl --list --verbose</code>에서 VERSION <code>2</code>를 확인했습니다.</p>
+<p><strong>기록:</strong> Windows 버전, WSL 버전, 배포판 이름·버전. 설치 중 겪은 문제가 있으면 즉시 메모합니다.</p>
+<p>참고: <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Microsoft WSL 설치</a>, <a href="https://documentation.ubuntu.com/wsl/latest/howto/install-ubuntu-wsl2/">Ubuntu WSL 설치</a>.</p>
+<section class="workbook-entry" data-workbook-step="1" data-title="1. WSL 2와 Ubuntu 설치" aria-label="1. WSL 2와 Ubuntu 설치 실습 기록">
+<div class="entry-title"><h3>✍ 1단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-1">실행한 명령</label><textarea id="commands-1" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-1">실제 출력 결과</label><textarea id="output-1" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-1">배운 점·문제와 해결</label><textarea id="notes-1" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-1">증거 파일·링크·추가 메모</label><textarea id="evidence-1" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-1">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-1" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-12">2. VSCode와 과제 폴더·기록 준비</h2>
+<h3 id="section-13">2-1. 편집기 설치</h3>
+<p><a href="https://code.visualstudio.com/Download">VSCode 공식 다운로드</a>에서 <strong>Windows용</strong>을 설치합니다. x64/Arm64는 PC 시스템 종류에 맞춥니다. 설치 후 확장 메뉴에서 Microsoft의 <strong>WSL</strong> 확장을 설치합니다. Ubuntu 안에 Linux용 VSCode 데스크톱을 따로 설치하지 않습니다.</p>
+<h3 id="section-14">2-2. 새 과제 작업 공간 만들기</h3>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>mkdir -p ~/codyssey/e1-1-workstation
+cd ~/codyssey/e1-1-workstation
+pwd
+ls -la</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>mkdir -p ~/codyssey/e1-1-workstation</td><td>지정한 이름의 디렉터리(폴더)를 만듭니다.</td><td>-p는 중간 부모 폴더도 만들고 이미 있는 폴더는 그대로 둡니다. 여러 경로는 공백으로 구분합니다. 성공하면 보통 출력 없이 입력 줄이 돌아옵니다. ls로 확인하세요.</td></tr><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>ls -la</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -a는 점(.)으로 시작하는 숨김 항목까지 표시합니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr></tbody></table></div>
+<p>이 폴더가 이미 있고 파일이 있다면 덮어쓰지 말고 내용을 확인하거나 새 과제 폴더 이름을 정하세요. 여기부터는 <strong>새 빈 과제 폴더</strong>에서 진행한다고 가정합니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>mkdir -p docs/logs docs/images site practice
+touch README.md
+printf 'env/\n.env\n.env.*\n*.key\n*.pem\n' &gt; .gitignore
+printf 'docs/\npractice/\n.git/\nenv/\n.env\n.env.*\n' &gt; .dockerignore
+code .</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>mkdir -p docs/logs docs/images site practice</td><td>지정한 이름의 디렉터리(폴더)를 만듭니다.</td><td>-p는 중간 부모 폴더도 만들고 이미 있는 폴더는 그대로 둡니다. 여러 경로는 공백으로 구분합니다. 성공하면 보통 출력 없이 입력 줄이 돌아옵니다. ls로 확인하세요.</td></tr><tr><td>touch README.md</td><td>없으면 빈 파일을 만들고, 이미 있으면 수정 시각을 갱신합니다.</td><td>파일 내용을 지우지는 않습니다. 성공 시 보통 출력이 없습니다. ls로 확인합니다.</td></tr><tr><td>printf 'env/\n.env\n.env.*\n*.key\n*.pem\n' &gt; .gitignore</td><td>따옴표 안의 형식에 따라 글자를 출력합니다. 여기서는 파일을 작성합니다.</td><td>\n은 줄바꿈입니다. &gt; 뒤의 파일에 출력하며, 같은 파일이 있으면 기존 내용을 덮어씁니다. .gitignore는 Git 제외 규칙, .dockerignore는 빌드에 보낼 파일 제외 규칙입니다.</td></tr><tr><td>printf 'docs/\npractice/\n.git/\nenv/\n.env\n.env.*\n' &gt; .dockerignore</td><td>따옴표 안의 형식에 따라 글자를 출력합니다. 여기서는 파일을 작성합니다.</td><td>\n은 줄바꿈입니다. &gt; 뒤의 파일에 출력하며, 같은 파일이 있으면 기존 내용을 덮어씁니다. .gitignore는 Git 제외 규칙, .dockerignore는 빌드에 보낼 파일 제외 규칙입니다.</td></tr><tr><td>code .</td><td>VSCode로 뒤에 지정한 경로를 엽니다.</td><td>.은 현재 디렉터리입니다. code .은 지금의 과제 폴더를 편집기로 엽니다. 첫 WSL 연결은 서버 준비 시간이 걸릴 수 있습니다.</td></tr></tbody></table></div>
+<p>VSCode 왼쪽 아래에 <code>WSL: Ubuntu…</code>가 보이는지 확인합니다. VSCode의 터미널 → 새 터미널도 Ubuntu인지 확인하세요. <code>code</code>를 못 찾으면 VSCode를 재실행하고 WSL 확장 설치를 확인한 뒤, 명령 팔레트의 <code>WSL: Connect to WSL</code>로 연결하고 Linux 과제 폴더를 엽니다.</p>
+<p>작업 파일은 <code>/mnt/c/…</code>보다 <strong>Ubuntu 홈 폴더 <code>~/codyssey/…</code></strong>에 두는 것을 권장합니다. Windows 파일 권한과 Linux 권한이 섞이는 혼란을 줄일 수 있습니다. Windows 탐색기로 보고 싶으면 과제 폴더에서 <code>explorer.exe .</code>를 실행합니다.</p>
+<h3 id="section-15">2-3. README 틀 준비</h3>
+<p><code>README.md</code>에 아래 항목을 작성합니다. <code>미작성</code>은 나중에 실제 결과로 채웁니다.</p>
+<div class="code-label">Markdown · 문서에 작성할 예시</div><pre><code># E1-1 개발자용 작업실 꾸미기
+
+## 1. 프로젝트 개요
+미작성
+
+## 2. 실행 환경
+Windows / WSL / Ubuntu / 쉘 / 터미널 / Docker / Git 버전
+
+## 3. 수행 체크리스트
+- [ ] 터미널 기본 조작
+- [ ] 파일·디렉터리 권한 변경
+- [ ] Docker 설치·점검
+- [ ] hello-world와 Ubuntu 컨테이너
+- [ ] 이미지·컨테이너 운영 명령
+- [ ] Dockerfile 작성·이미지 빌드
+- [ ] 포트 매핑·브라우저 접속
+- [ ] 바인드 마운트 변경 반영
+- [ ] 볼륨 영속성
+- [ ] Git 설정·커밋
+- [ ] VSCode GitHub 로그인·저장소 연동
+- [ ] 트러블슈팅 2건 이상
+
+## 4. 단계별 수행·검증 결과
+명령, 출력, 해석, 증거 링크
+
+## 5. 재현 방법
+저장소를 받은 사람이 웹 서버를 실행하는 절차
+
+## 6. 트러블슈팅
+문제 → 원인 가설 → 확인 → 해결/대안
+
+## 7. 배운 개념
+경로 / 권한 / 이미지·컨테이너 / 포트 / 마운트·볼륨 / Git·GitHub</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>문서 작성 예시 전체</td><td>터미널에서 실행하는 명령이 아니라 README에 적을 문서 형식입니다.</td><td>#은 제목, -는 목록, [ ]와 [x]는 체크박스입니다. <a href="경로">설명</a>는 링크, !<a href="경로">설명</a>는 이미지입니다. 실제 결과로 내용을 채우세요.</td></tr></tbody></table></div>
+<h3 id="section-16">2-4. 명령과 출력을 함께 남기는 방법</h3>
+<p>수동으로 복사해 코드블록에 붙여도 됩니다. 추천은 단계별 <code>script</code> 기록입니다.</p>
+<p><strong>Ubuntu — 예시</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/03-terminal.txt</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/03-terminal.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr></tbody></table></div>
+<p>이제 새 기록용 쉘이 열립니다. 명령을 실행하면 입력과 출력이 기록됩니다. <strong>그 단계가 끝나고 Ubuntu 쉘에 돌아왔을 때</strong> <code>exit</code>를 한 번 입력하면 기록이 끝납니다. 컨테이너 안에서의 <code>exit</code>는 컨테이너 쉘을 나가는 뜻이므로 구분하세요.</p>
+<p><code>script</code>는 비밀번호 등 민감한 작업을 할 때 사용하지 않습니다. 토큰·기기 인증 코드·설정 내 인증값이 포함된 로그는 원본 그대로 커밋하지 않습니다. 원문이 읽기 어려우면 필요한 구간을 README에 정리하고, 민감정보가 없는지 확인한 기록만 저장합니다.</p>
+<p>스크린샷은 <code>Win + Shift + S</code>로 캡처합니다. Windows 그림판 등에서 저장할 때 WSL 과제 폴더의 <code>docs/images/</code>를 선택하세요. 브라우저 접속 증거에는 <strong>주소창의 포트와 웹페이지 내용</strong>이 함께 보여야 합니다.</p>
+<p><strong>성공 기준:</strong> WSL 연결 상태의 VSCode에서 과제 폴더와 README를 열 수 있습니다.</p>
+<p>참고: <a href="https://code.visualstudio.com/docs/remote/wsl">VSCode WSL 개발</a>, <a href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment">WSL 개발 환경</a>.</p>
+<section class="workbook-entry" data-workbook-step="2" data-title="2. VSCode와 과제 폴더·기록 준비" aria-label="2. VSCode와 과제 폴더·기록 준비 실습 기록">
+<div class="entry-title"><h3>✍ 2단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-2">실행한 명령</label><textarea id="commands-2" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-2">실제 출력 결과</label><textarea id="output-2" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-2">배운 점·문제와 해결</label><textarea id="notes-2" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-2">증거 파일·링크·추가 메모</label><textarea id="evidence-2" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-2">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-2" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-17">3. 터미널 기본 조작</h2>
+<p><strong>배울 것:</strong> 디렉터리는 폴더입니다. 절대 경로는 <code>/</code>에서 시작하는 전체 위치, 상대 경로는 현재 폴더를 기준으로 한 위치입니다. <code>~</code>는 내 Ubuntu 홈, <code>.</code>은 현재 폴더, <code>..</code>는 상위 폴더입니다.</p>
+<p><strong>Ubuntu</strong> — 2단계에서 기록을 시작했다면 다시 시작하지 않습니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/03-terminal.txt</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/03-terminal.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr></tbody></table></div>
+<p>명령은 한 줄씩 실행하고 출력을 읽습니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>pwd
+ls
+ls -la
+mkdir -p practice/terminal
+cd practice/terminal
+pwd
+touch empty.txt
+printf 'Hello terminal\n' &gt; memo.txt
+cat memo.txt
+cp memo.txt copy.txt
+mv copy.txt renamed.txt
+mkdir archive
+mv renamed.txt archive/
+ls -la
+ls -la archive
+cat archive/renamed.txt
+rm archive/renamed.txt
+rmdir archive
+ls -la
+cd ..
+pwd
+cd ~/codyssey/e1-1-workstation
+pwd
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>ls</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>ls -la</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -a는 점(.)으로 시작하는 숨김 항목까지 표시합니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>mkdir -p practice/terminal</td><td>지정한 이름의 디렉터리(폴더)를 만듭니다.</td><td>-p는 중간 부모 폴더도 만들고 이미 있는 폴더는 그대로 둡니다. 여러 경로는 공백으로 구분합니다. 성공하면 보통 출력 없이 입력 줄이 돌아옵니다. ls로 확인하세요.</td></tr><tr><td>cd practice/terminal</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>touch empty.txt</td><td>없으면 빈 파일을 만들고, 이미 있으면 수정 시각을 갱신합니다.</td><td>파일 내용을 지우지는 않습니다. 성공 시 보통 출력이 없습니다. ls로 확인합니다.</td></tr><tr><td>printf 'Hello terminal\n' &gt; memo.txt</td><td>따옴표 안의 형식에 따라 글자를 출력합니다. 여기서는 파일을 작성합니다.</td><td>\n은 줄바꿈입니다. &gt; 뒤의 파일에 출력하며, 같은 파일이 있으면 기존 내용을 덮어씁니다. .gitignore는 Git 제외 규칙, .dockerignore는 빌드에 보낼 파일 제외 규칙입니다.</td></tr><tr><td>cat memo.txt</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr><tr><td>cp memo.txt copy.txt</td><td>첫 경로의 파일을 두 번째 경로로 복사합니다. 원본은 남습니다.</td><td>이 예시에서는 memo.txt를 copy.txt로 복사합니다. 대상 파일이 있으면 덮어쓸 수 있으므로 연습 폴더에서 실행합니다.</td></tr><tr><td>mv copy.txt renamed.txt</td><td>파일을 옮기거나 이름을 바꿉니다. 첫 항목이 출발지, 두 번째가 목적지입니다.</td><td>같은 폴더의 다른 파일명을 주면 이름 변경, archive/처럼 디렉터리를 주면 그 안으로 이동합니다. 성공 시 보통 출력이 없습니다.</td></tr><tr><td>mkdir archive</td><td>지정한 이름의 디렉터리(폴더)를 만듭니다.</td><td>성공하면 보통 출력 없이 입력 줄이 돌아옵니다. ls로 확인하세요.</td></tr><tr><td>mv renamed.txt archive/</td><td>파일을 옮기거나 이름을 바꿉니다. 첫 항목이 출발지, 두 번째가 목적지입니다.</td><td>같은 폴더의 다른 파일명을 주면 이름 변경, archive/처럼 디렉터리를 주면 그 안으로 이동합니다. 성공 시 보통 출력이 없습니다.</td></tr><tr><td>ls -la</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -a는 점(.)으로 시작하는 숨김 항목까지 표시합니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>ls -la archive</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -a는 점(.)으로 시작하는 숨김 항목까지 표시합니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>cat archive/renamed.txt</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr><tr><td>rm archive/renamed.txt</td><td>뒤에 적은 파일을 삭제합니다.</td><td>휴지통 이동이 아닌 삭제입니다. 이 교재에서는 방금 만든 연습 파일만 대상으로 합니다. 성공 시 보통 출력이 없습니다.</td></tr><tr><td>rmdir archive</td><td>비어 있는 디렉터리를 삭제합니다.</td><td>안에 파일이 남아 있으면 실패합니다. 성공 시 보통 출력이 없습니다.</td></tr><tr><td>ls -la</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -a는 점(.)으로 시작하는 숨김 항목까지 표시합니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>cd ..</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>..는 현재 폴더의 부모 폴더입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p><code>&gt;</code>는 파일 내용을 덮어씁니다. <code>cp</code>는 복사, <code>mv</code>는 이동 또는 이름 변경, <code>rm</code>은 파일 삭제, <code>rmdir</code>은 빈 디렉터리 삭제입니다. 여기서 삭제하는 것은 방금 만든 연습 파일뿐입니다.</p>
+<p><strong>성공 기준:</strong> <code>memo.txt</code>에는 <code>Hello terminal</code>이 있고, <code>empty.txt</code>는 빈 파일이며 <code>archive</code>는 삭제됐습니다.</p>
+<p><strong>기록:</strong> <code>docs/logs/03-terminal.txt</code> 링크를 README에 추가하고, 같은 파일을 절대 경로와 상대 경로로 나타내는 본인 예시를 적습니다. 절대 경로에는 <code>pwd</code>로 확인한 실제 홈 경로를 사용하세요.</p>
+<section class="workbook-entry" data-workbook-step="3" data-title="3. 터미널 기본 조작" aria-label="3. 터미널 기본 조작 실습 기록">
+<div class="entry-title"><h3>✍ 3단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-3">실행한 명령</label><textarea id="commands-3" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-3">실제 출력 결과</label><textarea id="output-3" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-3">배운 점·문제와 해결</label><textarea id="notes-3" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-3">증거 파일·링크·추가 메모</label><textarea id="evidence-3" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-3">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-3" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-18">4. 파일과 디렉터리 권한</h2>
+<p><strong>배울 것:</strong> 권한은 소유자·그룹·그 외 사용자 세 묶음입니다. 각 묶음은 읽기 <code>r=4</code>, 쓰기 <code>w=2</code>, 실행 <code>x=1</code>을 더합니다. <code>644</code>는 <code>rw-r--r--</code>, <code>755</code>는 <code>rwxr-xr-x</code>입니다. 디렉터리의 <code>x</code>는 그 안으로 들어가고 경로를 통과하는 권한입니다.</p>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/04-permissions.txt
+mkdir -p practice/permissions/sample-dir
+printf 'permission test\n' &gt; practice/permissions/sample.txt
+ls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+chmod 600 practice/permissions/sample.txt
+chmod 700 practice/permissions/sample-dir
+ls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+chmod 644 practice/permissions/sample.txt
+chmod 755 practice/permissions/sample-dir
+ls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/04-permissions.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>mkdir -p practice/permissions/sample-dir</td><td>지정한 이름의 디렉터리(폴더)를 만듭니다.</td><td>-p는 중간 부모 폴더도 만들고 이미 있는 폴더는 그대로 둡니다. 여러 경로는 공백으로 구분합니다. 성공하면 보통 출력 없이 입력 줄이 돌아옵니다. ls로 확인하세요.</td></tr><tr><td>printf 'permission test\n' &gt; practice/permissions/sample.txt</td><td>따옴표 안의 형식에 따라 글자를 출력합니다. 여기서는 파일을 작성합니다.</td><td>\n은 줄바꿈입니다. &gt; 뒤의 파일에 출력하며, 같은 파일이 있으면 기존 내용을 덮어씁니다. .gitignore는 Git 제외 규칙, .dockerignore는 빌드에 보낼 파일 제외 규칙입니다.</td></tr><tr><td>ls -ld practice/permissions/sample.txt practice/permissions/sample-dir</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -d는 폴더 안이 아닌 폴더 자체의 정보를 봅니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>chmod 600 practice/permissions/sample.txt</td><td>지정한 파일 또는 디렉터리의 접근 권한을 바꿉니다.</td><td>600 = 소유자 읽기·쓰기, 그룹과 나머지 사용자 권한 없음입니다. 세 자리는 소유자/그룹/그 외 순서이고 r=4, w=2, x=1을 합산합니다. 성공 시 무출력이며 ls -l로 확인합니다.</td></tr><tr><td>chmod 700 practice/permissions/sample-dir</td><td>지정한 파일 또는 디렉터리의 접근 권한을 바꿉니다.</td><td>700 = 소유자 읽기·쓰기·실행, 나머지 권한 없음입니다. 세 자리는 소유자/그룹/그 외 순서이고 r=4, w=2, x=1을 합산합니다. 성공 시 무출력이며 ls -l로 확인합니다.</td></tr><tr><td>ls -ld practice/permissions/sample.txt practice/permissions/sample-dir</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -d는 폴더 안이 아닌 폴더 자체의 정보를 봅니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>chmod 644 practice/permissions/sample.txt</td><td>지정한 파일 또는 디렉터리의 접근 권한을 바꿉니다.</td><td>644 = 소유자 읽기·쓰기, 그룹과 나머지는 읽기입니다. 세 자리는 소유자/그룹/그 외 순서이고 r=4, w=2, x=1을 합산합니다. 성공 시 무출력이며 ls -l로 확인합니다.</td></tr><tr><td>chmod 755 practice/permissions/sample-dir</td><td>지정한 파일 또는 디렉터리의 접근 권한을 바꿉니다.</td><td>755 = 소유자는 읽기·쓰기·실행, 그룹과 나머지는 읽기·실행입니다. 세 자리는 소유자/그룹/그 외 순서이고 r=4, w=2, x=1을 합산합니다. 성공 시 무출력이며 ls -l로 확인합니다.</td></tr><tr><td>ls -ld practice/permissions/sample.txt practice/permissions/sample-dir</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -d는 폴더 안이 아닌 폴더 자체의 정보를 봅니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p><strong>성공 기준:</strong> 파일은 <code>600 → 644</code>, 디렉터리는 <code>700 → 755</code>로 바뀐 출력이 있습니다. <code>ls -l</code> 앞부분의 <code>-</code>는 파일, <code>d</code>는 디렉터리입니다.</p>
+<p><strong>기록:</strong> 두 대상의 변경 전후 출력, <code>644</code>와 <code>755</code>의 뜻. 권한 실습은 <code>/mnt/c</code>가 아닌 Ubuntu 홈에서 했다는 점도 적습니다.</p>
+<section class="workbook-entry" data-workbook-step="4" data-title="4. 파일과 디렉터리 권한" aria-label="4. 파일과 디렉터리 권한 실습 기록">
+<div class="entry-title"><h3>✍ 4단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-4">실행한 명령</label><textarea id="commands-4" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-4">실제 출력 결과</label><textarea id="output-4" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-4">배운 점·문제와 해결</label><textarea id="notes-4" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-4">증거 파일·링크·추가 메모</label><textarea id="evidence-4" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-4">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-4" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-19">5. Git 설정과 첫 커밋</h2>
+<p><strong>배울 것:</strong> Git은 내 파일 변경 이력을 저장합니다. GitHub에 로그인하는 것과 Git 작성자 정보를 정하는 것은 별개입니다. 커밋은 로컬 기록이고, 푸시는 원격 업로드입니다.</p>
+<p>먼저 Ubuntu에서 현재 설정을 확인합니다. 기존 설정이 있으면 무조건 덮어쓰지 않습니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>git --version
+git config --get user.name
+git config --get user.email
+git config --get init.defaultBranch</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>git --version</td><td>Git 프로그램 버전을 조회합니다.</td><td>설치 확인용입니다.</td></tr><tr><td>git config --get user.name</td><td>Git 작성자 정보와 동작 설정을 확인하거나 바꿉니다.</td><td>--get은 특정 값 조회, --list는 전체 목록, --global은 이 Ubuntu 사용자 전체 설정입니다. user.name은 작성자 이름, user.email은 커밋 이메일, init.defaultBranch는 새 저장소 기본 브랜치입니다. 조회는 무출력일 수도 있고 설정 성공도 보통 무출력입니다.</td></tr><tr><td>git config --get user.email</td><td>Git 작성자 정보와 동작 설정을 확인하거나 바꿉니다.</td><td>--get은 특정 값 조회, --list는 전체 목록, --global은 이 Ubuntu 사용자 전체 설정입니다. user.name은 작성자 이름, user.email은 커밋 이메일, init.defaultBranch는 새 저장소 기본 브랜치입니다. 조회는 무출력일 수도 있고 설정 성공도 보통 무출력입니다.</td></tr><tr><td>git config --get init.defaultBranch</td><td>Git 작성자 정보와 동작 설정을 확인하거나 바꿉니다.</td><td>--get은 특정 값 조회, --list는 전체 목록, --global은 이 Ubuntu 사용자 전체 설정입니다. user.name은 작성자 이름, user.email은 커밋 이메일, init.defaultBranch는 새 저장소 기본 브랜치입니다. 조회는 무출력일 수도 있고 설정 성공도 보통 무출력입니다.</td></tr></tbody></table></div>
+<p>아무것도 안 나오는 항목은 아직 설정이 없을 수 있습니다. <strong>아래 두 예시 문자열을 본인 정보로 바꾼 뒤</strong> 실행합니다. 공개 이메일 노출을 줄이려면 GitHub Settings → Emails에서 표시되는 본인의 <code>noreply</code> 주소를 그대로 사용하세요.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>git config --global user.name &quot;본인이 사용할 작성자 이름&quot;
+git config --global user.email &quot;GitHub에서 확인한 본인의 noreply 이메일&quot;
+git config --global init.defaultBranch main</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>git config --global user.name &quot;본인이 사용할 작성자 이름&quot;</td><td>Git 작성자 정보와 동작 설정을 확인하거나 바꿉니다.</td><td>--get은 특정 값 조회, --list는 전체 목록, --global은 이 Ubuntu 사용자 전체 설정입니다. user.name은 작성자 이름, user.email은 커밋 이메일, init.defaultBranch는 새 저장소 기본 브랜치입니다. 조회는 무출력일 수도 있고 설정 성공도 보통 무출력입니다.</td></tr><tr><td>git config --global user.email &quot;GitHub에서 확인한 본인의 noreply 이메일&quot;</td><td>Git 작성자 정보와 동작 설정을 확인하거나 바꿉니다.</td><td>--get은 특정 값 조회, --list는 전체 목록, --global은 이 Ubuntu 사용자 전체 설정입니다. user.name은 작성자 이름, user.email은 커밋 이메일, init.defaultBranch는 새 저장소 기본 브랜치입니다. 조회는 무출력일 수도 있고 설정 성공도 보통 무출력입니다.</td></tr><tr><td>git config --global init.defaultBranch main</td><td>Git 작성자 정보와 동작 설정을 확인하거나 바꿉니다.</td><td>--get은 특정 값 조회, --list는 전체 목록, --global은 이 Ubuntu 사용자 전체 설정입니다. user.name은 작성자 이름, user.email은 커밋 이메일, init.defaultBranch는 새 저장소 기본 브랜치입니다. 조회는 무출력일 수도 있고 설정 성공도 보통 무출력입니다.</td></tr></tbody></table></div>
+<p>전역 설정은 이 Ubuntu 사용자의 다른 Git 저장소에도 적용됩니다. 기존 작성자 정보를 유지하고 싶으면 과제 폴더에서 <code>git init -b main</code>을 먼저 실행하고, 이름·이메일은 <code>--global</code> 대신 <code>--local</code>로 설정할 수 있습니다. 기본 브랜치 전역 변경을 피한다면 <code>git init -b main</code>으로 이번 저장소 브랜치를 명시하고 그 선택을 문서화하세요.</p>
+<p><strong>Ubuntu — 과제 폴더가 맞는지 확인한 뒤 진행</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+pwd
+git init -b main
+git status
+git config --list</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>git init -b main</td><td>현재 폴더에 로컬 Git 저장소를 만듭니다.</td><td>-b main은 첫 브랜치 이름을 main으로 지정합니다. .git 폴더가 생깁니다. GitHub 업로드는 아직 하지 않습니다.</td></tr><tr><td>git status</td><td>작업 파일과 커밋 대기 상태를 조회합니다.</td><td>--short는 간단 표시입니다. ??는 미추적, A는 추가, M은 수정 등입니다. 작업이 없으면 짧은 목록은 비어 있을 수 있습니다.</td></tr><tr><td>git config --list</td><td>Git 작성자 정보와 동작 설정을 확인하거나 바꿉니다.</td><td>--get은 특정 값 조회, --list는 전체 목록, --global은 이 Ubuntu 사용자 전체 설정입니다. user.name은 작성자 이름, user.email은 커밋 이메일, init.defaultBranch는 새 저장소 기본 브랜치입니다. 조회는 무출력일 수도 있고 설정 성공도 보통 무출력입니다.</td></tr></tbody></table></div>
+<p>원문은 <code>git config --list</code> 결과를 요구합니다. 먼저 화면에서 민감한 값이 있는지 확인하고, README에는 민감정보를 제거한 결과를 넣습니다. 설정 목록에 토큰이나 인증 헤더가 보이면 원문 로그를 저장하지 않습니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>git add README.md .gitignore .dockerignore docs practice
+git diff --cached --stat
+git commit -m &quot;docs: record terminal and permissions practice&quot;
+git log --oneline -3</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>git add README.md .gitignore .dockerignore docs practice</td><td>명시한 파일·폴더의 현재 변경을 다음 커밋 대상으로 올립니다.</td><td>스테이징이라고 부릅니다. 파일을 인터넷에 업로드하지 않으며 성공 시 보통 무출력입니다.</td></tr><tr><td>git diff --cached --stat</td><td>아직 기록하지 않은 변경 내용을 비교합니다.</td><td>기본은 스테이징 안 된 변경, --cached는 스테이징된 변경, --stat은 파일별 변경량 요약입니다. 차이가 없으면 무출력입니다.</td></tr><tr><td>git commit -m &quot;docs: record terminal and permissions practice&quot;</td><td>스테이징한 변경을 로컬 이력으로 저장합니다.</td><td>-m 뒤의 따옴표 내용은 커밋 설명입니다. 자동으로 GitHub에 올라가지는 않습니다.</td></tr><tr><td>git log --oneline -3</td><td>커밋 이력을 조회합니다.</td><td>--oneline은 커밋당 한 줄, -3과 -5는 최근 3개·5개까지만 표시합니다.</td></tr></tbody></table></div>
+<p><strong>성공 기준:</strong> <code>main</code> 브랜치에 첫 커밋이 보입니다. 아직 GitHub 업로드는 하지 않아도 됩니다.</p>
+<p><strong>기록:</strong> Git 버전, 작성자·기본 브랜치 설정 결과, 민감정보를 제거한 설정 목록과 첫 커밋 결과.</p>
+<p>참고: <a href="https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address">GitHub 커밋 이메일 설정</a>, <a href="https://code.visualstudio.com/docs/sourcecontrol/quickstart">VSCode Git 시작</a>.</p>
+<section class="workbook-entry" data-workbook-step="5" data-title="5. Git 설정과 첫 커밋" aria-label="5. Git 설정과 첫 커밋 실습 기록">
+<div class="entry-title"><h3>✍ 5단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-5">실행한 명령</label><textarea id="commands-5" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-5">실제 출력 결과</label><textarea id="output-5" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-5">배운 점·문제와 해결</label><textarea id="notes-5" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-5">증거 파일·링크·추가 메모</label><textarea id="evidence-5" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-5">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-5" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-20">6. Docker Desktop 설치와 점검</h2>
+<p><strong>배울 것:</strong> Docker CLI는 <code>docker</code> 명령을 받는 도구이고, 엔진은 실제 이미지·컨테이너를 관리합니다. 명령 도구가 있어도 엔진이 꺼져 있으면 실행할 수 없습니다.</p>
+<ol><li><a href="https://docs.docker.com/desktop/setup/install/windows-install/">Docker Desktop Windows 공식 설치 페이지</a>에서 PC 아키텍처에 맞는 설치 파일을 받습니다.</li><li>설치 옵션에 표시되면 <strong>WSL 2</strong> 백엔드를 선택합니다. 설치 모드가 제공되면 개인 PC에서는 기본 사용자별 설치가 간편합니다. 화면과 권한 요구는 버전에 따라 다를 수 있습니다.</li><li>설치 후 <strong>Docker Desktop을 실행</strong>하고 엔진 준비가 끝날 때까지 기다립니다.</li><li>Settings → General에서 WSL 2 엔진 설정을 확인합니다.</li><li>Settings → Resources → WSL Integration에서 사용할 Ubuntu 배포판을 켜고 Apply/Restart를 적용합니다.</li><li>Linux 컨테이너 모드를 사용합니다. WSL Integration이 안 보이면 Windows 컨테이너 모드인지 확인합니다.</li></ol>
+<p>이 추천 경로에서는 Ubuntu 안에 <code>docker.io</code>나 별도 Docker Engine을 추가 설치하지 않습니다. Docker 공식 문서도 중복 엔진·CLI 설치로 인한 충돌을 주의하도록 안내합니다.</p>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/06-docker-check.txt
+docker --version
+docker version
+docker info
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/06-docker-check.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>docker --version</td><td>Docker CLI 버전만 보여줍니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker version</td><td>Docker Client와 Server의 버전을 조회합니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker info</td><td>Docker 엔진과 실행 환경의 상세 상태를 조회합니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p><strong>성공 기준:</strong> <code>docker version</code>에 Client와 Server가 나오고 <code>docker info</code>가 연결 오류 없이 끝납니다.</p>
+<p><strong>막히면:</strong> <code>docker: command not found</code>는 Ubuntu 연동과 새 터미널을 확인합니다. <code>Cannot connect to the Docker daemon</code>은 Desktop 실행·엔진 준비·WSL 연동을 확인합니다. 이때 임의로 다른 엔진을 설치하지 않습니다.</p>
+<p><strong>기록:</strong> Docker 버전, 엔진 동작 결과, 사용한 백엔드. 계정·장치 이름 등 공개하고 싶지 않은 정보는 가립니다.</p>
+<p>참고: <a href="https://docs.docker.com/desktop/features/wsl/">Docker Desktop WSL 2 연동</a>.</p>
+<section class="workbook-entry" data-workbook-step="6" data-title="6. Docker Desktop 설치와 점검" aria-label="6. Docker Desktop 설치와 점검 실습 기록">
+<div class="entry-title"><h3>✍ 6단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-6">실행한 명령</label><textarea id="commands-6" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-6">실제 출력 결과</label><textarea id="output-6" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-6">배운 점·문제와 해결</label><textarea id="notes-6" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-6">증거 파일·링크·추가 메모</label><textarea id="evidence-6" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-6">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-6" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-21">7. 첫 컨테이너 실행과 내부 진입</h2>
+<p><strong>배울 것:</strong> 이미지는 실행 재료, 컨테이너는 그 이미지로 만든 실행 환경입니다. 컨테이너는 주요 프로세스가 종료되면 멈춥니다.</p>
+<h3 id="section-22">7-1. hello-world</h3>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/07-containers.txt
+docker run --name e11-hello hello-world
+docker ps -a</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/07-containers.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>docker run --name e11-hello hello-world</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>--name 뒤는 직접 정한 컨테이너 이름. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>docker ps -a</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>-a는 종료된 것까지 전체 표시.</td></tr></tbody></table></div>
+<p><code>Hello from Docker!</code> 문구를 확인합니다. 이 프로그램은 메시지를 출력한 뒤 종료하므로 <code>Exited</code>는 정상입니다. 같은 이름으로 다시 <code>run</code>하면 이름 충돌이 납니다. 재실행은 <code>docker start -a e11-hello</code>를 사용합니다.</p>
+<h3 id="section-23">7-2. Ubuntu 컨테이너의 주 쉘을 종료해 보기</h3>
+<p><strong>Ubuntu에서 실행</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker run -it --name e11-shell ubuntu:24.04 bash</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker run -it --name e11-shell ubuntu:24.04 bash</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-it는 입력 유지와 가상 터미널을 함께 켜 대화형 쉘 사용. --name 뒤는 직접 정한 컨테이너 이름. ubuntu:24.04는 컨테이너용 이미지 이름·태그로, WSL Ubuntu-26.04와 달라도 정상. 끝의 bash는 컨테이너에서 실행할 쉘. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr></tbody></table></div>
+<p><strong>이제 컨테이너 내부입니다.</strong> 다음만 입력합니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>pwd
+ls
+echo &quot;Hello from container&quot;
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>ls</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>echo &quot;Hello from container&quot;</td><td>뒤의 글자 또는 변수 값을 출력합니다.</td><td>따옴표는 여러 단어를 하나의 글자 묶음으로 전달합니다. 화면에 문구가 나오면 명령 실행을 확인할 수 있습니다.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p><strong>다시 Ubuntu로 돌아오면</strong> 상태를 확인합니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker ps -a</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker ps -a</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>-a는 종료된 것까지 전체 표시.</td></tr></tbody></table></div>
+<p>이 컨테이너는 주 프로세스가 <code>bash</code>였기 때문에 <code>exit</code> 후 멈춥니다.</p>
+<h3 id="section-24">7-3. exec로 새 쉘을 열면 어떻게 다를까?</h3>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker run -dit --name e11-lab ubuntu:24.04 bash
+docker exec -it e11-lab bash</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker run -dit --name e11-lab ubuntu:24.04 bash</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-dit는 -d(백그라운드), -i(입력 유지), -t(가상 터미널) 결합. --name 뒤는 직접 정한 컨테이너 이름. ubuntu:24.04는 컨테이너용 이미지 이름·태그로, WSL Ubuntu-26.04와 달라도 정상. 끝의 bash는 컨테이너에서 실행할 쉘. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>docker exec -it e11-lab bash</td><td>실행 중인 컨테이너 안에서 별도의 명령을 실행합니다.</td><td>-it는 입력 유지와 가상 터미널을 함께 켜 대화형 쉘 사용. 끝의 bash는 컨테이너에서 실행할 쉘.</td></tr></tbody></table></div>
+<p><strong>컨테이너 내부</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>echo &quot;This shell was opened by exec&quot;
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>echo &quot;This shell was opened by exec&quot;</td><td>뒤의 글자 또는 변수 값을 출력합니다.</td><td>따옴표는 여러 단어를 하나의 글자 묶음으로 전달합니다. 화면에 문구가 나오면 명령 실행을 확인할 수 있습니다.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker ps --filter name=e11-lab</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker ps --filter name=e11-lab</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>--filter name=…는 컨테이너 이름 조건으로 목록을 좁힘.</td></tr></tbody></table></div>
+<p>주 <code>bash</code>가 살아 있으므로, <code>exec</code>로 연 추가 쉘을 나가도 컨테이너가 실행 중입니다.</p>
+<h3 id="section-25">7-4. attach로 주 쉘에 연결하기</h3>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker attach e11-lab</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker attach e11-lab</td><td>컨테이너 주 프로세스의 입출력에 연결합니다.</td><td>Ctrl+P 다음 Ctrl+Q는 컨테이너를 유지하며 분리. 여기서 exit는 주 bash 종료.</td></tr></tbody></table></div>
+<p><strong>컨테이너 내부</strong>에서 <code>echo &quot;attached&quot;</code>를 입력합니다. 이번에는 <code>exit</code> 대신 <strong>Ctrl을 누른 채 P, 손을 뗀 뒤 Ctrl을 누른 채 Q</strong>를 순서대로 눌러 분리합니다. Ubuntu 프롬프트로 돌아왔는지 확인합니다. 바로 돌아오지 않으면 Enter를 한 번 눌러봅니다. 그래도 어렵다면 새 Ubuntu 탭을 열어 상태를 확인하세요.</p>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker ps --filter name=e11-lab
+docker stop e11-lab
+docker ps -a --filter name=e11-lab
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker ps --filter name=e11-lab</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>--filter name=…는 컨테이너 이름 조건으로 목록을 좁힘.</td></tr><tr><td>docker stop e11-lab</td><td>이름으로 지정한 컨테이너를 중지합니다. 컨테이너·이미지·볼륨은 삭제하지 않습니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker ps -a --filter name=e11-lab</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>-a는 종료된 것까지 전체 표시. --filter name=…는 컨테이너 이름 조건으로 목록을 좁힘.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p>마지막 <code>exit</code>는 기록 종료용입니다. 이 단계에서는 먼저 <code>e11-lab</code>을 중지했습니다.</p>
+<p><strong>성공 기준:</strong> 주 쉘의 <code>exit</code>는 컨테이너 종료, <code>exec</code> 쉘의 <code>exit</code>는 추가 쉘 종료, <code>attach</code> 후 분리는 컨테이너 유지라는 차이를 관찰했습니다.</p>
+<p><strong>기록:</strong> 실행·내부 명령·상태 결과와 본인 설명. <code>attach</code>에 키 입력이 전달되므로 무작정 Ctrl+C를 누르는 것과 분리는 다릅니다.</p>
+<p>참고: <a href="https://docs.docker.com/reference/cli/docker/container/attach/">docker attach</a>, <a href="https://docs.docker.com/reference/cli/docker/container/exec/">docker exec</a>.</p>
+<section class="workbook-entry" data-workbook-step="7" data-title="7. 첫 컨테이너 실행과 내부 진입" aria-label="7. 첫 컨테이너 실행과 내부 진입 실습 기록">
+<div class="entry-title"><h3>✍ 7단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-7">실행한 명령</label><textarea id="commands-7" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-7">실제 출력 결과</label><textarea id="output-7" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-7">배운 점·문제와 해결</label><textarea id="notes-7" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-7">증거 파일·링크·추가 메모</label><textarea id="evidence-7" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-7">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-7" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-26">8. Docker 운영 명령 익히기</h2>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/08-operations.txt
+docker pull nginx:alpine
+docker images
+docker start e11-lab
+docker ps
+docker ps -a
+docker logs e11-hello
+docker stats --no-stream e11-lab
+docker stop e11-lab
+docker ps -a --filter name=e11-lab
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/08-operations.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>docker pull nginx:alpine</td><td>지정한 이미지를 레지스트리에서 다운로드합니다.</td><td>nginx:alpine은 웹 서버 이미지의 이름:태그.</td></tr><tr><td>docker images</td><td>내 PC의 Docker 엔진에 저장된 이미지 목록을 조회합니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker start e11-lab</td><td>기존에 만들어 둔 중지 컨테이너를 다시 시작합니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker ps</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker ps -a</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>-a는 종료된 것까지 전체 표시.</td></tr><tr><td>docker logs e11-hello</td><td>컨테이너 프로그램의 표준 출력·오류 로그를 보여줍니다.</td><td>로그가 없으면 무출력일 수도 있음. no-such-container 예시는 의도적인 이름 오류.</td></tr><tr><td>docker stats --no-stream e11-lab</td><td>컨테이너의 CPU·메모리 등 리소스 사용량을 조회합니다.</td><td>--no-stream은 실시간 갱신 없이 한 번 표시 후 종료.</td></tr><tr><td>docker stop e11-lab</td><td>이름으로 지정한 컨테이너를 중지합니다. 컨테이너·이미지·볼륨은 삭제하지 않습니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker ps -a --filter name=e11-lab</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>-a는 종료된 것까지 전체 표시. --filter name=…는 컨테이너 이름 조건으로 목록을 좁힘.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p><code>--no-stream</code>은 실시간 출력을 한 번만 보여주고 끝냅니다. <code>docker logs e11-lab</code>은 출력이 거의 없을 수 있으므로, 실제 로그가 있는 <code>hello-world</code> 컨테이너로 확인합니다.</p>
+<p><strong>성공 기준:</strong> 이미지 목록, 실행 중·종료된 컨테이너 목록, 로그, 리소스 사용량을 읽을 수 있습니다.</p>
+<p><strong>기록:</strong> 각 명령의 목적과 주요 출력. 이미지와 컨테이너가 서로 다른 목록에 나타나는 이유를 적습니다.</p>
+<section class="workbook-entry" data-workbook-step="8" data-title="8. Docker 운영 명령 익히기" aria-label="8. Docker 운영 명령 익히기 실습 기록">
+<div class="entry-title"><h3>✍ 8단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-8">실행한 명령</label><textarea id="commands-8" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-8">실제 출력 결과</label><textarea id="output-8" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-8">배운 점·문제와 해결</label><textarea id="notes-8" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-8">증거 파일·링크·추가 메모</label><textarea id="evidence-8" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-8">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-8" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-27">9. 나만의 웹 서버 이미지 만들기</h2>
+<p><strong>배울 것:</strong> HTML은 웹페이지 파일, NGINX는 그 파일을 브라우저에 보내는 서버입니다. Dockerfile은 이미지 만드는 순서입니다. <code>build</code>는 이미지를 만들고 <code>run</code>은 컨테이너를 만듭니다.</p>
+<h3 id="section-28">9-1. 내 웹페이지 작성</h3>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+cat &gt; site/index.html &lt;&lt;'EOF'
+&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;나의 개발 작업실&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;나의 첫 Docker 작업실&lt;/h1&gt;
+  &lt;p&gt;WSL과 Docker로 웹 서버를 실행했습니다.&lt;/p&gt;
+  &lt;p id=&quot;version&quot;&gt;version-1&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+EOF
+cat site/index.html</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>cat &gt; site/index.html &lt;&lt;'EOF'</td><td>여러 줄의 내용을 파일에 저장하는 입력을 시작합니다.</td><td>&gt;는 파일 생성/덮어쓰기, &lt;&lt;'EOF'는 다음 줄부터 단독 EOF 줄 직전까지를 그대로 파일 내용으로 받는 표기입니다. 끝의 EOF까지 입력해야 명령이 완료됩니다.</td></tr><tr><td>&lt;!doctype html&gt; 부터 &lt;/html&gt; 까지</td><td>브라우저에 보여줄 HTML 문서 내용입니다. 한 줄씩 Linux 명령으로 실행하는 것이 아닙니다.</td><td>doctype은 HTML 문서 선언, html lang은 언어, head는 설정, meta charset은 한글 인코딩, viewport는 화면 크기 대응, title은 탭 제목, body는 화면 본문, h1은 큰 제목, p는 문단, id는 요소 이름입니다. &lt;/…&gt;는 해당 요소의 끝입니다.</td></tr><tr><td>EOF</td><td>여러 줄 파일 입력을 끝내는 약속된 구분자입니다.</td><td>줄 맨 앞에 EOF만 입력하고 Enter를 누릅니다. 이 줄이 없으면 &gt; 입력 대기 줄이 계속 나타날 수 있습니다. EOF 자체는 HTML 파일에 들어가지 않습니다.</td></tr><tr><td>cat site/index.html</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr></tbody></table></div>
+<p>예시를 이해한 후 제목과 소개를 <strong>본인 프로젝트에 맞게 수정</strong>합니다. 뒤 실습을 위해 <code>version-1</code> 문구는 유지합니다.</p>
+<h3 id="section-29">9-2. Dockerfile 직접 작성</h3>
+<p>VSCode에서 과제 폴더 바로 아래에 <code>Dockerfile</code>이라는 이름으로 파일을 만들고 아래 내용을 직접 입력합니다. <code>.txt</code> 확장자를 붙이지 않습니다.</p>
+<div class="code-label">Dockerfile · 파일에 작성할 내용</div><pre><code>FROM nginx:alpine
+LABEL org.opencontainers.image.title=&quot;e11-workstation-web&quot;
+COPY site/ /usr/share/nginx/html/
+EXPOSE 80</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>FROM nginx:alpine</td><td>어떤 기존 이미지를 출발점으로 삼을지 정합니다.</td><td>nginx:alpine = 이미지 이름 nginx와 태그 alpine. 웹 서버 기능을 재사용합니다.</td></tr><tr><td>LABEL org.opencontainers.image.title=&quot;e11-workstation-web&quot;</td><td>이미지에 설명용 이름·값 정보를 붙입니다.</td><td>서버 화면을 바꾸는 기능이 아니라 이미지 메타데이터입니다.</td></tr><tr><td>COPY site/ /usr/share/nginx/html/</td><td>내 파일을 빌드할 이미지 안에 복사합니다.</td><td>site/는 빌드 컨텍스트 안의 원본 폴더, /usr/share/nginx/html/은 이미지 안의 NGINX 웹 루트입니다.</td></tr><tr><td>EXPOSE 80</td><td>이미지가 사용할 포트를 설명 정보로 표시합니다.</td><td>80은 컨테이너 서버 포트입니다. 이 줄만으로 Windows 접속이 열리지는 않으며 docker run -p가 필요합니다.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>줄</th><th>의미</th><th>내 커스텀 목적</th></tr></thead><tbody><tr><td>FROM</td><td>출발할 베이스 이미지</td><td>NGINX 웹 서버 기능을 재사용</td></tr><tr><td>LABEL</td><td>이미지 설명 정보</td><td>이미지의 용도 표시</td></tr><tr><td>COPY</td><td>빌드 시 내 파일을 이미지에 복사</td><td>기본 환영 페이지를 내 웹페이지로 교체</td></tr><tr><td>EXPOSE</td><td>이미지가 사용할 포트를 설명</td><td>서버가 80번 포트를 쓴다는 정보. 실제 연결은 <code>-p</code>로 설정</td></tr></tbody></table></div>
+<p><code>nginx:alpine</code>은 이동 가능한 태그라 나중에 이미지 내용이 바뀔 수 있습니다. 이번에 사용한 베이스의 digest도 기록해두면 재현에 도움이 됩니다.</p>
+<h3 id="section-30">9-3. 빌드와 확인</h3>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>script -q -a docs/logs/09-build.txt
+pwd
+cat Dockerfile
+docker build --progress=plain -t e11-web:1.0 .
+docker images e11-web
+docker image inspect nginx:alpine --format '{{json .RepoDigests}}'
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>script -q -a docs/logs/09-build.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>cat Dockerfile</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr><tr><td>docker build --progress=plain -t e11-web:1.0 .</td><td>현재 Dockerfile과 빌드에 보낼 파일을 이용해 이미지를 만듭니다.</td><td>-t는 이미지이름:태그 지정, 마지막 .은 현재 폴더를 빌드 컨텍스트로 사용, --progress=plain은 진행을 텍스트 로그로 표시.</td></tr><tr><td>docker images e11-web</td><td>내 PC의 Docker 엔진에 저장된 이미지 목록을 조회합니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker image inspect nginx:alpine --format '{{json .RepoDigests}}'</td><td>이미지의 상세 정보를 조회합니다.</td><td>--format은 원하는 정보만 고르는 출력 템플릿. json은 JSON 형식, .RepoDigests는 이미지 digest 목록, .Mounts는 마운트 연결 정보. nginx:alpine은 웹 서버 이미지의 이름:태그.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p>끝의 <code>.</code>은 현재 디렉터리를 빌드에 사용할 파일 범위로 지정합니다. <code>COPY site/…</code>가 찾는 파일도 이 범위 안에 있어야 합니다. <code>e11-web:1.0</code>에서 콜론 앞은 이미지 이름, 뒤는 태그입니다.</p>
+<p><strong>성공 기준:</strong> <code>docker images e11-web</code>에 <code>1.0</code> 이미지가 나타납니다.</p>
+<p><strong>기록:</strong> 베이스 선택, 바꾼 웹 콘텐츠와 목적, Dockerfile, 빌드 명령·결과, 베이스 digest. 출력에 있는 예시 문장을 제출 설명으로 그대로 쓰지 말고 본인 말로 적으세요.</p>
+<p>참고: <a href="https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/">Dockerfile 작성</a>, <a href="https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/">이미지 빌드와 태그</a>.</p>
+<section class="workbook-entry" data-workbook-step="9" data-title="9. 나만의 웹 서버 이미지 만들기" aria-label="9. 나만의 웹 서버 이미지 만들기 실습 기록">
+<div class="entry-title"><h3>✍ 9단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-9">실행한 명령</label><textarea id="commands-9" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-9">실제 출력 결과</label><textarea id="output-9" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-9">배운 점·문제와 해결</label><textarea id="notes-9" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-9">증거 파일·링크·추가 메모</label><textarea id="evidence-9" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-9">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-9" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-31">10. 포트 매핑과 브라우저 접속</h2>
+<p><strong>배울 것:</strong> <code>127.0.0.1:8080:80</code>은 내 PC의 8080번 접속을 컨테이너 80번으로 보냅니다. 컨테이너에 서버가 있어도 호스트 접속 연결은 별도로 필요합니다. 학습용 서버는 내 PC의 루프백 주소에 연결합니다.</p>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/10-ports.txt
+docker run -d --name e11-web-8080 -p 127.0.0.1:8080:80 e11-web:1.0
+docker ps --filter name=e11-web
+docker port e11-web-8080
+curl -i http://localhost:8080</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/10-ports.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>docker run -d --name e11-web-8080 -p 127.0.0.1:8080:80 e11-web:1.0</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-d는 백그라운드 실행. --name 뒤는 직접 정한 컨테이너 이름. -p의 127.0.0.1:호스트포트:컨테이너포트는 내 PC의 해당 접속을 컨테이너로 전달. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>docker ps --filter name=e11-web</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>--filter name=…는 컨테이너 이름 조건으로 목록을 좁힘.</td></tr><tr><td>docker port e11-web-8080</td><td>컨테이너 포트가 호스트 어디에 연결됐는지 조회합니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>curl -i http://localhost:8080</td><td>URL에 HTTP 요청을 보내 서버 응답을 터미널에 보여줍니다.</td><td>-i는 응답 헤더와 본문을 함께 보여줍니다. HTTP 성공 상태와 HTML을 확인합니다. localhost는 내 컴퓨터, 콜론 뒤 숫자는 접속 포트입니다. 브라우저 화면 캡처와 별개의 증거입니다.</td></tr></tbody></table></div>
+<p><strong>Windows 브라우저</strong>에서 <a href="http://localhost:8080">http://localhost:8080</a>을 엽니다. 만든 웹페이지와 <code>version-1</code>이 보이는지 확인합니다. 주소창과 본문을 함께 캡처해 <code>docs/images/10-port-8080.png</code>로 저장합니다.</p>
+<p>원문의 결과 예시에 나오는 접속 2회도 확인할 수 있도록 다른 호스트 포트에서 실행합니다.</p>
+<p><strong>Ubuntu — 같은 기록 세션에서</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker run -d --name e11-web-8081 -p 127.0.0.1:8081:80 e11-web:1.0
+curl -i http://localhost:8081
+docker logs e11-web-8080
+docker stats --no-stream e11-web-8080
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker run -d --name e11-web-8081 -p 127.0.0.1:8081:80 e11-web:1.0</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-d는 백그라운드 실행. --name 뒤는 직접 정한 컨테이너 이름. -p의 127.0.0.1:호스트포트:컨테이너포트는 내 PC의 해당 접속을 컨테이너로 전달. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>curl -i http://localhost:8081</td><td>URL에 HTTP 요청을 보내 서버 응답을 터미널에 보여줍니다.</td><td>-i는 응답 헤더와 본문을 함께 보여줍니다. HTTP 성공 상태와 HTML을 확인합니다. localhost는 내 컴퓨터, 콜론 뒤 숫자는 접속 포트입니다. 브라우저 화면 캡처와 별개의 증거입니다.</td></tr><tr><td>docker logs e11-web-8080</td><td>컨테이너 프로그램의 표준 출력·오류 로그를 보여줍니다.</td><td>로그가 없으면 무출력일 수도 있음. no-such-container 예시는 의도적인 이름 오류.</td></tr><tr><td>docker stats --no-stream e11-web-8080</td><td>컨테이너의 CPU·메모리 등 리소스 사용량을 조회합니다.</td><td>--no-stream은 실시간 갱신 없이 한 번 표시 후 종료.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p>브라우저에서 <a href="http://localhost:8081">http://localhost:8081</a>을 열어 <code>docs/images/10-port-8081.png</code>로 캡처합니다.</p>
+<p><strong>성공 기준:</strong> 서로 다른 두 컨테이너가 같은 이미지로 동작하고, 두 URL 모두 같은 웹페이지를 보여줍니다. curl 응답에 HTTP 성공 상태와 HTML이 있습니다.</p>
+<p><strong>기록:</strong> 매핑의 각 숫자 의미, 실행·curl 결과, 브라우저 캡처 2장. 이름·포트가 이미 사용 중이면 부록의 해결 순서를 확인합니다.</p>
+<p>참고: <a href="https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/">Docker 포트 공개</a>.</p>
+<section class="workbook-entry" data-workbook-step="10" data-title="10. 포트 매핑과 브라우저 접속" aria-label="10. 포트 매핑과 브라우저 접속 실습 기록">
+<div class="entry-title"><h3>✍ 10단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-10">실행한 명령</label><textarea id="commands-10" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-10">실제 출력 결과</label><textarea id="output-10" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-10">배운 점·문제와 해결</label><textarea id="notes-10" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-10">증거 파일·링크·추가 메모</label><textarea id="evidence-10" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-10">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-10" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-32">11. 바인드 마운트로 파일 수정 반영</h2>
+<p><strong>배울 것:</strong> 앞에서는 빌드 시 파일을 이미지에 복사했습니다. 바인드 마운트는 지금 내 Ubuntu 폴더를 컨테이너 폴더에 연결합니다. 연결된 폴더의 내용이 이미지에 있던 내용을 가려서 대신 보입니다.</p>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/11-bind-mount.txt
+pwd
+docker run -d --name e11-web-bind -p 127.0.0.1:8082:80 --mount &quot;type=bind,source=$(pwd)/site,target=/usr/share/nginx/html,readonly&quot; e11-web:1.0
+docker inspect e11-web-bind --format '{{json .Mounts}}'
+cat site/index.html
+curl -s http://localhost:8082</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/11-bind-mount.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>docker run -d --name e11-web-bind -p 127.0.0.1:8082:80 --mount &quot;type=bind,source=$(pwd)/site,target=/usr/share/nginx/html,readonly&quot; e11-web:1.0</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-d는 백그라운드 실행. --name 뒤는 직접 정한 컨테이너 이름. -p의 127.0.0.1:호스트포트:컨테이너포트는 내 PC의 해당 접속을 컨테이너로 전달. --mount는 저장 공간 연결: type=bind는 호스트 폴더, type=volume은 Docker 볼륨, source는 원본, target은 컨테이너 안 위치, readonly는 컨테이너에서 읽기 전용. $(pwd)는 Ubuntu에서 현재 전체 경로를 계산해 넣는 명령 치환. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>docker inspect e11-web-bind --format '{{json .Mounts}}'</td><td>컨테이너 등의 상세 설정을 조회합니다.</td><td>--format은 원하는 정보만 고르는 출력 템플릿. json은 JSON 형식, .RepoDigests는 이미지 digest 목록, .Mounts는 마운트 연결 정보.</td></tr><tr><td>cat site/index.html</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr><tr><td>curl -s http://localhost:8082</td><td>URL에 HTTP 요청을 보내 서버 응답을 터미널에 보여줍니다.</td><td>-s는 진행률 등을 숨겨 본문 위주로 봅니다. localhost는 내 컴퓨터, 콜론 뒤 숫자는 접속 포트입니다. 브라우저 화면 캡처와 별개의 증거입니다.</td></tr></tbody></table></div>
+<p>브라우저에서 <a href="http://localhost:8082">http://localhost:8082</a>을 열어 변경 전 화면을 <code>docs/images/11-bind-before.png</code>로 저장합니다.</p>
+<p><strong>Ubuntu — 같은 기록 세션에서</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>sed -i 's/version-1/version-2/' site/index.html
+cat site/index.html
+curl -s http://localhost:8082
+curl -s http://localhost:8080
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>sed -i 's/version-1/version-2/' site/index.html</td><td>파일에서 지정한 문자열을 바꿉니다.</td><td>-i는 파일을 직접 수정합니다. s/version-1/version-2/는 version-1을 version-2로 치환합니다. 이 표현은 각 줄의 첫 일치 항목을 바꿉니다. 성공 시 보통 무출력입니다.</td></tr><tr><td>cat site/index.html</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr><tr><td>curl -s http://localhost:8082</td><td>URL에 HTTP 요청을 보내 서버 응답을 터미널에 보여줍니다.</td><td>-s는 진행률 등을 숨겨 본문 위주로 봅니다. localhost는 내 컴퓨터, 콜론 뒤 숫자는 접속 포트입니다. 브라우저 화면 캡처와 별개의 증거입니다.</td></tr><tr><td>curl -s http://localhost:8080</td><td>URL에 HTTP 요청을 보내 서버 응답을 터미널에 보여줍니다.</td><td>-s는 진행률 등을 숨겨 본문 위주로 봅니다. localhost는 내 컴퓨터, 콜론 뒤 숫자는 접속 포트입니다. 브라우저 화면 캡처와 별개의 증거입니다.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p>8082 페이지를 새로고침하고 <code>version-2</code>를 <code>docs/images/11-bind-after.png</code>로 캡처합니다. 캐시가 의심되면 Ctrl+F5를 사용합니다.</p>
+<p><strong>성공 기준:</strong> 바인드 마운트한 8082는 <code>version-2</code>, 기존 이미지로 실행한 8080은 <code>version-1</code>입니다. 이미지 재빌드 없이 호스트 파일 변경이 8082에 반영됩니다. <code>readonly</code>는 컨테이너 쪽 쓰기를 막으며, 호스트에서 파일을 수정하는 것은 가능합니다.</p>
+<p><strong>기록:</strong> 마운트 실행 명령·Mounts 결과·호스트 파일 전후·접속 화면 전후. 8080과 8082가 다른 이유를 설명합니다. 아직 이미지는 1.0인데 호스트 파일만 2로 바뀐 상태라는 점을 적으세요.</p>
+<p>참고: <a href="https://docs.docker.com/engine/storage/bind-mounts/">Docker 바인드 마운트</a>.</p>
+<section class="workbook-entry" data-workbook-step="11" data-title="11. 바인드 마운트로 파일 수정 반영" aria-label="11. 바인드 마운트로 파일 수정 반영 실습 기록">
+<div class="entry-title"><h3>✍ 11단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-11">실행한 명령</label><textarea id="commands-11" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-11">실제 출력 결과</label><textarea id="output-11" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-11">배운 점·문제와 해결</label><textarea id="notes-11" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-11">증거 파일·링크·추가 메모</label><textarea id="evidence-11" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-11">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-11" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-33">12. 볼륨으로 데이터 영속성 증명</h2>
+<p><strong>배울 것:</strong> 컨테이너의 쓰기 영역과 볼륨은 수명이 다릅니다. 컨테이너를 삭제하고 다시 만들어도 <strong>같은 볼륨을 연결</strong>하면 그 안의 데이터를 읽을 수 있습니다. 여기서는 비교를 위해 볼륨 밖의 파일도 함께 만듭니다.</p>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+script -q -a docs/logs/12-volume.txt
+docker volume create e11-data
+docker volume inspect e11-data
+docker run -d --name e11-vol-a --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity
+docker exec e11-vol-a bash -lc 'echo &quot;my-persistent-record&quot; &gt; /data/proof.txt; echo &quot;temporary-record&quot; &gt; /tmp/local-only.txt'
+docker exec e11-vol-a cat /data/proof.txt
+docker exec e11-vol-a cat /tmp/local-only.txt
+docker stop e11-vol-a
+docker rm e11-vol-a
+docker ps -a --filter name=e11-vol-a
+docker run -d --name e11-vol-b --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity
+docker exec e11-vol-b cat /data/proof.txt
+docker exec e11-vol-b bash -lc 'if [ -e /tmp/local-only.txt ]; then cat /tmp/local-only.txt; else echo &quot;temporary file is absent&quot;; fi'
+docker volume ls
+exit</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>script -q -a docs/logs/12-volume.txt</td><td>새 기록용 쉘을 열어 입력한 명령과 출력을 파일에 기록합니다.</td><td>-q는 시작·종료 안내를 줄이고, -a는 기존 로그 뒤에 덧붙입니다. 뒤는 로그 파일 경로입니다. 현재 쉘에서 exit를 입력하면 기록을 마칩니다.</td></tr><tr><td>docker volume create e11-data</td><td>Docker가 관리하는 영속 저장 공간을 생성하거나 조회합니다.</td><td>create는 생성, inspect는 상세 조회, ls는 목록 표시. e11-data는 지정한 볼륨 이름.</td></tr><tr><td>docker volume inspect e11-data</td><td>Docker가 관리하는 영속 저장 공간을 생성하거나 조회합니다.</td><td>create는 생성, inspect는 상세 조회, ls는 목록 표시. e11-data는 지정한 볼륨 이름.</td></tr><tr><td>docker run -d --name e11-vol-a --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-d는 백그라운드 실행. --name 뒤는 직접 정한 컨테이너 이름. --mount는 저장 공간 연결: type=bind는 호스트 폴더, type=volume은 Docker 볼륨, source는 원본, target은 컨테이너 안 위치. ubuntu:24.04는 컨테이너용 이미지 이름·태그로, WSL Ubuntu-26.04와 달라도 정상. sleep infinity는 계속 대기하는 주 프로세스로 컨테이너를 유지. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>docker exec e11-vol-a bash -lc 'echo &quot;my-persistent-record&quot; &gt; /data/proof.txt; echo &quot;temporary-record&quot; &gt; /tmp/local-only.txt'</td><td>실행 중인 컨테이너 안에서 별도의 명령을 실행합니다.</td><td>bash -l은 로그인 쉘 설정 사용, -c는 뒤의 문자열을 명령으로 실행. 따옴표 안 &gt;는 컨테이너 안 파일에 출력 저장·덮어쓰기, ;는 명령 구분.</td></tr><tr><td>docker exec e11-vol-a cat /data/proof.txt</td><td>실행 중인 컨테이너 안에서 별도의 명령을 실행합니다.</td><td>cat 뒤 경로의 파일 내용을 컨테이너 안에서 읽어 출력.</td></tr><tr><td>docker exec e11-vol-a cat /tmp/local-only.txt</td><td>실행 중인 컨테이너 안에서 별도의 명령을 실행합니다.</td><td>cat 뒤 경로의 파일 내용을 컨테이너 안에서 읽어 출력.</td></tr><tr><td>docker stop e11-vol-a</td><td>이름으로 지정한 컨테이너를 중지합니다. 컨테이너·이미지·볼륨은 삭제하지 않습니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker rm e11-vol-a</td><td>중지된 컨테이너를 삭제합니다. 컨테이너 쓰기 영역은 사라지지만 별도 이름 있는 볼륨은 이 명령으로 삭제되지 않습니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker ps -a --filter name=e11-vol-a</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>-a는 종료된 것까지 전체 표시. --filter name=…는 컨테이너 이름 조건으로 목록을 좁힘.</td></tr><tr><td>docker run -d --name e11-vol-b --mount type=volume,source=e11-data,target=/data ubuntu:24.04 sleep infinity</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-d는 백그라운드 실행. --name 뒤는 직접 정한 컨테이너 이름. --mount는 저장 공간 연결: type=bind는 호스트 폴더, type=volume은 Docker 볼륨, source는 원본, target은 컨테이너 안 위치. ubuntu:24.04는 컨테이너용 이미지 이름·태그로, WSL Ubuntu-26.04와 달라도 정상. sleep infinity는 계속 대기하는 주 프로세스로 컨테이너를 유지. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>docker exec e11-vol-b cat /data/proof.txt</td><td>실행 중인 컨테이너 안에서 별도의 명령을 실행합니다.</td><td>cat 뒤 경로의 파일 내용을 컨테이너 안에서 읽어 출력.</td></tr><tr><td>docker exec e11-vol-b bash -lc 'if [ -e /tmp/local-only.txt ]; then cat /tmp/local-only.txt; else echo &quot;temporary file is absent&quot;; fi'</td><td>실행 중인 컨테이너 안에서 별도의 명령을 실행합니다.</td><td>bash -l은 로그인 쉘 설정 사용, -c는 뒤의 문자열을 명령으로 실행. if는 조건 분기, [ -e 경로 ]는 파일 존재 검사, then/else는 참/거짓 동작, fi는 분기 끝. cat 뒤 경로의 파일 내용을 컨테이너 안에서 읽어 출력.</td></tr><tr><td>docker volume ls</td><td>Docker가 관리하는 영속 저장 공간을 생성하거나 조회합니다.</td><td>create는 생성, inspect는 상세 조회, ls는 목록 표시. e11-data는 지정한 볼륨 이름.</td></tr><tr><td>exit</td><td>현재 쉘을 끝냅니다.</td><td>컨테이너 쉘이면 컨테이너 밖으로, script 쉘이면 기록 종료, WSL 기본 쉘이면 PowerShell 등 이전 환경으로 돌아갑니다. 실행 전 현재 위치를 구분하세요.</td></tr></tbody></table></div>
+<p><strong>성공 기준:</strong> 원래 컨테이너 <code>e11-vol-a</code>는 삭제됐지만 새 컨테이너 <code>e11-vol-b</code>가 <code>my-persistent-record</code>를 읽습니다. 볼륨 밖에 만든 임시 파일은 새 컨테이너에 없습니다.</p>
+<p><strong>기록:</strong> 생성·연결·쓰기·삭제·재연결·읽기 전체 흐름. 단순 재시작이 아닌 <strong>컨테이너 삭제 후 재생성</strong>임을 명확히 적습니다. 볼륨은 GitHub에 자동 업로드되지 않으므로 생성과 검증 방법을 문서에 남겨야 합니다.</p>
+<p>참고: <a href="https://docs.docker.com/engine/storage/volumes/">Docker 볼륨</a>.</p>
+<section class="workbook-entry" data-workbook-step="12" data-title="12. 볼륨으로 데이터 영속성 증명" aria-label="12. 볼륨으로 데이터 영속성 증명 실습 기록">
+<div class="entry-title"><h3>✍ 12단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-12">실행한 명령</label><textarea id="commands-12" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-12">실제 출력 결과</label><textarea id="output-12" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-12">배운 점·문제와 해결</label><textarea id="notes-12" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-12">증거 파일·링크·추가 메모</label><textarea id="evidence-12" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-12">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-12" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-34">13. README와 트러블슈팅 완성</h2>
+<h3 id="section-35">13-1. README에서 증거를 연결</h3>
+<p>다음은 링크 형식 예시입니다. 실제 만든 파일명에 맞춥니다.</p>
+<div class="code-label">Markdown · 문서에 작성할 예시</div><pre><code>### 터미널 기본 조작
+현재 위치·파일 목록·생성·복사·이동·삭제를 수행했다.
+[명령과 출력](docs/logs/03-terminal.txt)
+
+### 포트 매핑
+호스트 8080을 컨테이너 80에 연결했다.
+[명령과 출력](docs/logs/10-ports.txt)
+![8080 접속](docs/images/10-port-8080.png)
+
+### 볼륨 영속성
+컨테이너 A 삭제 후 컨테이너 B에 같은 볼륨을 연결했다.
+[명령과 출력](docs/logs/12-volume.txt)</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>문서 작성 예시 전체</td><td>터미널에서 실행하는 명령이 아니라 README에 적을 문서 형식입니다.</td><td>#은 제목, -는 목록, [ ]와 [x]는 체크박스입니다. <a href="경로">설명</a>는 링크, !<a href="경로">설명</a>는 이미지입니다. 실제 결과로 내용을 채우세요.</td></tr></tbody></table></div>
+<p>로그 링크만 나열하지 말고, 각 항목에서 <strong>무엇을 했고 무엇이 증명됐는지</strong>를 한두 문장으로 설명합니다. 핵심 명령과 출력은 README 코드블록에도 발췌합니다. 성공을 직접 확인한 체크박스만 <code>[x]</code>로 바꿉니다.</p>
+<h3 id="section-36">13-2. 실행 환경 채우기</h3>
+<p>Windows 정보는 0단계 기록, WSL 버전은 PowerShell의 <code>wsl --version</code>을 사용합니다. Ubuntu에서는 다음을 확인합니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cat /etc/os-release
+echo &quot;$SHELL&quot;
+git --version
+docker --version
+docker version</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cat /etc/os-release</td><td>뒤에 적은 파일의 내용을 터미널에 보여줍니다.</td><td>/etc/os-release는 Ubuntu 배포판 정보입니다. 다른 경로는 해당 실습 파일입니다. 읽기만 하며 내용을 바꾸지 않습니다.</td></tr><tr><td>echo &quot;$SHELL&quot;</td><td>뒤의 글자 또는 변수 값을 출력합니다.</td><td>$SHELL은 사용자에게 설정된 기본 쉘 경로 변수입니다. 큰따옴표 안에서는 변수 값으로 치환됩니다. 현재 실행 중인 쉘과 항상 같다는 뜻은 아닙니다.</td></tr><tr><td>git --version</td><td>Git 프로그램 버전을 조회합니다.</td><td>설치 확인용입니다.</td></tr><tr><td>docker --version</td><td>Docker CLI 버전만 보여줍니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker version</td><td>Docker Client와 Server의 버전을 조회합니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr></tbody></table></div>
+<p>어떤 터미널 앱과 VSCode WSL 연결을 사용했는지도 씁니다.</p>
+<h3 id="section-37">13-3. 다른 사람이 실행할 재현 절차</h3>
+<p>README에는 Docker Desktop·WSL 연동 준비를 적고, 저장소를 받은 후 과제 루트에서 실행할 아래 절차를 설명합니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker build -t e11-web:verify .
+docker run -d --name e11-verify -p 127.0.0.1:8090:80 e11-web:verify
+curl -i http://localhost:8090</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker build -t e11-web:verify .</td><td>현재 Dockerfile과 빌드에 보낼 파일을 이용해 이미지를 만듭니다.</td><td>-t는 이미지이름:태그 지정, 마지막 .은 현재 폴더를 빌드 컨텍스트로 사용.</td></tr><tr><td>docker run -d --name e11-verify -p 127.0.0.1:8090:80 e11-web:verify</td><td>이미지로 새 컨테이너를 만들어 실행합니다. 같은 이름의 기존 컨테이너를 다시 시작하는 명령은 아닙니다.</td><td>-d는 백그라운드 실행. --name 뒤는 직접 정한 컨테이너 이름. -p의 127.0.0.1:호스트포트:컨테이너포트는 내 PC의 해당 접속을 컨테이너로 전달. 백그라운드 실행 성공 시 긴 컨테이너 ID가 나올 수 있음.</td></tr><tr><td>curl -i http://localhost:8090</td><td>URL에 HTTP 요청을 보내 서버 응답을 터미널에 보여줍니다.</td><td>-i는 응답 헤더와 본문을 함께 보여줍니다. HTTP 성공 상태와 HTML을 확인합니다. localhost는 내 컴퓨터, 콜론 뒤 숫자는 접속 포트입니다. 브라우저 화면 캡처와 별개의 증거입니다.</td></tr></tbody></table></div>
+<p>Windows 브라우저에서도 <code>http://localhost:8090</code>을 확인합니다. 11단계에서 웹 파일을 바꿨으므로 <strong>새 빌드의 페이지는 <code>version-2</code></strong>입니다. 초기 1.0 이미지가 version-1이었던 실습 기록과 구분하세요. README에는 초기 빌드 후 마운트로 수정한 순서를 적습니다.</p>
+<p>이 명령을 직접 재검증할 때는 새 컨테이너 이름·포트를 사용해 기존 실습 서버와 충돌을 피합니다. 확인을 마친 후 <code>docker stop e11-verify</code>와 <code>docker rm e11-verify</code>로 이 검증 컨테이너만 정리할 수 있습니다.</p>
+<h3 id="section-38">13-4. 트러블슈팅 2건 이상</h3>
+<p>각 건을 아래 구조로 작성합니다.</p>
+<div class="code-label">Markdown · 문서에 작성할 예시</div><pre><code>### 문제 1: 실제 문제 제목
+- 문제: 어떤 명령에서 어떤 증상이 발생했는가?
+- 원인 가설: 무엇 때문이라고 생각했는가?
+- 확인: 어떤 명령과 결과로 원인을 좁혔는가?
+- 해결/대안: 무엇을 바꿨고 재확인 결과는 무엇인가?</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>문서 작성 예시 전체</td><td>터미널에서 실행하는 명령이 아니라 README에 적을 문서 형식입니다.</td><td>#은 제목, -는 목록, [ ]와 [x]는 체크박스입니다. <a href="경로">설명</a>는 링크, !<a href="경로">설명</a>는 이미지입니다. 실제 결과로 내용을 채우세요.</td></tr></tbody></table></div>
+<p>실제로 겪은 문제를 우선 기록하세요. 문제가 부족하면 아래 두 연습 오류를 <strong>의도적인 오류 실험</strong>이라고 밝히고 실제로 실행·기록할 수 있습니다. 경험하지 않은 문제를 겪었다고 쓰지 않습니다.</p>
+<p><strong>연습 A — 존재하지 않는 컨테이너 확인</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker logs e11-no-such-container
+docker ps -a
+docker logs e11-hello</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker logs e11-no-such-container</td><td>컨테이너 프로그램의 표준 출력·오류 로그를 보여줍니다.</td><td>로그가 없으면 무출력일 수도 있음. no-such-container 예시는 의도적인 이름 오류.</td></tr><tr><td>docker ps -a</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>-a는 종료된 것까지 전체 표시.</td></tr><tr><td>docker logs e11-hello</td><td>컨테이너 프로그램의 표준 출력·오류 로그를 보여줍니다.</td><td>로그가 없으면 무출력일 수도 있음. no-such-container 예시는 의도적인 이름 오류.</td></tr></tbody></table></div>
+<p>잘못된 이름으로 오류 발생 → 목록에서 실제 이름 확인 → 올바른 이름으로 로그 확인 과정을 기록합니다.</p>
+<p><strong>연습 B — 잘못된 빌드 위치</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation/practice
+docker build -t e11-wrong-context:demo .
+pwd
+ls -la
+cd ~/codyssey/e1-1-workstation
+ls -l Dockerfile
+docker build -t e11-web:check .</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation/practice</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>docker build -t e11-wrong-context:demo .</td><td>현재 Dockerfile과 빌드에 보낼 파일을 이용해 이미지를 만듭니다.</td><td>-t는 이미지이름:태그 지정, 마지막 .은 현재 폴더를 빌드 컨텍스트로 사용.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>ls -la</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. -a는 점(.)으로 시작하는 숨김 항목까지 표시합니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>ls -l Dockerfile</td><td>파일과 디렉터리 목록을 보여줍니다. 대상 경로가 없으면 현재 폴더를 봅니다.</td><td>-l은 권한·소유자·크기 등을 길게 표시합니다. 목록 앞의 d는 디렉터리, -는 일반 파일입니다.</td></tr><tr><td>docker build -t e11-web:check .</td><td>현재 Dockerfile과 빌드에 보낼 파일을 이용해 이미지를 만듭니다.</td><td>-t는 이미지이름:태그 지정, 마지막 .은 현재 폴더를 빌드 컨텍스트로 사용.</td></tr></tbody></table></div>
+<p><code>practice</code>에 Dockerfile이 없어서 실패하는지 관찰하고, 파일 위치·빌드 컨텍스트를 확인한 뒤 과제 루트에서 다시 성공시킵니다. 두 실험도 <code>script</code>로 별도 로그를 남기거나 입력·출력을 복사하세요.</p>
+<p><strong>성공 기준:</strong> README에 모든 필수 항목의 설명·증거가 있고, 트러블슈팅이 최소 2건 있습니다.</p>
+<section class="workbook-entry" data-workbook-step="13" data-title="13. README와 트러블슈팅 완성" aria-label="13. README와 트러블슈팅 완성 실습 기록">
+<div class="entry-title"><h3>✍ 13단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-13">실행한 명령</label><textarea id="commands-13" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-13">실제 출력 결과</label><textarea id="output-13" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-13">배운 점·문제와 해결</label><textarea id="notes-13" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-13">증거 파일·링크·추가 메모</label><textarea id="evidence-13" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-13">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-13" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-39">14. GitHub와 VSCode 연결 후 제출</h2>
+<h3 id="section-40">14-1. 업로드 전 파일 확인과 커밋</h3>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+git status --short
+git diff
+git add README.md Dockerfile .gitignore .dockerignore site docs practice
+git diff --cached --stat
+git diff --cached
+git commit -m &quot;feat: document Docker workstation practice&quot;
+git log --oneline -5</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>git status --short</td><td>작업 파일과 커밋 대기 상태를 조회합니다.</td><td>--short는 간단 표시입니다. ??는 미추적, A는 추가, M은 수정 등입니다. 작업이 없으면 짧은 목록은 비어 있을 수 있습니다.</td></tr><tr><td>git diff</td><td>아직 기록하지 않은 변경 내용을 비교합니다.</td><td>기본은 스테이징 안 된 변경, --cached는 스테이징된 변경, --stat은 파일별 변경량 요약입니다. 차이가 없으면 무출력입니다.</td></tr><tr><td>git add README.md Dockerfile .gitignore .dockerignore site docs practice</td><td>명시한 파일·폴더의 현재 변경을 다음 커밋 대상으로 올립니다.</td><td>스테이징이라고 부릅니다. 파일을 인터넷에 업로드하지 않으며 성공 시 보통 무출력입니다.</td></tr><tr><td>git diff --cached --stat</td><td>아직 기록하지 않은 변경 내용을 비교합니다.</td><td>기본은 스테이징 안 된 변경, --cached는 스테이징된 변경, --stat은 파일별 변경량 요약입니다. 차이가 없으면 무출력입니다.</td></tr><tr><td>git diff --cached</td><td>아직 기록하지 않은 변경 내용을 비교합니다.</td><td>기본은 스테이징 안 된 변경, --cached는 스테이징된 변경, --stat은 파일별 변경량 요약입니다. 차이가 없으면 무출력입니다.</td></tr><tr><td>git commit -m &quot;feat: document Docker workstation practice&quot;</td><td>스테이징한 변경을 로컬 이력으로 저장합니다.</td><td>-m 뒤의 따옴표 내용은 커밋 설명입니다. 자동으로 GitHub에 올라가지는 않습니다.</td></tr><tr><td>git log --oneline -5</td><td>커밋 이력을 조회합니다.</td><td>--oneline은 커밋당 한 줄, -3과 -5는 최근 3개·5개까지만 표시합니다.</td></tr></tbody></table></div>
+<p>토큰·비밀번호·인증 코드·개인키가 없고, 로그가 본인 실제 결과인지 확인합니다. <code>.gitignore</code>는 이미 추적 중인 파일의 비밀을 제거하지 않으므로 업로드 전 내용을 직접 확인합니다.</p>
+<h3 id="section-41">14-2. 추천 방법: VSCode에서 GitHub에 게시</h3>
+<ol><li>VSCode가 <code>WSL: Ubuntu…</code> 상태로 과제 폴더를 열었는지 확인합니다.</li><li>왼쪽 Source Control에서 로컬 커밋이 있는지 확인합니다.</li><li><code>Publish Branch</code> 또는 명령 팔레트의 <code>Publish to GitHub</code>를 사용합니다. 버전에 따라 표시가 다를 수 있습니다.</li><li>GitHub 브라우저 로그인·권한 확인을 직접 완료합니다. 비밀번호·인증 코드를 로그로 기록하지 않습니다.</li><li>저장소 이름을 예를 들어 <code>e1-1-workstation</code>으로 지정합니다. 과제 규칙에 맞는 공개 범위를 선택합니다. 개인 학습 결과 공개가 괜찮다면 Public이 평가자 접근에 간편합니다.</li><li>게시가 끝나면 GitHub에서 README와 소스가 보이는지 확인합니다.</li></ol>
+<p>기존 GitHub 저장소가 있는 경우 이 게시 절차로 중복 생성하지 않습니다. 해당 저장소 주소를 확인한 뒤 원격 연결 방법을 사용해야 합니다. 이미 원격에 커밋이 있는 저장소는 빈 저장소와 연결 절차가 다르므로 강제 푸시하지 않습니다.</p>
+<p><strong>Ubuntu — 인증 작업을 끝낸 후 확인</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>git remote -v
+git branch -vv
+git status</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>git remote -v</td><td>연결된 원격 저장소 주소를 조회합니다.</td><td>-v는 이름과 주소를 자세히 표시합니다. 원격을 아직 연결하지 않았으면 출력이 없을 수 있습니다.</td></tr><tr><td>git branch -vv</td><td>로컬 브랜치 정보를 조회합니다.</td><td>-vv는 마지막 커밋과 추적 중인 원격 브랜치까지 자세히 보여줍니다.</td></tr><tr><td>git status</td><td>작업 파일과 커밋 대기 상태를 조회합니다.</td><td>--short는 간단 표시입니다. ??는 미추적, A는 추가, M은 수정 등입니다. 작업이 없으면 짧은 목록은 비어 있을 수 있습니다.</td></tr></tbody></table></div>
+<p>원격 주소에는 토큰을 넣지 않습니다. 위 결과도 개인 경로·계정 정보가 공개 가능한지 확인합니다.</p>
+<h3 id="section-42">14-3. 연동 증거를 추가하고 다시 푸시</h3>
+<p>VSCode의 WSL 상태와 Source Control의 연결 상태, GitHub 저장소의 커밋·파일 화면을 캡처합니다. 로그인 완료 계정 표시는 확인하되 비밀번호·인증 코드는 포함하지 않습니다. <code>docs/images/14-vscode-github.png</code>, <code>docs/images/14-github-repo.png</code>처럼 저장하고 README에서 연결합니다.</p>
+<p><strong>Ubuntu</strong></p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>git add README.md docs/images
+git diff --cached --stat
+git commit -m &quot;docs: add VSCode and GitHub integration evidence&quot;
+git push
+git status</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>git add README.md docs/images</td><td>명시한 파일·폴더의 현재 변경을 다음 커밋 대상으로 올립니다.</td><td>스테이징이라고 부릅니다. 파일을 인터넷에 업로드하지 않으며 성공 시 보통 무출력입니다.</td></tr><tr><td>git diff --cached --stat</td><td>아직 기록하지 않은 변경 내용을 비교합니다.</td><td>기본은 스테이징 안 된 변경, --cached는 스테이징된 변경, --stat은 파일별 변경량 요약입니다. 차이가 없으면 무출력입니다.</td></tr><tr><td>git commit -m &quot;docs: add VSCode and GitHub integration evidence&quot;</td><td>스테이징한 변경을 로컬 이력으로 저장합니다.</td><td>-m 뒤의 따옴표 내용은 커밋 설명입니다. 자동으로 GitHub에 올라가지는 않습니다.</td></tr><tr><td>git push</td><td>로컬 커밋을 연결된 원격 저장소로 보냅니다.</td><td>이 단계에서는 GitHub 업로드입니다. 원격과 인증이 준비되어야 하며 화면의 성공 결과를 확인합니다.</td></tr><tr><td>git status</td><td>작업 파일과 커밋 대기 상태를 조회합니다.</td><td>--short는 간단 표시입니다. ??는 미추적, A는 추가, M은 수정 등입니다. 작업이 없으면 짧은 목록은 비어 있을 수 있습니다.</td></tr></tbody></table></div>
+<p>푸시가 인증 오류로 실패하면 VSCode 로그인 상태를 확인하고 Source Control의 Push/Sync 기능을 사용합니다. GitHub 계정 비밀번호를 터미널 프롬프트에 반복 입력하는 방식으로 해결하지 않습니다.</p>
+<h3 id="section-43">14-4. 마지막 제출 확인</h3>
+<ul><li><span class="checkbox" aria-hidden="true">☐</span> 제출 저장소 링크로 README·소스·Dockerfile을 볼 수 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> OS·쉘·터미널·Docker·Git 버전이 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 기본 터미널 명령과 파일·디렉터리 권한 전후가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> Docker 설치·엔진 점검·운영 명령 결과가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> hello-world·Ubuntu 내부 명령·attach/exec 차이가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 베이스 선택과 커스텀 목적, 빌드·실행 결과가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 포트가 보이는 브라우저 캡처가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 바인드 마운트 변경 전후가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 컨테이너 삭제 후 볼륨 데이터 유지 증거가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> Git 설정과 VSCode GitHub 연동 증거가 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 트러블슈팅 2건 이상이 실제 확인 결과로 작성됐다.</li><li><span class="checkbox" aria-hidden="true">☐</span> README의 이미지·로그 링크가 GitHub에서 열린다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 다른 사람이 따라 할 실행 방법과 필요한 환경이 있다.</li><li><span class="checkbox" aria-hidden="true">☐</span> 민감정보가 없고 예시 출력을 실제 결과처럼 제출하지 않았다.</li></ul>
+<p><strong>제출물은 GitHub 저장소 링크</strong>입니다. 평가 요청의 세부 화면·권한·제출 기한은 코디세이의 현재 안내를 확인하세요.</p>
+<p>참고: <a href="https://code.visualstudio.com/docs/sourcecontrol/github">VSCode의 GitHub 연동·게시</a>.</p>
+<section class="workbook-entry" data-workbook-step="14" data-title="14. GitHub와 VSCode 연결 후 제출" aria-label="14. GitHub와 VSCode 연결 후 제출 실습 기록">
+<div class="entry-title"><h3>✍ 14단계 · 내 실습 기록</h3><label class="done-label"><input type="checkbox" data-field="done"> 이 단계 완료</label></div>
+<p class="entry-hint">실제로 수행한 내용을 적으세요. 작성 예시나 예상 결과는 실제 결과와 구분합니다.</p>
+<label for="commands-14">실행한 명령</label><textarea id="commands-14" data-field="commands" rows="4" placeholder="터미널에 입력한 명령을 붙여넣으세요." spellcheck="false"></textarea>
+<label for="output-14">실제 출력 결과</label><textarea id="output-14" data-field="output" rows="5" placeholder="실제로 나온 결과를 붙여넣으세요. 비밀번호·토큰은 제외합니다." spellcheck="false"></textarea>
+<label for="notes-14">배운 점·문제와 해결</label><textarea id="notes-14" data-field="notes" rows="4" placeholder="무엇을 확인했는지, 막힌 문제와 해결 과정을 본인 말로 적으세요."></textarea>
+<label for="evidence-14">증거 파일·링크·추가 메모</label><textarea id="evidence-14" data-field="evidence" rows="3" placeholder="예: docs/logs/03-terminal.txt 또는 캡처에 대한 설명"></textarea>
+<label for="images-14">캡처 첨부 (PNG·JPG·WebP·GIF, 개당 8MB 이하)</label><input id="images-14" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+<div class="evidence-gallery"></div></section><h2 id="section-44">부록 A. 자주 막히는 지점</h2>
+<div class="table-wrap"><table><thead><tr><th>증상</th><th>먼저 확인</th><th>해결 방향</th></tr></thead><tbody><tr><td>WSL 설치가 재시작 요구</td><td>설치 안내</td><td>Windows 재시작 후 Ubuntu 첫 실행</td></tr><tr><td>가상화 관련 오류</td><td>작업 관리자 가상화, 기관 정책</td><td>기기별 BIOS/UEFI 가이드 또는 관리자 확인</td></tr><tr><td>Ubuntu가 WSL 1</td><td>PowerShell의 <code>wsl -l -v</code></td><td>실제 배포판 이름으로 WSL 2 변환</td></tr><tr><td>Ubuntu에서 docker 없음</td><td>Desktop WSL Integration</td><td>해당 배포판 연동 후 터미널 다시 열기</td></tr><tr><td>Docker 서버 연결 실패</td><td>Desktop 엔진 상태</td><td>엔진 시작과 연동 확인</td></tr><tr><td>컨테이너 이름 충돌</td><td><code>docker ps -a</code></td><td>기존 것을 start하거나 새 이름 사용. 삭제 전 기존 데이터 확인</td></tr><tr><td>포트 사용 중</td><td><code>docker ps</code>의 PORTS</td><td>새 호스트 포트 사용하고 브라우저 주소도 변경</td></tr><tr><td>빌드가 Dockerfile 못 찾음</td><td><code>pwd</code>, <code>ls -la</code></td><td>Dockerfile이 있는 과제 루트에서 빌드</td></tr><tr><td>COPY가 파일 못 찾음</td><td><code>ls -la site</code>, <code>.dockerignore</code></td><td>빌드 컨텍스트와 복사 경로 확인</td></tr><tr><td>마운트 경로 없음</td><td><code>pwd</code>, <code>ls -la site</code></td><td>Ubuntu 과제 루트에서 마운트 실행</td></tr><tr><td>수정했는데 8080 안 바뀜</td><td>실행한 컨테이너의 Mounts</td><td>8080은 이미지 복사본, 8082가 마운트 서버인지 확인</td></tr><tr><td>curl은 성공하나 브라우저 실패</td><td>Desktop Linux 모드·WSL 연동·localhost</td><td><code>http://localhost:포트</code>와 <code>http://127.0.0.1:포트</code> 확인. 그래도 실패하면 네트워크 증상을 기록하고 진단</td></tr><tr><td>Windows에서 chmod가 이상함</td><td><code>pwd</code>가 <code>/mnt/c</code>인지</td><td>Ubuntu 홈 폴더에서 권한 실습</td></tr><tr><td>VSCode가 Git 못 찾음</td><td>왼쪽 아래 WSL 상태, Ubuntu <code>git --version</code></td><td>WSL 연결과 Ubuntu Git 설치 확인</td></tr><tr><td>script 로그가 계속 늘어남</td><td>기록용 쉘 종료 여부</td><td>컨테이너 밖 Ubuntu에서 <code>exit</code>로 기록 종료</td></tr></tbody></table></div>
+<p>문제 해결을 위해 WSL 배포판 초기화, Docker 전체 데이터 초기화, <code>docker system prune --volumes</code> 같은 전체 삭제를 먼저 실행하지 마세요. 이번 과제의 개별 대상부터 확인합니다.</p>
+<h2 id="section-45">부록 B. 작업을 잠시 멈출 때</h2>
+<p>컨테이너 목록부터 확인합니다. 실행 중인 <strong>이번 실습 컨테이너 이름만 골라</strong> 중지할 수 있습니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>docker ps
+docker stop e11-web-8080 e11-web-8081 e11-web-bind e11-vol-b</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>docker ps</td><td>컨테이너 목록을 조회합니다. 기본은 실행 중인 것만 나옵니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr><tr><td>docker stop e11-web-8080 e11-web-8081 e11-web-bind e11-vol-b</td><td>이름으로 지정한 컨테이너를 중지합니다. 컨테이너·이미지·볼륨은 삭제하지 않습니다.</td><td>뒤의 이름은 명령을 적용할 대상입니다. 조회 결과나 오류 메시지를 읽고 확인합니다.</td></tr></tbody></table></div>
+<p>아직 만들지 않은 이름은 위 명령에서 빼세요. 다시 시작할 때 Docker Desktop을 켠 뒤 <code>docker start 컨테이너이름</code>을 사용합니다. 이미지나 컨테이너를 삭제할 필요는 없습니다. <code>e11-data</code> 볼륨도 증거 확인이 끝날 때까지 유지하세요.</p>
+<p>매번 과제를 시작할 때 Ubuntu에서 다음 위치로 이동하면 됩니다.</p>
+<div class="code-label">bash · Ubuntu 터미널 명령 (이 제목은 입력하지 않음)</div><pre><code>cd ~/codyssey/e1-1-workstation
+pwd
+code .</code></pre>
+<p><strong>바로 위 코드 해설 — 읽고 실행하기</strong></p>
+<div class="table-wrap"><table><thead><tr><th>명령·코드</th><th>하는 일</th><th>옵션·기호·확인할 결과</th></tr></thead><tbody><tr><td>cd ~/codyssey/e1-1-workstation</td><td>현재 작업 위치를 뒤에 적은 디렉터리로 바꿉니다. change directory입니다.</td><td>~는 내 Ubuntu 홈 폴더이고, /는 경로 구분자입니다. 성공해도 보통 출력은 없습니다. pwd로 확인합니다.</td></tr><tr><td>pwd</td><td>현재 작업 디렉터리의 전체 경로를 출력합니다. print working directory의 약자입니다.</td><td>이번 실습의 과제 경로인지 확인합니다. 읽기 전용 조회입니다.</td></tr><tr><td>code .</td><td>VSCode로 뒤에 지정한 경로를 엽니다.</td><td>.은 현재 디렉터리입니다. code .은 지금의 과제 폴더를 편집기로 엽니다. 첫 WSL 연결은 서버 준비 시간이 걸릴 수 있습니다.</td></tr></tbody></table></div>
+<h2 id="section-46">부록 C. 필수 완료 후 선택 과제</h2>
+<p>필수 결과와 문서를 먼저 완성하세요. 이후 다음 순서를 권장합니다.</p>
+<ol><li>단일 웹 서버를 Compose 파일로 실행하고 <code>up</code>, <code>ps</code>, <code>logs</code>, <code>down</code>을 실습합니다.</li><li>환경 변수를 실제로 읽는 프로그램·설정으로 동작 차이를 확인합니다. NGINX 정적 HTML은 환경 변수를 추가하는 것만으로 내용이 자동 변경되지는 않습니다.</li><li>보조 서비스와 네트워크 통신이 있는 멀티 컨테이너 구성을 만듭니다.</li><li>GitHub SSH 키를 설정하고 키 기반 푸시를 확인합니다.</li></ol>
+<h2 id="section-47">공식 참고 자료</h2>
+<ul><li><a href="https://learn.microsoft.com/en-us/windows/wsl/install">Microsoft WSL 설치</a></li><li><a href="https://documentation.ubuntu.com/wsl/latest/howto/install-ubuntu-wsl2/">Ubuntu WSL 설치</a></li><li><a href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment">Microsoft WSL 개발 환경</a></li><li><a href="https://code.visualstudio.com/docs/remote/wsl">VSCode WSL</a></li><li><a href="https://code.visualstudio.com/docs/sourcecontrol/quickstart">VSCode Git 시작</a></li><li><a href="https://code.visualstudio.com/docs/sourcecontrol/github">VSCode GitHub 연동</a></li><li><a href="https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address">GitHub 커밋 이메일</a></li><li><a href="https://docs.docker.com/desktop/setup/install/windows-install/">Docker Desktop Windows 설치</a></li><li><a href="https://docs.docker.com/desktop/features/wsl/">Docker Desktop WSL 2 연동</a></li><li><a href="https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/">Dockerfile</a></li><li><a href="https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/">Docker 이미지 빌드</a></li><li><a href="https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/">포트 매핑</a></li><li><a href="https://docs.docker.com/engine/storage/bind-mounts/">바인드 마운트</a></li><li><a href="https://docs.docker.com/engine/storage/volumes/">볼륨</a></li><li><a href="https://docs.docker.com/reference/cli/docker/container/attach/">attach</a></li><li><a href="https://docs.docker.com/reference/cli/docker/container/exec/">exec</a></li></ul>
+<p>과제 기준은 같은 폴더의 <code>E1-1_개발자용_작업실_꾸미기.txt</code>와 홈페이지에서 보존한 HTML입니다. 교재의 폴더명·포트·콘텐츠는 학습용 선택이며, 필수 요구사항을 충족한다면 본인 구성으로 바꿀 수 있습니다.</p><footer>수정 가능한 원본: E1-1_Windows_따라하기.md · 이 HTML은 외부 라이브러리 없이 열립니다.</footer></main><script id="workbook-data" type="application/json">{"version":1,"updatedAt":"","steps":{}}</script><script>(function () {
+  'use strict';
+  const VERSION = 1;
+  const KEY = 'codyssey-e11-workbook-v1';
+  const fields = ['commands', 'output', 'notes', 'evidence'];
+  const labels = { commands: '실행한 명령', output: '실제 출력 결과', notes: '배운 점·문제와 해결', evidence: '증거 파일·링크·추가 메모' };
+  const status = document.getElementById('workbook-status');
+  const sections = Array.from(document.querySelectorAll('[data-workbook-step]'));
+  let data = { version: VERSION, updatedAt: '', steps: {} };
+  let timer;
+  function message(text) { status.textContent = text; }
+  function valid(d) {
+    return d && d.version === VERSION && typeof d.steps === 'object' && d.steps !== null;
+  }
+  try {
+    const embedded = JSON.parse(document.getElementById('workbook-data').textContent);
+    if (valid(embedded)) data = embedded;
+    const cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (valid(cached) && String(cached.updatedAt || '') > String(data.updatedAt || '')) data = cached;
+  } catch (_) { /* File URLs may disable browser storage; HTML save still works. */ }
+  function step(id) {
+    if (!data.steps[id] || typeof data.steps[id] !== 'object') data.steps[id] = {};
+    const s = data.steps[id];
+    if (!Array.isArray(s.images)) s.images = [];
+    return s;
+  }
+  function collect() {
+    sections.forEach(section => {
+      const s = step(section.dataset.workbookStep);
+      s.title = section.dataset.title;
+      fields.forEach(key => { s[key] = section.querySelector('[data-field="' + key + '"]').value; });
+      s.done = section.querySelector('[data-field="done"]').checked;
+    });
+    return data;
+  }
+  function updateProgress() {
+    const done = sections.filter(s => s.querySelector('[data-field="done"]').checked).length;
+    document.getElementById('workbook-progress').textContent = done + ' / ' + sections.length + '단계 완료';
+  }
+  function cache() {
+    collect();
+    data.updatedAt = new Date().toISOString();
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      message('브라우저에 임시 저장됨 · 파일로 보관하려면 「기록 포함 HTML 저장」을 누르세요.');
+    } catch (_) {
+      message('브라우저 임시 저장을 사용할 수 없습니다. 「기록 포함 HTML 저장」으로 파일을 보관하세요.');
+    }
+    updateProgress();
+  }
+  function drawImages(section) {
+    const s = step(section.dataset.workbookStep);
+    const gallery = section.querySelector('.evidence-gallery');
+    gallery.replaceChildren();
+    s.images.forEach((record, index) => {
+      if (!record || !/^data:image\/(png|jpeg|webp|gif);base64,/.test(record.src || '')) return;
+      const figure = document.createElement('figure');
+      const img = document.createElement('img');
+      img.src = record.src;
+      img.alt = record.name || '실습 증거';
+      const caption = document.createElement('figcaption');
+      caption.textContent = record.name || '실습 증거';
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.textContent = '이 이미지 제거';
+      remove.addEventListener('click', () => { s.images.splice(index, 1); drawImages(section); cache(); });
+      figure.append(img, caption, remove);
+      gallery.append(figure);
+    });
+  }
+  function restore() {
+    sections.forEach(section => {
+      const s = step(section.dataset.workbookStep);
+      fields.forEach(key => { section.querySelector('[data-field="' + key + '"]').value = typeof s[key] === 'string' ? s[key] : ''; });
+      section.querySelector('[data-field="done"]').checked = s.done === true;
+      drawImages(section);
+    });
+    updateProgress();
+  }
+  function stamp() { return new Date().toISOString().replace(/[:.]/g, '-'); }
+  function download(name, content, type) {
+    const url = URL.createObjectURL(new Blob([content], { type }));
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+  function serialize() {
+    collect();
+    data.updatedAt = new Date().toISOString();
+    const doc = document.documentElement.cloneNode(true);
+    // Serialize input properties explicitly. Ctrl+S is not relied upon for form state.
+    doc.querySelectorAll('textarea').forEach(el => { el.textContent = ''; });
+    doc.querySelectorAll('input[type="checkbox"]').forEach(el => el.removeAttribute('checked'));
+    doc.querySelectorAll('.evidence-gallery').forEach(el => el.replaceChildren());
+    doc.querySelector('#workbook-data').textContent = JSON.stringify(data).replace(/</g, '\\u003c');
+    return '<!doctype html>\n' + doc.outerHTML;
+  }
+  function codeBlock(text) {
+    const runs = text.match(/`+/g) || [];
+    const fence = '`'.repeat(Math.max(2, ...runs.map(x => x.length)) + 1);
+    return fence + 'text\n' + text + '\n' + fence;
+  }
+  function markdown() {
+    collect();
+    const result = ['# E1-1 실습 기록 초안', '', 'HTML 기록장에서 내보낸 본인의 기록입니다. 제출 전 개요·실행 환경·재현 방법·트러블슈팅 2건과 증거 경로를 정리하세요.', '', '## 수행 체크리스트', ''];
+    sections.forEach(section => {
+      const s = step(section.dataset.workbookStep);
+      result.push('- [' + (s.done ? 'x' : ' ') + '] ' + section.dataset.title);
+    });
+    sections.forEach(section => {
+      const s = step(section.dataset.workbookStep);
+      result.push('', '## ' + section.dataset.title, '');
+      fields.forEach(key => {
+        const text = typeof s[key] === 'string' ? s[key].trim() : '';
+        if (text) result.push('### ' + labels[key], '', key === 'commands' || key === 'output' ? codeBlock(text) : text, '');
+      });
+      s.images.forEach((im, i) => {
+        if (!/^data:image\/(png|jpeg|webp|gif);base64,/.test(im.src || '')) return;
+        result.push('증거 이미지 ' + (i + 1) + ': ' + (im.name || '캡처') + ' — HTML 기록장에 포함됨. 저장소 docs/images/에 파일을 넣고 Markdown 이미지 링크를 추가하세요.', '');
+      });
+    });
+    return result.join('\n') + '\n';
+  }
+  sections.forEach(section => {
+    section.addEventListener('input', event => {
+      if (!event.target.matches('textarea,input[type="checkbox"]')) return;
+      message('입력 중…');
+      clearTimeout(timer); timer = setTimeout(cache, 400);
+    });
+    section.querySelector('input[type="file"]').addEventListener('change', async event => {
+      const input = event.target;
+      for (const file of Array.from(input.files)) {
+        if (!['image/png', 'image/jpeg', 'image/webp', 'image/gif'].includes(file.type) || file.size > 8 * 1024 * 1024) {
+          message('PNG·JPG·WebP·GIF 이미지(개당 8MB 이하)를 선택하세요.');
+          continue;
+        }
+        try {
+          const src = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error('이미지 읽기 실패'));
+            reader.readAsDataURL(file);
+          });
+          step(section.dataset.workbookStep).images.push({ name: file.name, src });
+          drawImages(section); cache();
+        } catch (_) { message('이미지를 읽지 못했습니다. 다시 선택해주세요.'); }
+      }
+      input.value = '';
+    });
+  });
+  document.getElementById('save-workbook').addEventListener('click', () => {
+    download('E1-1_내실습기록_' + stamp() + '.html', serialize(), 'text/html;charset=utf-8');
+    message('기록을 포함한 HTML 다운로드를 요청했습니다. 다운로드 폴더에서 파일이 저장됐는지 확인하세요.');
+  });
+  document.getElementById('export-markdown').addEventListener('click', () => {
+    download('E1-1_README_기록초안.md', '\ufeff' + markdown(), 'text/markdown;charset=utf-8');
+    message('Markdown 초안 다운로드를 요청했습니다. 이미지는 HTML에 보관되며 저장소에는 별도 파일로 추가하세요.');
+  });
+  document.getElementById('export-backup').addEventListener('click', () => {
+    collect(); data.updatedAt = new Date().toISOString();
+    download('E1-1_기록백업_' + stamp() + '.json', JSON.stringify(data, null, 2), 'application/json');
+    message('기록·이미지 백업 JSON 다운로드를 요청했습니다.');
+  });
+  document.getElementById('import-backup').addEventListener('change', async event => {
+    try {
+      const file = event.target.files[0];
+      if (!file) return;
+      const candidate = JSON.parse(await file.text());
+      if (!valid(candidate)) throw new Error('지원하지 않는 기록 파일');
+      if (!window.confirm('현재 기록을 선택한 백업 내용으로 바꿀까요? 필요하면 먼저 HTML 저장 또는 백업을 해주세요.')) return;
+      data = candidate; restore(); cache();
+      message('백업을 불러왔습니다. HTML로 저장해 보관할 수 있습니다.');
+    } catch (_) { message('올바른 E1-1 기록 백업 JSON을 선택하세요.'); }
+    event.target.value = '';
+  });
+  window.addEventListener('beforeunload', () => {
+    collect();
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (_) {}
+  });
+  restore();
+  message(data.updatedAt ? '저장된 기록을 불러왔습니다. 계속 작성할 수 있습니다.' : '각 단계 끝의 기록란에 작성하세요. 파일 보관은 「기록 포함 HTML 저장」을 사용하세요.');
+  // Exposed for local validation; no network or external services are used.
+  window.missionWorkbook = { collect, serialize, markdown };
+}());
+</script></body></html>
