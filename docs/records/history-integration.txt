@@ -1,0 +1,120 @@
+$ git add -- README.md Dockerfile .gitignore .dockerignore docs site practice scripts learning 제출전_점검.md
+
+$ git diff --cached --stat
+ .gitignore                                         |    3 +
+ README.md                                          |  439 ++++++
+ docs/images/10-port-8080.png                       |  Bin 0 -> 28668 bytes
+ docs/images/11-bind-after.png                      |  Bin 0 -> 25469 bytes
+ docs/images/11-bind-before.png                     |  Bin 0 -> 26830 bytes
+ docs/images/dfff.png                               |  Bin 0 -> 28668 bytes
+ docs/images/dfff22.png                             |  Bin 0 -> 26830 bytes
+ docs/images/dfff33.png                             |  Bin 0 -> 25469 bytes
+ ...3-terminal.txt. => 03-terminal-extra-empty.txt} |    0
+ docs/records/authoring-check.txt                   |   47 +
+ docs/records/bind-before-relocation-log.txt        |   38 +
+ docs/records/git-config.txt                        |    9 +
+ docs/records/relocation.txt                        |   46 +
+ docs/records/remote-connected.txt                  |   10 +
+ docs/records/sources.json                          |  107 ++
+ docs/records/step-00.txt                           |   10 +
+ docs/records/step-02.txt                           |    8 +
+ docs/records/step-03.txt                           |   52 +
+ docs/records/step-04.txt                           |   30 +
+ docs/records/step-05.txt                           |   64 +
+ docs/records/step-06.txt                           |  172 +++
+ docs/records/step-07.txt                           |  174 +++
+ docs/records/step-08.txt                           |   95 ++
+ docs/records/step-09.txt                           |  162 ++
+ docs/records/step-10.txt                           |  195 +++
+ docs/records/step-11.txt                           |   88 ++
+ docs/records/step-12.txt                           |   47 +
+ docs/records/step-13.txt                           |  159 ++
+ docs/records/step-14.txt                           |   19 +
+ docs/records/supplement-attach-exec.txt            |   57 +
+ docs/records/supplement-web.txt                    |  120 ++
+ ...4\260\353\235\274\355\225\230\352\270\260.html" |  911 +++++++++++
+ ...224\260\353\235\274\355\225\230\352\270\260.md" | 1606 ++++++++++++++++++++
+ learning/README.md                                 |   21 +
+ ...\274_\353\252\205\353\240\271\354\226\264.html" |  138 ++
+ ...63\274_\353\252\205\353\240\271\354\226\264.md" |  350 +++++
+ scripts/add-mission-workbook.cjs                   |   35 +
+ scripts/finalize_location.py                       |   47 +
+ scripts/mission-workbook-client.js                 |  185 +++
+ scripts/render-learning.cjs                        |   80 +
+ scripts/verify_attach_exec.py                      |  106 ++
+ scripts/verify_web.sh                              |   27 +
+ ...66\234\354\240\204_\354\240\220\352\262\200.md" |   50 +
+ 43 files changed, 5707 insertions(+)
+
+$ git commit -m docs: complete workstation evidence and add review lessons
+[main b152524] docs: complete workstation evidence and add review lessons
+ 43 files changed, 5707 insertions(+)
+ create mode 100644 docs/images/10-port-8080.png
+ create mode 100644 docs/images/11-bind-after.png
+ create mode 100644 docs/images/11-bind-before.png
+ create mode 100644 docs/images/dfff.png
+ create mode 100644 docs/images/dfff22.png
+ create mode 100644 docs/images/dfff33.png
+ rename docs/logs/{03-terminal.txt. => 03-terminal-extra-empty.txt} (100%)
+ create mode 100644 docs/records/authoring-check.txt
+ create mode 100644 docs/records/bind-before-relocation-log.txt
+ create mode 100644 docs/records/git-config.txt
+ create mode 100644 docs/records/relocation.txt
+ create mode 100644 docs/records/remote-connected.txt
+ create mode 100644 docs/records/sources.json
+ create mode 100644 docs/records/step-00.txt
+ create mode 100644 docs/records/step-02.txt
+ create mode 100644 docs/records/step-03.txt
+ create mode 100644 docs/records/step-04.txt
+ create mode 100644 docs/records/step-05.txt
+ create mode 100644 docs/records/step-06.txt
+ create mode 100644 docs/records/step-07.txt
+ create mode 100644 docs/records/step-08.txt
+ create mode 100644 docs/records/step-09.txt
+ create mode 100644 docs/records/step-10.txt
+ create mode 100644 docs/records/step-11.txt
+ create mode 100644 docs/records/step-12.txt
+ create mode 100644 docs/records/step-13.txt
+ create mode 100644 docs/records/step-14.txt
+ create mode 100644 docs/records/supplement-attach-exec.txt
+ create mode 100644 docs/records/supplement-web.txt
+ create mode 100644 "learning/E1-1_Windows_\353\224\260\353\235\274\355\225\230\352\270\260.html"
+ create mode 100644 "learning/E1-1_Windows_\353\224\260\353\235\274\355\225\230\352\270\260.md"
+ create mode 100644 learning/README.md
+ create mode 100644 "learning/\353\263\265\354\212\265_\355\225\265\354\213\254\352\260\234\353\205\220\352\263\274_\353\252\205\353\240\271\354\226\264.html"
+ create mode 100644 "learning/\353\263\265\354\212\265_\355\225\265\354\213\254\352\260\234\353\205\220\352\263\274_\353\252\205\353\240\271\354\226\264.md"
+ create mode 100644 scripts/add-mission-workbook.cjs
+ create mode 100644 scripts/finalize_location.py
+ create mode 100644 scripts/mission-workbook-client.js
+ create mode 100644 scripts/render-learning.cjs
+ create mode 100644 scripts/verify_attach_exec.py
+ create mode 100644 scripts/verify_web.sh
+ create mode 100644 "\354\240\234\354\266\234\354\240\204_\354\240\220\352\262\200.md"
+
+$ git merge origin/main --allow-unrelated-histories -m merge: preserve GitHub initial repository history
+Auto-merging README.md
+CONFLICT (add/add): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ git diff --name-only --diff-filter=U
+README.md
+
+$ git show origin/main:README.md
+# codyssey_test1
+코디세이 대전 입학연수과정 test1 
+
+$ git checkout --ours -- README.md
+
+$ git add -- README.md docs/records/github-initial-README.md
+
+$ git commit -m merge: preserve initial GitHub README alongside assignment documentation
+[main 6429e61] merge: preserve initial GitHub README alongside assignment documentation
+
+$ git log --oneline --graph -7
+*   6429e61 merge: preserve initial GitHub README alongside assignment documentation
+|\  
+| * 03d34cb Initial commit
+* b152524 docs: complete workstation evidence and add review lessons
+* 9bd7811 docs: update practice logs
+* 370328e feat: document Docker workstation practice
+* 5779ef8 docs: record terminal and permissions practice
