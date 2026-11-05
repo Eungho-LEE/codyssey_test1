@@ -1,0 +1,20 @@
+Script started on 2026-11-05 17:59:17+09:00 [TERM="xterm-256color" TTY="/dev/pts/6" COLUMNS="127" LINES="42"]
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mmkdir -p practice/permissions/sample-dir[27mmkdir -p practice/permissions/sample-dir
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mprintf 'permission test\n' > practice/permissions/sample.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cprintf 'permission test\n' > practice/permissions/sample.txt
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mls -ld practice/permissions/sample.txt practice/permissions/sample-dir[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+[?2004ldrwxr-xr-x 2 ox6965 ox6965 4096 Nov  5 18:00 [0m[01;34mpractice/permissions/sample-dir[0m
+-rw-r--r-- 1 ox6965 ox6965   16 Nov  5 18:00 practice/permissions/sample.txt
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mchmod 600 practice/permissions/sample.txt[27mchmod 600 practice/permissions/sample.txt
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mchmod 700 practice/permissions/sample-dir[27mchmod 700 practice/permissions/sample-dir
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mls -ld practice/permissions/sample.txt practice/permissions/sample-dir[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -ld practice/permissions/sample.txt practice/permissions/sample-dir
+[?2004ldrwx------ 2 ox6965 ox6965 4096 Nov  5 18:00 [0m[01;34mpractice/permissions/sample-dir[0m
+-rw------- 1 ox6965 ox6965   16 Nov  5 18:00 practice/permissions/sample.txt
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mls -ld practice/permissions/sample.txt[27mls -ld practice/permissions/sample.txt
+[?2004l-rw------- 1 ox6965 ox6965 16 Nov  5 18:00 practice/permissions/sample.txt
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mpractice/permissions/sample-dir[27mpractice/permissions/sample-dir
+[?2004lbash: practice/permissions/sample-dir: Is a directory
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ ls -ld [7mpractice/permissions/sample-dir[27mpractice/permissions/sample-dir
+[?2004ldrwx------ 2 ox6965 ox6965 4096 Nov  5 18:00 [0m[01;34mpractice/permissions/sample-dir[0m
+[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mchmod 644 practice/permissions/sample.txt[27mchmod 644 practice/permissions/sample.txt
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~/codyssey/e1-1-workstation[00m$ [7mchmod 755 practice/permissions/sample-dir[27mchmod 755 practice/permissions/sample-dir
+[?2004l[?2004h]0;ox6965@26susin: ~/codyssey/e1-1-workstation[01;32mox6965@26susin[00m:[01;34m~

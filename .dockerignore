@@ -1,0 +1,6 @@
+docs/
+practice/
+.git/
+env/
+.env
+.env.*
