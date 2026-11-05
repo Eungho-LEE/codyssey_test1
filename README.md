@@ -442,4 +442,353 @@ cd /mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation
 
 학습 자료는 [learning/README.md](learning/README.md)에 모았다. HTML은 내려받아 브라우저로 열고, Markdown은 GitHub에서 바로 읽을 수 있다. 복습 교재에는 경로·권한·이미지·컨테이너·포트·마운트·볼륨·Git 개념, 명령 예제와 옵션 해설, 자주 겪은 오류, 자가 점검 문제와 답이 있다.
 
-검증·반영 과정의 상태는 [점검 기록](제출전_점검.md)에서 확인한다.
+## 13. 학습자료 · 핵심 개념과 터미널 명령어
+
+이 자료는 실습 후 다시 이해하기 위한 교재입니다. 명령을 외우기보다 **어디에서, 무엇을 대상으로, 어떤 변화를 만드는지** 먼저 생각하세요. 예시 명령은 실제 수행 증거와 구분합니다.
+
+### 1. 지금 내 작업 공간은 어디인가?
+
+현재 과제의 기준 폴더는 다음 위치입니다.
+
+```text
+Windows: C:\Users\nabis\Desktop\Projects\codyssey\e1-1-workstation
+Ubuntu:  /mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation
+```
+
+Windows와 Ubuntu가 **같은 파일**을 서로 다른 경로로 보는 것입니다. `C:` 드라이브가 Ubuntu에서는 `/mnt/c`에 연결됩니다. 파일을 옮겨도 Ubuntu 배포판 자체나 Docker 볼륨이 Windows 과제 폴더 안으로 옮겨지는 것은 아닙니다.
+
+```bash
+cd /mnt/c/Users/nabis/Desktop/Projects/codyssey/e1-1-workstation
+pwd
+ls -la
+```
+
+- `cd`: 작업 위치 이동. 성공해도 보통 출력이 없습니다.
+- `pwd`: 현재 전체 경로를 표시합니다.
+- `ls`: 목록. `-l`은 상세, `-a`는 숨김 항목 포함입니다.
+- 이전 `~/codyssey/e1-1-workstation`은 새 폴더로 이어지는 호환 링크로 사용할 수 있습니다. 원래 Linux 폴더는 별도 백업으로 보관합니다.
+
+| 표시 | 지금 있는 환경 |
+| --- | --- |
+| PS C:\…> | Windows PowerShell |
+| ox6965@26susin:…$ | WSL Ubuntu 일반 사용자 쉘 |
+| root@컨테이너ID:/# | Docker 컨테이너 안의 관리자 쉘 |
+
+**VSCode 통합 터미널에서 Ubuntu가 실행되는 것**과 **VSCode 작업 공간 자체가 WSL에 연결되는 것**은 별개입니다. 왼쪽 아래의 WSL 표시로 연결을 확인합니다. Git 소유자 오류가 나면 Windows 쪽 Git으로 Linux 저장소를 열었는지도 확인하세요.
+
+### 2. 명령 한 줄의 구조
+
+```bash
+mkdir -p docs/logs
+```
+
+| 부분 | 뜻 |
+| --- | --- |
+| mkdir | 폴더 만들기 |
+| -p | 중간 부모 폴더까지 만들고 기존 폴더는 유지 |
+| docs/logs | 만들 대상의 상대 경로 |
+
+하이픈 옵션의 의미는 명령마다 다릅니다. `mkdir -p`의 p는 부모 경로, `docker run -p`의 p는 포트 연결입니다. `--name`처럼 긴 옵션은 보통 다음 값의 의미를 읽기 쉽게 표시합니다.
+
+| 기호 | 뜻 | 예 |
+| --- | --- | --- |
+| ~ | 내 Ubuntu 홈 | ~/codyssey |
+| / | Linux 경로 구분. 맨 앞이면 최상위에서 출발 | /home/ox6965 |
+| . | 현재 디렉터리 | code . / docker build … . |
+| .. | 부모 디렉터리 | cd .. |
+| 큰따옴표 | 공백이 있어도 한 인수로 묶기. 변수 치환 가능 | echo "$SHELL" |
+| 작은따옴표 | 안의 문자를 그대로 전달 | echo 'hello' |
+| > | 출력으로 파일 생성·덮어쓰기 | echo hello > memo.txt |
+| >> | 파일 끝에 덧붙이기 | echo next >> memo.txt |
+| $(명령) | 명령 출력값을 그 위치에 넣기 | $(pwd)/site |
+| ; | 앞 명령 성공 여부와 관계없이 다음 명령도 실행 | pwd; ls |
+| && | 앞 명령이 성공했을 때 다음 실행 | cd site && ls |
+
+`bash`라는 코드블록 제목은 “Bash에서 해석할 내용”이라는 표시이며 그 제목을 입력하라는 뜻이 아닙니다. `dockerfile`·`html` 표시는 파일 내용입니다.
+
+### 3. 기본 파일 명령 복습
+
+과제 파일을 건드리지 않도록 아래 예시는 별도 Linux 임시 폴더에서 합니다. `mktemp -d`는 이름이 겹치지 않는 새 디렉터리를 만듭니다.
+
+```bash
+practice_dir=$(mktemp -d /tmp/e11-review.XXXXXX)
+cd "$practice_dir"
+touch empty.txt
+printf 'Hello terminal\n' > memo.txt
+cat memo.txt
+cp memo.txt copy.txt
+mv copy.txt renamed.txt
+mkdir archive
+mv renamed.txt archive/
+ls -la archive
+rm archive/renamed.txt
+rmdir archive
+```
+
+| 명령 | 하는 일 | 주의·확인 |
+| --- | --- | --- |
+| touch 파일 | 없으면 빈 파일 생성 | 기존 파일 내용은 지우지 않음 |
+| printf | 형식에 맞춰 출력 | \n은 줄바꿈, >는 덮어쓰기 |
+| cat 파일 | 파일 내용 읽기 | 파일을 실행하는 명령이 아님 |
+| cp 원본 대상 | 파일 복사 | 원본 유지, 기존 대상 덮어쓰기 주의 |
+| mv 원본 대상 | 이동 또는 이름 변경 | 원본 위치에서는 사라짐 |
+| rm 파일 | 파일 삭제 | 휴지통을 거치지 않음 |
+| rmdir 폴더 | 빈 폴더 삭제 | 내용이 남아 있으면 실패 |
+
+`mkdir`, `cd`, `touch`, `cp`, `mv`, `chmod` 등은 성공해도 출력이 없을 수 있습니다. 프롬프트가 돌아왔는지, `pwd`·`ls` 등으로 결과를 확인하세요.
+
+### 4. 권한 755·644 다시 읽기
+
+```text
+d | rwx | r-x | r-x
+종류 소유자 그룹  그 외
+```
+
+`d`는 디렉터리, `-`는 일반 파일입니다. 읽기 r=4, 쓰기 w=2, 실행 x=1을 더합니다.
+
+| 숫자 | 기호 | 허용 |
+| --- | --- | --- |
+| 7 | rwx | 읽기·쓰기·실행 |
+| 6 | rw- | 읽기·쓰기 |
+| 5 | r-x | 읽기·실행 |
+| 4 | r-- | 읽기 |
+| 0 | --- | 없음 |
+
+- 755: 소유자는 전부, 그룹·그 외는 읽기·실행
+- 644: 소유자는 읽기·쓰기, 그룹·그 외는 읽기
+- 폴더의 x: 안으로 들어가고 경로를 통과할 수 있음
+- 폴더의 w와 x: 내부 항목의 생성·삭제·이름 변경에 필요
+- 파일 내용 수정 권한과 그 파일을 디렉터리에서 삭제할 권한은 서로 다른 문제
+
+**현재 저장소는 Windows 파일 시스템 위에 있으므로 chmod 실습을 여기서 반복하지 않습니다.** Linux 고유 권한을 확인하려면 Ubuntu의 `/tmp`나 홈에 새 연습 폴더를 사용하세요. 최초 실습 증거는 이전 Linux 홈에서 수행한 기록입니다.
+
+```bash
+permissions_dir=$(mktemp -d /tmp/e11-permissions.XXXXXX)
+touch "$permissions_dir/sample.txt"
+mkdir "$permissions_dir/sample-dir"
+chmod 600 "$permissions_dir/sample.txt"
+chmod 700 "$permissions_dir/sample-dir"
+ls -ld "$permissions_dir/sample.txt" "$permissions_dir/sample-dir"
+chmod 644 "$permissions_dir/sample.txt"
+chmod 755 "$permissions_dir/sample-dir"
+ls -ld "$permissions_dir/sample.txt" "$permissions_dir/sample-dir"
+```
+
+`ls -ld`는 상세 정보(-l)를 폴더 내부가 아닌 폴더 자체(-d)에 대해 표시합니다. 출력의 이름·그룹·크기·수정 시각·경로를 권한과 함께 읽습니다.
+
+### 5. Docker가 맡는 역할
+
+Docker는 프로그램을 실행할 파일·설정·실행 정보를 이미지로 준비하고 컨테이너로 실행·관리합니다. 이번 웹 서버 이미지 안에는 NGINX, 라이브러리, NGINX 설정, 나의 HTML, 시작 명령 정보가 있습니다.
+
+```text
+Dockerfile + site/index.html + nginx 베이스
+                  ↓ docker build
+              e11-web 이미지
+                  ↓ docker run
+              웹 서버 컨테이너
+                  ↓ 포트 연결
+                 브라우저
+```
+
+| 개념 | 무엇인가? | 자주 하는 오해 |
+| --- | --- | --- |
+| Dockerfile | 이미지를 만드는 지시문 파일 | FROM을 Ubuntu 명령으로 실행하지 않음 |
+| 이미지 | 파일과 실행 정보를 저장한 패키지 | 다운로드만으로 서버가 켜지지 않음 |
+| 컨테이너 | 이미지로 만든 실행 환경 | 멈춘 것과 삭제한 것은 다름 |
+| Docker CLI | docker 명령을 받는 도구 | CLI 버전만 보여도 엔진 연결 성공은 아님 |
+| Docker 엔진 | 이미지·컨테이너를 실제 관리 | Docker Desktop 엔진이 꺼지면 실행 실패 |
+
+### 6. Dockerfile 한 줄씩
+
+```dockerfile
+FROM nginx:alpine
+LABEL org.opencontainers.image.title="e11-workstation-web"
+COPY site/ /usr/share/nginx/html/
+EXPOSE 80
+```
+
+| 지시문 | 뜻 |
+| --- | --- |
+| FROM | nginx:alpine 이미지를 출발점으로 삼음. nginx는 이름, alpine은 태그 |
+| LABEL | 이미지에 설명용 메타데이터 추가 |
+| COPY | 빌드 컨텍스트의 site 내용을 이미지 웹 루트에 복사 |
+| EXPOSE | 80번 포트를 쓴다는 정보. 실제 접속 연결은 -p로 별도 지정 |
+
+```bash
+docker build -t e11-web:review .
+docker images e11-web
+```
+
+`-t`는 이름:태그, 마지막 `.`은 현재 폴더를 빌드 컨텍스트로 지정합니다. Dockerfile이 없는 폴더에서 실행하면 실패합니다. `pwd`, `ls -l Dockerfile site/index.html`부터 확인하세요.
+
+### 7. run과 start, exec와 attach
+
+```bash
+docker run -it --name review-shell ubuntu:24.04 bash
+```
+
+`run`은 새 컨테이너 만들기입니다. `-i`는 입력 유지, `-t`는 가상 터미널, `--name`은 이름, `ubuntu:24.04`는 이미지, 마지막 `bash`는 시작할 프로그램입니다. 이미지 이름 자리에 사용자 이름을 넣으면 Docker는 그 이름의 이미지를 찾습니다.
+
+주 bash에서 `exit` 후 다시 들어갈 때는 새 run이 아닌 다음 명령을 씁니다.
+
+```bash
+docker start -ai review-shell
+```
+
+`-a`는 주 프로세스 출력에 연결, `-i`는 입력 연결입니다. 기존 컨테이너의 이미지·시작 명령이 저장돼 있으므로 다시 쓰지 않습니다.
+
+추가 쉘과 주 쉘의 차이는 별도 컨테이너로 연습합니다.
+
+```bash
+docker run -dit --name review-lab ubuntu:24.04 bash
+docker exec -it review-lab bash
+```
+
+위 exec로 들어간 뒤 `exit`하면 추가 쉘만 종료합니다. 호스트에서 아래를 확인합니다.
+
+```bash
+docker ps --filter name=review-lab
+docker attach --detach-keys="ctrl-x,ctrl-x" review-lab
+```
+
+attach는 주 bash에 연결합니다. **Ctrl+X를 두 번** 누르면 연결만 분리합니다. 이 키는 이번 attach에 지정한 키이고 기본 분리 키는 Ctrl+P, Ctrl+Q입니다. VSCode가 단축키를 먼저 처리하면 사용자 환경별 조정이 필요할 수 있습니다.
+
+| 동작 | 주 bash 상태 | 컨테이너 |
+| --- | --- | --- |
+| exec로 연 추가 bash에서 exit | 유지 | 계속 실행 |
+| attach 연결 후 분리 키 | 유지 | 계속 실행 |
+| attach된 주 bash에서 exit | 종료 | 멈춤 |
+| docker stop | 종료 요청 | 멈춤 |
+| docker rm | 해당 없음 | 컨테이너 삭제 |
+
+**호스트 프롬프트($)와 컨테이너 프롬프트(root@…#)를 먼저 구분**하세요. 컨테이너 안에서 Docker를 조작할 필요는 없습니다.
+
+### 8. 포트·이미지 복사·바인드 마운트·볼륨
+
+```bash
+docker run -d --name review-web -p 127.0.0.1:8093:80 e11-web:review
+curl -i http://localhost:8093
+```
+
+`-d`는 백그라운드 실행입니다. `127.0.0.1:8093:80`은 내 PC의 8093을 컨테이너 80으로 전달합니다. localhost는 내 PC입니다. `curl -i`는 HTTP 헤더도 보여주므로 200 OK와 HTML을 확인할 수 있습니다. curl 성공과 주소창을 포함한 브라우저 캡처는 각각 다른 증거입니다.
+
+```bash
+docker run -d --name review-bind -p 127.0.0.1:8094:80 --mount "type=bind,source=$(pwd)/site,target=/usr/share/nginx/html,readonly" e11-web:review
+```
+
+`type=bind`는 호스트 경로 연결, `source`는 원본, `target`은 컨테이너 위치입니다. `readonly`는 컨테이너에서 읽기 전용이라는 뜻이며 호스트 편집은 가능합니다. 파일이 이미지에 복사된 것과 호스트 폴더를 실시간 연결한 것은 다릅니다.
+
+| 방식 | 원본·관리 주체 | 주로 사용하는 목적 |
+| --- | --- | --- |
+| Dockerfile COPY | 빌드 때 파일을 이미지에 복사 | 배포할 코드·정적 콘텐츠 |
+| 바인드 마운트 | 내가 관리하는 호스트 폴더 | 소스 수정 즉시 반영 |
+| 이름 있는 볼륨 | Docker가 관리하는 저장 공간 | 컨테이너를 바꿔도 유지할 데이터 |
+
+```bash
+docker volume create review-data
+docker run -d --name review-volume --mount type=volume,source=review-data,target=/data ubuntu:24.04 sleep infinity
+docker exec review-volume bash -lc 'echo proof > /data/proof.txt'
+docker exec review-volume cat /data/proof.txt
+```
+
+볼륨 증명은 여기서 끝이 아닙니다. 컨테이너를 삭제하고 새 컨테이너에 **같은 볼륨을 연결한 뒤** 파일을 다시 읽어야 합니다. `sleep infinity`는 계속 기다리는 주 프로세스로 컨테이너를 유지합니다. `bash -lc`는 로그인 쉘 설정을 읽고 뒤의 문자열을 명령으로 실행합니다.
+
+### 9. Docker 운영 명령 사전
+
+| 명령 예 | 뜻·읽을 결과 |
+| --- | --- |
+| docker --version | CLI 버전 |
+| docker version | Client·Server 버전. 엔진 연결 확인 |
+| docker info | 엔진 상태·운영 환경 |
+| docker pull nginx:alpine | 이미지 다운로드 |
+| docker images | 이미지 목록 |
+| docker ps | 실행 중 컨테이너 |
+| docker ps -a | 멈춘 것까지 전체 컨테이너 |
+| docker logs 컨테이너 | 프로그램 출력 로그. 빈 로그도 가능 |
+| docker stats --no-stream 컨테이너 | CPU·메모리 사용량 한 번 표시 |
+| docker port 컨테이너 | 호스트·컨테이너 포트 연결 |
+| docker inspect 컨테이너 | 상세 설정·마운트·상태 |
+| docker stop 컨테이너 | 중지. 삭제는 아님 |
+| docker start 컨테이너 | 기존 컨테이너 시작 |
+| docker rm 컨테이너 | 중지 컨테이너 삭제. 데이터 위치부터 확인 |
+| docker volume ls | 볼륨 목록 |
+
+컨테이너의 이름은 `docker ps -a`의 NAMES 열에 있습니다. 이미지 이름은 IMAGE 열입니다. 컨테이너 이름을 모를 때 새로 run하기 전에 이 목록부터 보세요.
+
+### 10. Git과 GitHub, 커밋과 업로드
+
+```text
+파일 수정 → git add → git commit → git push
+            다음 기록 선택  로컬 기록 저장  GitHub 업로드
+```
+
+| 명령 | 뜻 |
+| --- | --- |
+| git config --get user.name | 커밋 작성자 설정 확인. 로그인 여부와 별개 |
+| git config --get user.email | 작성자 이메일 확인. 공개 전 개인정보 확인 |
+| git config --get init.defaultBranch | 새 저장소 기본 브랜치 설정 |
+| git status | 작업·스테이징 상태 |
+| git diff | 아직 스테이징하지 않은 변경 비교 |
+| git add README.md docs learning | 지정한 변경을 다음 커밋 대상으로 선택 |
+| git diff --cached | 다음 커밋에 들어갈 실제 변경 검토 |
+| git commit -m "설명" | 로컬 변경 이력 생성 |
+| git log --oneline -5 | 최근 커밋 5개 요약 |
+| git remote -v | 연결한 원격 이름·주소 확인 |
+| git fetch origin | 원격 이력 가져오기. 작업 파일 자동 변경은 아님 |
+| git merge origin/main | 가져온 이력을 현재 브랜치와 합치기 |
+| git push | 로컬 커밋 원격 업로드 |
+
+`origin`은 원격 주소에 붙인 별명이고 `main`은 브랜치 이름입니다. GitHub에 저장소를 만들었다고 로컬이 자동 연결되지는 않습니다. 처음에는 원격 주소를 설정하고, 원격에 이미 README 커밋이 있으면 그 이력을 보존하며 합쳐야 합니다.
+
+VSCode에서 커밋 메시지를 안 쓰고 Commit을 누르면 COMMIT_EDITMSG 편집을 기다릴 수 있습니다. 메시지를 쓰고 저장·탭 닫기를 마치거나, 소스 제어의 메시지 칸에 먼저 적고 커밋합니다. `push`는 커밋되지 않은 작업 파일을 자동 업로드하지 않습니다.
+
+### 11. 결과를 기록하는 방법
+
+각 항목은 **목적 → 명령 → 실제 출력 → 해석 → 증거 링크** 순서로 씁니다.
+
+```text
+목적: 컨테이너 삭제 후 데이터 유지 확인
+명령: docker exec 새컨테이너 cat /data/proof.txt
+실제 출력: proof
+해석: 새 컨테이너에서도 같은 볼륨의 파일을 읽었다.
+증거: 삭제 전·삭제 명령·새 컨테이너 생성·조회까지 연결된 로그
+```
+
+명령만 적거나 예상 출력을 실제 결과처럼 쓰지 않습니다. 실패도 중요한 기록입니다. 문제·원인 가설·확인 명령·해결 및 재확인으로 정리합니다. 비밀번호·토큰·개인키를 로그·스크린샷에 넣지 않습니다.
+
+### 12. 스스로 설명해 보기
+
+1. 이미지가 있는데 브라우저가 안 열릴 수 있는 이유는?
+2. 같은 이름으로 docker run을 두 번 하면 왜 충돌할까?
+3. exec 쉘의 exit와 주 bash의 exit는 무엇이 다른가?
+4. EXPOSE 80을 썼는데도 왜 -p가 필요할까?
+5. 호스트 HTML을 바꿨는데 이미지 기반 서버는 왜 그대로일까?
+6. 컨테이너를 재시작한 것만으로 볼륨 영속성이 증명될까?
+7. mkdir 후 출력이 없으면 실패한 것일까?
+8. 644 파일과 755 디렉터리에서 각 숫자는 누구의 어떤 권한일까?
+9. 커밋했는데 GitHub 화면이 그대로인 이유는?
+10. Windows로 폴더를 옮겨도 WSL 홈과 Docker 볼륨도 같이 옮겨질까?
+
+### 13. 답과 다시 볼 부분
+
+1. 컨테이너 미실행, 포트 연결 누락·오류, 서버 오류 등을 확인한다. 이미지 보관과 실행은 다르다.
+2. run은 새 컨테이너 생성이고 이름은 유일해야 한다. 기존 것은 start로 다시 켠다.
+3. exec는 추가 프로세스라 주 프로세스가 유지될 수 있지만 주 bash가 종료되면 컨테이너도 멈춘다.
+4. EXPOSE는 정보이며 호스트 접속 연결은 -p로 만든다.
+5. COPY는 빌드 시점 복사다. 재빌드하거나 바인드 마운트를 사용한다.
+6. 삭제 후 새 컨테이너에 같은 볼륨을 연결해 같은 데이터를 읽어야 한다.
+7. 성공 시 무출력일 수 있다. 프롬프트 복귀와 ls 등의 결과로 확인한다.
+8. 소유자/그룹/그 외 순서이며 r=4, w=2, x=1 합산이다. 디렉터리 x는 경로 통과다.
+9. 로컬 커밋을 원격에 push해야 한다. 올바른 원격·브랜치·인증도 확인한다.
+10. 파일 작업 공간만 옮긴 것이다. WSL 배포판과 Docker 데이터는 별도 관리된다.
+
+### 공식 참고
+
+- [WSL과 VSCode](https://code.visualstudio.com/docs/remote/wsl)
+- [Dockerfile](https://docs.docker.com/reference/dockerfile/)
+- [docker run](https://docs.docker.com/reference/cli/docker/container/run/)
+- [attach](https://docs.docker.com/reference/cli/docker/container/attach/)
+- [exec](https://docs.docker.com/reference/cli/docker/container/exec/)
+- [바인드 마운트](https://docs.docker.com/engine/storage/bind-mounts/)
+- [볼륨](https://docs.docker.com/engine/storage/volumes/)
+- [GitHub와 VSCode](https://code.visualstudio.com/docs/sourcecontrol/github)
