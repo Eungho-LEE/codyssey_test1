@@ -11,6 +11,8 @@ Windows PC에 WSL 2 기반 Ubuntu 작업 환경을 구성하고, 터미널·파�
 
 학습 자료: [입력형 교재·복습 교재 모음](learning/README.md) · [핵심 개념과 명령어 복습](learning/복습_핵심개념과_명령어.md)
 
+1주차 부가과제(2026-11-10): [실행 방법·결과·학습 해설](bonus/README.md) · [Compose CLI 검증 로그](docs/records/bonus-compose.txt) · [SSH 검증 로그](docs/records/bonus-ssh.txt). Compose 단일 서비스, 멀티 컨테이너 통신, 운영 명령, 환경 변수 활용을 검증했고, GitHub SSH 공개키 등록·인증도 확인했다. 푸시 결과는 SSH 로그에서 확인한다.
+
 ## 1. 실행 환경
 
 | 항목 | 실습 환경 |

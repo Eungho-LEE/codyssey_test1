@@ -1,0 +1,290 @@
+Week 1 bonus: actual CLI verification
+2026-11-10T14:04:02.4100090+09:00
+$ docker compose version
+Docker Compose version v5.6.1
+[exit=0]
+$ docker ps -aq --filter label=com.docker.compose.project=e11-bonus-single
+[exit=0]
+$ docker ps -aq --filter label=com.docker.compose.project=e11-bonus-multi
+[exit=0]
+$ docker compose -p e11-bonus-single -f compose.single.yml config --quiet
+[exit=0]
+$ docker compose -p e11-bonus-single -f compose.single.yml up -d --build --wait
+ Image e11-bonus-single-web Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 617B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 158B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/nginx:alpine
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 79B done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
+#5 resolve docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 411B 0.0s done
+#6 DONE 0.1s
+
+#5 [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
+#5 CACHED
+
+#7 [2/2] COPY site/ /usr/share/nginx/html/
+#7 DONE 0.0s
+
+#8 exporting to image
+#8 exporting layers 0.1s done
+#8 exporting manifest sha256:faa550a21e02468e382f27e6b095bbbea85e2bc55845f7e52f0eb012b2099b6d 0.0s done
+#8 exporting config sha256:3313c1a9c2cda02f7a3312d8551f0437da39ff82837df4357c2dce175ede3701 0.0s done
+#8 exporting attestation manifest sha256:a5be04bcff37e1798987326d36348ec6f1bf1678fef22a1ddf52da6f8dac4a57 0.0s done
+#8 exporting manifest list sha256:4d540d3806f5e3e7f357fae4bee5b6cacfc9ae96aa34a6f03ad9f5fcf8637341 0.0s done
+#8 naming to docker.io/library/e11-bonus-single-web:latest
+#8 naming to docker.io/library/e11-bonus-single-web:latest done
+#8 unpacking to docker.io/library/e11-bonus-single-web:latest 0.0s done
+#8 DONE 0.3s
+
+#9 resolving provenance for metadata file
+#9 DONE 0.0s
+ Image e11-bonus-single-web Built
+ Network e11-bonus-single_default Creating
+ Network e11-bonus-single_default Creating
+ Network e11-bonus-single_default Created
+ Network e11-bonus-single_default Created
+ Container e11-bonus-single-web-1 Creating
+ Container e11-bonus-single-web-1 Created
+ Container e11-bonus-single-web-1 Starting
+ Container e11-bonus-single-web-1 Started
+ Container e11-bonus-single-web-1 Waiting
+ Container e11-bonus-single-web-1 Healthy
+[exit=0]
+$ docker compose -p e11-bonus-single -f compose.single.yml ps
+NAME                     IMAGE                  COMMAND                  SERVICE   CREATED         STATUS        PORTS
+e11-bonus-single-web-1   e11-bonus-single-web   "/docker-entrypoint.…"   web       2 seconds ago   Up 1 second   127.0.0.1:18080->80/tcp
+[exit=0]
+$ Invoke-WebRequest http://127.0.0.1:18080/
+HTTP 200
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>나의 개발 작업실</title>
+</head>
+<body>
+  <h1>나의 첫 Docker 작업실</h1>
+  <p>WSL과 Docker로 웹 서버를 실행했습니다.</p>
+  <p id="version">version-2</p>
+</body>
+</html>
+
+PASS: response contains version-2
+$ docker compose -p e11-bonus-single -f compose.single.yml logs --no-color --tail 15
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 32
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 33
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 34
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 35
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 36
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 37
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 38
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 39
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 40
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 41
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 42
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 43
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 44
+web-1  | 2026/11/10 05:04:06 [notice] 1#1: start worker process 45
+web-1  | 172.18.0.1 - - [10/Nov/2026:05:04:07 +0000] "GET / HTTP/1.1" 200 339 "-" "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; ko-KR) PowerShell/7.6.9" "-"
+[exit=0]
+$ docker compose -p e11-bonus-single -f compose.single.yml down
+ Container e11-bonus-single-web-1 Stopping
+ Container e11-bonus-single-web-1 Stopped
+ Container e11-bonus-single-web-1 Removing
+ Container e11-bonus-single-web-1 Removed
+ Network e11-bonus-single_default Removing
+ Network e11-bonus-single_default Removed
+[exit=0]
+$ docker compose -p e11-bonus-single -f compose.single.yml ps -aq
+[exit=0]
+PASS: single service removed by down
+$ docker compose -p e11-bonus-multi -f docker-compose.yml config --quiet
+[exit=0]
+$ docker compose -p e11-bonus-multi -f docker-compose.yml up -d --build --wait
+ Image e11-bonus-multi-web Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 639B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 125B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/nginx:alpine
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context:
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
+#5 resolve docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606 0.0s done
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 314B 0.0s done
+#6 DONE 0.1s
+
+#7 [2/2] COPY default.conf.template /etc/nginx/templates/default.conf.template
+#7 DONE 0.0s
+
+#8 exporting to image
+#8 exporting layers 0.1s done
+#8 exporting manifest sha256:7f5b234f2f7f39d27e9f759bea372806b4cfe00643ee16c27d06d45c0332c727 0.0s done
+#8 exporting config sha256:8496b56b1cea6d4c3bb1f9478547707a6bc1b81628f4ca551dfea59781b9dcc9 0.0s done
+#8 exporting attestation manifest sha256:2cd592be038b6ef4f4c02056ae7e894256d96530a9a59c8ef64546147a31dd5c 0.0s done
+#8 exporting manifest list sha256:82f7dd4bc295fb1f2ae82a118a4b5e456587accced0ef7c32d47da404b2116c6 0.0s done
+#8 naming to docker.io/library/e11-bonus-multi-web:latest done
+#8 unpacking to docker.io/library/e11-bonus-multi-web:latest
+#8 unpacking to docker.io/library/e11-bonus-multi-web:latest 0.0s done
+#8 DONE 0.3s
+
+#9 resolving provenance for metadata file
+#9 DONE 0.0s
+ Image e11-bonus-multi-web Built
+ Network e11-bonus-multi_default Creating
+ Network e11-bonus-multi_default Creating
+ Network e11-bonus-multi_default Created
+ Network e11-bonus-multi_default Created
+ Container e11-bonus-multi-helper-1 Creating
+ Container e11-bonus-multi-helper-1 Created
+ Container e11-bonus-multi-web-1 Creating
+ Container e11-bonus-multi-web-1 Created
+ Container e11-bonus-multi-helper-1 Starting
+ Container e11-bonus-multi-helper-1 Started
+ Container e11-bonus-multi-helper-1 Waiting
+ Container e11-bonus-multi-helper-1 Healthy
+ Container e11-bonus-multi-web-1 Starting
+ Container e11-bonus-multi-web-1 Started
+ Container e11-bonus-multi-web-1 Waiting
+ Container e11-bonus-multi-helper-1 Waiting
+ Container e11-bonus-multi-helper-1 Healthy
+ Container e11-bonus-multi-web-1 Healthy
+[exit=0]
+$ docker compose -p e11-bonus-multi -f docker-compose.yml ps
+NAME                       IMAGE                 COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+e11-bonus-multi-helper-1   nginx:alpine          "/docker-entrypoint.…"   helper    6 seconds ago   Up 6 seconds (healthy)   80/tcp
+e11-bonus-multi-web-1      e11-bonus-multi-web   "/docker-entrypoint.…"   web       6 seconds ago   Up 3 seconds (healthy)   127.0.0.1:18081->8080/tcp
+[exit=0]
+$ Invoke-WebRequest http://127.0.0.1:18081/
+HTTP 200
+Codyssey week 1 bonus
+mode=development
+port=8080
+
+PASS: response contains mode=development, port=8080
+$ docker compose -p e11-bonus-multi -f docker-compose.yml exec -T web wget -qO- http://helper/status.json
+{"service":"helper","message":"Compose service discovery works"}
+[exit=0]
+PASS: web resolved helper by service name and received HTTP content
+$ Invoke-WebRequest http://127.0.0.1:18081/api/status.json
+HTTP 200
+{"service":"helper","message":"Compose service discovery works"}
+
+PASS: response contains Compose service discovery works
+$ $env:APP_MODE="production"; $env:APP_PORT="9090"; $env:HOST_PORT="18082"
+$ docker compose -p e11-bonus-multi -f docker-compose.yml up -d --wait
+ Container e11-bonus-multi-helper-1 Running
+ Container e11-bonus-multi-web-1 Recreate
+ Container e11-bonus-multi-web-1 Recreated
+ Container e11-bonus-multi-helper-1 Waiting
+ Container e11-bonus-multi-helper-1 Healthy
+ Container e11-bonus-multi-web-1 Starting
+ Container e11-bonus-multi-web-1 Started
+ Container e11-bonus-multi-helper-1 Waiting
+ Container e11-bonus-multi-web-1 Waiting
+ Container e11-bonus-multi-helper-1 Healthy
+ Container e11-bonus-multi-web-1 Healthy
+[exit=0]
+$ docker compose -p e11-bonus-multi -f docker-compose.yml ps
+NAME                       IMAGE                 COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+e11-bonus-multi-helper-1   nginx:alpine          "/docker-entrypoint.…"   helper    12 seconds ago   Up 11 seconds (healthy)   80/tcp
+e11-bonus-multi-web-1      e11-bonus-multi-web   "/docker-entrypoint.…"   web       5 seconds ago    Up 3 seconds (healthy)    127.0.0.1:18082->9090/tcp
+[exit=0]
+$ Invoke-WebRequest http://127.0.0.1:18082/
+HTTP 200
+Codyssey week 1 bonus
+mode=production
+port=9090
+
+PASS: response contains mode=production, port=9090
+$ Invoke-WebRequest http://127.0.0.1:18082/api/status.json
+HTTP 200
+{"service":"helper","message":"Compose service discovery works"}
+
+PASS: response contains Compose service discovery works
+$ docker compose -p e11-bonus-multi -f docker-compose.yml logs --no-color --tail 20
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 34
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker processes
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 35
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 36
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 36
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 37
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 38
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 37
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 38
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 39
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 40
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 41
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 42
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 43
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 44
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 45
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 46
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 47
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 48
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 49
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 50
+web-1     | 2026/11/10 05:04:21 [notice] 1#1: start worker process 51
+web-1     | 127.0.0.1 - - [10/Nov/2026:05:04:23 +0000] "GET / HTTP/1.1" 200 48 "-" "Wget" "-"
+web-1     | 172.18.0.1 - - [10/Nov/2026:05:04:24 +0000] "GET / HTTP/1.1" 200 48 "-" "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; ko-KR) PowerShell/7.6.9" "-"
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 39
+web-1     | 172.18.0.1 - - [10/Nov/2026:05:04:24 +0000] "GET /api/status.json HTTP/1.1" 200 65 "-" "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; ko-KR) PowerShell/7.6.9" "-"
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 40
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 41
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 42
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 43
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 44
+helper-1  | 2026/11/10 05:04:12 [notice] 1#1: start worker process 45
+helper-1  | 127.0.0.1 - - [10/Nov/2026:05:04:14 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Wget" "-"
+helper-1  | 127.0.0.1 - - [10/Nov/2026:05:04:17 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Wget" "-"
+helper-1  | 127.0.0.1 - - [10/Nov/2026:05:04:19 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Wget" "-"
+helper-1  | 172.18.0.3 - - [10/Nov/2026:05:04:19 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Wget" "-"
+helper-1  | 172.18.0.3 - - [10/Nov/2026:05:04:19 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; ko-KR) PowerShell/7.6.9" "-"
+helper-1  | 127.0.0.1 - - [10/Nov/2026:05:04:21 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Wget" "-"
+helper-1  | 127.0.0.1 - - [10/Nov/2026:05:04:23 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Wget" "-"
+helper-1  | 172.18.0.3 - - [10/Nov/2026:05:04:24 +0000] "GET /status.json HTTP/1.1" 200 65 "-" "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; ko-KR) PowerShell/7.6.9" "-"
+[exit=0]
+$ docker compose -p e11-bonus-multi -f docker-compose.yml down
+ Container e11-bonus-multi-web-1 Stopping
+ Container e11-bonus-multi-web-1 Stopped
+ Container e11-bonus-multi-web-1 Removing
+ Container e11-bonus-multi-web-1 Removed
+ Container e11-bonus-multi-helper-1 Stopping
+ Container e11-bonus-multi-helper-1 Stopped
+ Container e11-bonus-multi-helper-1 Removing
+ Container e11-bonus-multi-helper-1 Removed
+ Network e11-bonus-multi_default Removing
+ Network e11-bonus-multi_default Removed
+[exit=0]
+$ docker compose -p e11-bonus-multi -f docker-compose.yml ps -aq
+[exit=0]
+PASS: multi services removed by down
+PASS: all four Compose bonus requirements verified

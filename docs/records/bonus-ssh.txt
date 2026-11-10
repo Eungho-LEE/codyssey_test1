@@ -1,0 +1,15 @@
+Week 1 SSH bonus: actual CLI verification
+2026-11-10T14:21:23.3252460+09:00
+GitHub public-key registration confirmed in Aside after user-completed email verification.
+Key passphrase entered by user locally; never recorded.
+$ ssh-keygen -lf ~/.ssh/codyssey_github_known_hosts
+256 SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU github.com (ED25519)
+$ ssh-keygen -lf ~/.ssh/codyssey_e11_ed25519.pub
+256 SHA256:FxqHpnlvfAH7+CE6G58Wc+RjZSmxwa7HeoLtJK5Xyl0 codyssey-e11-workstation (ED25519)
+$ ssh -i ~/.ssh/codyssey_e11_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/codyssey_github_known_hosts -T git@github.com
+Hi Eungho-LEE! You've successfully authenticated, but GitHub does not provide shell access.
+[exit=1]
+$ git fetch origin
+[exit=0]
+$ git rev-list --left-right --count HEAD...origin/main
+0	0

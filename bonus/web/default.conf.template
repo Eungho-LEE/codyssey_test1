@@ -1,0 +1,11 @@
+server {
+    listen ${APP_PORT};
+    server_name localhost;
+    location = / {
+        default_type text/plain;
+        return 200 "Codyssey week 1 bonus\nmode=${APP_MODE}\nport=${APP_PORT}\n";
+    }
+    location /api/ {
+        proxy_pass http://helper/;
+    }
+}
