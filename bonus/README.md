@@ -8,7 +8,7 @@
 | Compose 멀티 컨테이너 | 완료 | web·helper가 healthy, web에서 http://helper/status.json 조회 성공 |
 | up / down / ps / logs | 완료 | 두 구성의 실행·상태·로그·종료 및 종료 후 빈 목록 확인 |
 | 환경 변수 활용 | 완료 | development·8080 → production·9090 전환 후 HTTP 응답 확인 |
-| GitHub SSH 키 등록·푸시 | SSH 인증 완료 | 암호 보호 키의 공개키만 등록, Eungho-LEE 인증 및 SSH fetch 성공. 푸시 결과는 SSH 검증 로그 참조 |
+| GitHub SSH 키 등록·푸시 | 완료 | 암호 보호 키의 공개키만 등록, Eungho-LEE 인증 및 SSH fetch·push 성공. 로컬 HEAD와 원격 main SHA 일치 확인 |
 
 **[실제 명령·출력 전체](../docs/records/bonus-compose.txt)** · **[검증 자동화 소스](verify.ps1)**
 
@@ -99,7 +99,7 @@ pwsh -File bonus/verify.ps1
 
 사용자 `.ssh/codyssey_e11_ed25519` 경로에 암호로 보호한 Ed25519 키를 생성했다. 암호는 사용자가 로컬 터미널에서 직접 입력했으며, Git for Windows의 SSH 에이전트에 1시간 동안 잠금 해제했다. [로컬 입력용 스크립트](setup-ssh.ps1)는 암호를 저장하거나 기록하지 않는다. `.ssh/codyssey-e11-agent.json`은 에이전트 연결 메타데이터만 담고 저장소 밖에 보관한다. GitHub CLI 로그인은 없지만 Aside의 GitHub에는 Eungho-LEE로 로그인되어 있어 이 세션을 재사용한다.
 
-GitHub의 이메일 본인 확인은 사용자가 직접 완료했다. Aside에서 공개키 등록과 지문 일치를 확인한 뒤, SSH로 인증하고 fetch에 성공했다. 기존 원격 HTTPS 주소는 `https://github.com/Eungho-LEE/codyssey_test1.git`였으며, 이 저장소의 origin을 `git@github.com:Eungho-LEE/codyssey_test1.git`로 변경했다. Git의 로컬 `core.sshCommand`에 Git for Windows SSH 실행 파일·전용 키·전용 known_hosts 경로를 지정했다. 다른 저장소의 전역 Git 설정은 변경하지 않았다.
+GitHub의 이메일 본인 확인은 사용자가 직접 완료했다. Aside에서 공개키 등록과 지문 일치를 확인한 뒤, SSH로 인증하고 fetch·push에 성공했다. 푸시한 과제 커밋 `cd616ef`의 전체 SHA가 로컬 HEAD와 원격 main에서 일치함을 확인했다. 기존 원격 HTTPS 주소는 `https://github.com/Eungho-LEE/codyssey_test1.git`였으며, 이 저장소의 origin을 `git@github.com:Eungho-LEE/codyssey_test1.git`로 변경했다. Git의 로컬 `core.sshCommand`에 Git for Windows SSH 실행 파일·전용 키·전용 known_hosts 경로를 지정했다. 다른 저장소의 전역 Git 설정은 변경하지 않았다.
 
 **[실제 SSH 검증 로그](../docs/records/bonus-ssh.txt)**
 

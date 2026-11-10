@@ -13,3 +13,12 @@ $ git fetch origin
 [exit=0]
 $ git rev-list --left-right --count HEAD...origin/main
 0	0
+$ git push origin main
+To github.com:Eungho-LEE/codyssey_test1.git
+   87bbd81..cd616ef  main -> main
+[exit=0]
+$ git rev-parse HEAD
+cd616efe3cae8f1e8d2dfdced96655090a525f56
+$ git ls-remote origin refs/heads/main
+cd616efe3cae8f1e8d2dfdced96655090a525f56	refs/heads/main
+PASS: SSH push succeeded; local HEAD and remote main match.
